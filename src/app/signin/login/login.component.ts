@@ -19,13 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    // Verificar si la información de la sesión existe en el almacenamiento local
-    const user = localStorage.getItem('user');
-    // O en el almacenamiento de la sesión
-    // const user = sessionStorage.getItem('user');
-
-    if (user) {
-      // Si la información de la sesión existe, redirigir al usuario a la página de inicio
+    if (this.authService.isLoggedIn) {
       this.router.navigate(['/home']);
     }
   }
@@ -34,10 +28,6 @@ export class LoginComponent implements OnInit {
     if (this.email && this.password) {
       this.authService.login(this.email, this.password)
         .then(() => {
-          // Guardar la información de la sesión en el almacenamiento local
-          localStorage.setItem('user', JSON.stringify(this.email));
-          // O en el almacenamiento de la sesión
-          sessionStorage.setItem('user', JSON.stringify(this.email));
           // Redirigir al usuario a la página deseada después del inicio de sesión
           this.router.navigate(['/home']); // Asegúrate de tener una ruta llamada 'home'
         })

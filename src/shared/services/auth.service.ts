@@ -14,6 +14,7 @@ export class AuthService {
  async login(email: string, password: string): Promise<void> {
    try {
      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+     localStorage.setItem('authToken', userCredential.user.uid);
      this.user = {
        id: userCredential.user.uid,
        email: userCredential.user.email,
@@ -27,6 +28,7 @@ export class AuthService {
  async register(email: string, password: string): Promise<void> {
    try {
      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+     localStorage.setItem('authToken', userCredential.user.uid);
      this.user = {
        id: userCredential.user.uid,
        email: userCredential.user.email,
@@ -40,6 +42,7 @@ export class AuthService {
  async logout(): Promise<void> {
    try {
      await signOut(auth);
+     localStorage.removeItem('authToken'); 
      this.user = null;
    } catch (error) {
      console.error(error);
@@ -47,6 +50,6 @@ export class AuthService {
  }
 
  get isLoggedIn(): boolean {
-   return !!this.user;
+  return !!localStorage.getItem('authToken');
  }
 }

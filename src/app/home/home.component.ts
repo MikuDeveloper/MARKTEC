@@ -13,6 +13,10 @@ export class HomeComponent {
   
   constructor(private authService: AuthService, private router: Router) {}
   
+  navigateToTics() {
+    this.router.navigate(['login']);
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
