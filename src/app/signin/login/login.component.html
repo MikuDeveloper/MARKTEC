@@ -1,1 +1,18 @@
 <p>login works!</p>
+
+<div class="body">
+    <form class="row g-3" (ngSubmit)="onSubmit()">
+        <div class="col-auto">
+          <label for="staticEmail2" class="visually-hidden">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" [(ngModel)]="email" required>
+        </div>
+        <div class="col-auto">
+          <label for="inputPassword2" class="visually-hidden">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" [(ngModel)]="password" required>
+        </div>
+        <div class="col-auto">
+          <button (click)="onSubmit()" type="submit" class="btn btn-primary mb-3">Iniciar</button>
+        </div>
+       </form>
+       
+</div>
