@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { User } from '../interfaces/user';
 import { auth } from '../../assets/firebase';
+import { Router } from '@angular/router';
 
 @Injectable({
  providedIn: 'root'
@@ -9,7 +10,7 @@ import { auth } from '../../assets/firebase';
 export class AuthService {
  user!: User | null;
 
- constructor() { }
+ constructor(private router:Router) { }
 
  async login(email: string, password: string): Promise<void> {
    try {
@@ -44,6 +45,7 @@ export class AuthService {
      await signOut(auth);
      localStorage.removeItem('authToken'); 
      this.user = null;
+     this.router.navigate(['/login']);
    } catch (error) {
      console.error(error);
    }
