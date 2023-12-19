@@ -19,6 +19,6 @@ export class HomeComponent {
 
   logout(): void {
     this.authService.logout();
-    //this.router.navigate(['/login']); podría no ir
+    //this.router.navigate(['/login']); no sirve jsjs
    }
 }
