@@ -1,15 +1,17 @@
-<h1>MARKTEC</h1>
-<p>If you can see this, everything is working! :D</p>
+<button
+  class="btn btn-primary"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#offcanvasInventory"
+  aria-controls="offcanvasWithBothOptions">Inventory</button>
 
-<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">MENU</button>
-
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasInventory" aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">MENU</h5>
     <button type="button" class="btn-close" id="close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <section class="sidebar-item selected" (click)="alert('Hola')">
+    <section class="sidebar-item">
       <svg height="100%" width="15pt">
         <rect width="10pt" height="100%" class="sidebar-shape" />
       </svg>
@@ -17,7 +19,7 @@
       <p>Tablero</p>
     </section>
     <hr>
-    <section class="sidebar-item" (click)="goToInventory()">
+    <section class="sidebar-item selected">
       <svg height="100%" width="15pt">
         <rect width="10pt" height="100%" class="sidebar-shape" />
       </svg>
@@ -26,5 +28,3 @@
     </section>
   </div>
 </div>
-
-<router-outlet></router-outlet>

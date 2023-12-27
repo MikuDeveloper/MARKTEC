@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +11,13 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'MARKTEC';
+  constructor(private router : Router) {
+  }
+  goToInventory() {
+    let close: HTMLButtonElement = document.getElementById('close')! as HTMLButtonElement;
+    close.click()
+    this.router.navigate(['inventory']).then().catch()
+  }
+
+  protected readonly alert = alert;
 }
