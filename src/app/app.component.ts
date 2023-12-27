@@ -1,23 +1,31 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Router, RouterOutlet} from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'MARKTEC';
-  constructor(private router : Router) {
+  title : string = 'MARKTEC'
+  selectedRoute : HTMLElement | undefined
+  constructor(private router : Router) { }
+  goToRoute(route : string) {
+    //this.setAndRemoveSelectedStyle(route)
+    this.closeSidebar()
+    this.router.navigate([route]).then().catch()
   }
-  goToInventory() {
-    let close: HTMLButtonElement = document.getElementById('close')! as HTMLButtonElement;
+  closeSidebar() {
+    const close : HTMLButtonElement = document.getElementById('btn-close-sidebar')! as HTMLButtonElement;
     close.click()
-    this.router.navigate(['inventory']).then().catch()
   }
-
-  protected readonly alert = alert;
+  setAndRemoveSelectedStyle(id : string) {
+    let sidebarItem : HTMLElement = document.getElementById(`${id}-route`)! as HTMLElement
+    if (typeof this.selectedRoute !== 'undefined') this.selectedRoute.classList.remove('selected')
+    this.selectedRoute = sidebarItem
+    this.selectedRoute.classList.add('selected')
+  }
 }
