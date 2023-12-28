@@ -1,2 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Styles for sidebar */
+.offcanvas {
+  background-color: rgb(238, 238, 238);
+}
+
+.offcanvas-body {
+  margin: 0;
+  padding: 0;
+  hr {
+    border: none;
+    height: 2pt;
+    background: #000;
+  }
+}
+
+.sidebar-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40pt;
+  width: 100%;
+  color: black;
+  background-color: rgb(238, 238, 238);
+  cursor: pointer;
+  .sidebar-shape {
+    fill: rgb(238, 238, 238);
+  }
+  .fi {
+   font-size: 20pt;
+   padding-left: 20pt;
+   padding-right: 10pt;
+   height: 65%;
+  }
+  p {
+   height: 25%;
+  }
+}
+
+.sidebar-item:hover:not(.selected) {
+  background-color: rgb(220, 220, 220);
+  .sidebar-shape {
+    fill: rgb(190, 190, 190);
+  }
+}
+
+.sidebar-item:hover {
+  background-color: rgb(70, 144, 255);
+}
+
+.selected {
+  color: white;
+  background-color: rgb(44, 128, 255);
+  .sidebar-shape {
+    display: block;
+    fill: rgb(0, 32, 96);
+  }
+}
