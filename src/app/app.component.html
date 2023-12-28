@@ -1,18 +1,25 @@
-<h1>MARKTEC</h1>
-<p>If you can see this, everything is working! :D</p>
-<button class="btn btn-primary">Click me</button>
-<!-- Example single danger button -->
-<div class="btn-group">
-  <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    Action
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="https://www.google.com.mx" target="_blank">Google</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="#">Separated link</a></li>
-  </ul>
-</div>
-
 <router-outlet></router-outlet>
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="btn btn-outline-sucess me-2" type="submit">
+            <i class="bi bi-three-dots-vertical"></i>
+          </button>
+        </li>
+        <li class="nav-item">
+          <a class="navbar-brand me-auto" href="#">MARKTEC</a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-danger ms-auto" type="submit">Cerrar Sesión</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
