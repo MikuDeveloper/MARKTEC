@@ -11,7 +11,7 @@ export class AlertService {
 
  constructor() { }
 
- showAlert(message: string, timeout: number = 20000) {
+ showAlert(message: string, timeout: number = 10000) {
   // Clear any existing timeout
   if (this.alertSource.value.timeoutId !== null) {
     clearTimeout(this.alertSource.value.timeoutId);

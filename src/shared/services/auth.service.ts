@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { User } from '../interfaces/user';
-import { auth } from '../../assets/firebase';
+import { auth } from '../../firebase';
 import { Router } from '@angular/router';
-import { AlertService } from '../../shared/alerts/alert.service';
+import { AlertService } from '../../model/alerts/alert.service';
 
 @Injectable({
  providedIn: 'root'

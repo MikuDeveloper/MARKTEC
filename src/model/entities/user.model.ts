@@ -1,7 +1,7 @@
 export interface UserModel {
-  email : string
-  name : string
-  address : string
-  phoneNumber : string
-  role : string
+  email? : string | null
+  name? : string |null
+  address? : string
+  phoneNumber? : string
+  role? : string
 }
