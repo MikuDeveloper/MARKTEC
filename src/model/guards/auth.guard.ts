@@ -5,13 +5,11 @@ import { AuthenticationService } from "../api/authentication.service";
 export const loginGuard =() =>{
 
     const router = inject(Router) //inject para obtener una instancia del servicio Router
-    const authService = inject(AuthenticationService)
-    // Agregamos un manejo simple del estado de autenticación
-    authService.isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    const authenticated = inject(AuthenticationService) // Agregamos un manejo simple del estado de autenticación
+    
     //Verifica si el usuario está autenticado utilizando la propiedad isLoggedIn del servicio 
-    if (authService.isAuthenticated){ 
-        return true;
-        
+    if (authenticated.isLogged()){
+        return true;        
     }else{
         router.navigate(['/login'])
         return false

@@ -10,7 +10,7 @@ import { UserModel } from '../../model/entities/user.model';
 })
 export class AuthenticationService {
   user!: UserModel | null
-  isAuthenticated: boolean = false
+  //isAuthenticated: boolean = false
 
   constructor(
     private router:Router,
@@ -22,12 +22,11 @@ export class AuthenticationService {
          email: user.email, // Identificador único del usuario
          name: user.displayName//displayName puede ser nulo si no se proporciona al autenticar.
        };
-       this.isAuthenticated = true //para indicar que el usuario está autenticado.
-       localStorage.setItem('isAuthenticated', 'true');
+        //para indicar que el usuario está autenticado.
+        localStorage.setItem('isAuthenticated', 'true')
      } else { //Si no hay usuario.
-       this.user = null
-       this.isAuthenticated = false
-       localStorage.setItem('isAuthenticated', 'false');
+        this.user = null
+        localStorage.setItem('isAuthenticated', 'false')
      }
    });}
 
@@ -37,14 +36,14 @@ export class AuthenticationService {
   async signInUser(email : string, password : string): Promise <void>{
     try {
       await signInWithEmailAndPassword(auth, email, password)
+      this.router.navigate(['dashboard'])
     } catch (error: any) {
-      console.error(error);
+      console.error(error)
       if (error.code === 'auth/too-many-requests') {
        this.alertService.showAlert("Has realizado demasiados intentos de inicio de sesión fallidos. Informar al Administrador.");
       } else {
-        this.alertService.showAlert("El usuario o la contraseña no coinciden");//Podemos usar un error.message
+        this.alertService.showAlert("El usuario o la contraseña no son válidos") //Podemos usar un error.message
       }
-      this.isAuthenticated = false
     }
   }
   async updateUser() {
@@ -60,14 +59,20 @@ export class AuthenticationService {
     try {
       await signOut(auth)
       this.user = null
-      this.isAuthenticated  = false 
       this.router.navigate(['login']);
     } catch (error) {
       console.error(error);
     }
   }
 
-  get isLoggedIn(): boolean {
-    return this.isAuthenticated
+  isLogged():boolean{
+    const authenticated =  localStorage.getItem('isAuthenticated') === 'true' //comparar si el valor recuperado es estrictamente igual a la cadena de texto 
+    //Verifica si el usuario está autenticado 
+    if (authenticated){
+        return true;        
+    }else{
+        return false
+        
     }
+  }
 }

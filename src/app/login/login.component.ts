@@ -28,18 +28,8 @@ export class LoginComponent {
       this.alertService.showAlert('Por favor, completa todos los campos.')
     } else {
       this.authService.signInUser(this.email, this.password)
-        .then(() => {
-          // Verificar nuevamente si el usuario está autenticado antes de redirigir
-          if (this.authService.isLoggedIn) {
-            // Redirigir al usuario a la página deseada después del inicio de sesión
-            this.router.navigate(['dashboard']);
-          } else {
-            this.alertService.showAlert('El correo o la contraseña no coinciden');
-          }
-        })
         .catch(error => {
           this.alertService.showAlert(error.message);
-          
         });
     }
   }

@@ -13,11 +13,11 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [loginGuard] },
-  { path: 'inventory', component: InventoryComponent },
-  { path: 'sale', component: SaleComponent },
-  { path: 'customers', component: CustomersComponent },
-  { path: 'debts', component: DebtsComponent },
-  { path: 'reports', component: ReportsComponent },
-  { path: 'employees', component: EmployeesComponent },
+  { path: 'inventory', component: InventoryComponent, canActivate: [loginGuard] },
+  { path: 'sale', component: SaleComponent, canActivate: [loginGuard] },
+  { path: 'customers', component: CustomersComponent, canActivate: [loginGuard] },
+  { path: 'debts', component: DebtsComponent, canActivate: [loginGuard] },
+  { path: 'reports', component: ReportsComponent, canActivate: [loginGuard] },
+  { path: 'employees', component: EmployeesComponent, canActivate: [loginGuard] },
 
 ];
