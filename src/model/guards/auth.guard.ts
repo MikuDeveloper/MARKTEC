@@ -9,9 +9,10 @@ export const loginGuard =() =>{
     
     //Verifica si el usuario está autenticado utilizando la propiedad isLoggedIn del servicio 
     if (authenticated.isLogged()){
+        
         return true;        
     }else{
-        router.navigate(['/login'])
+        router.navigate(['login'])
         return false
         
     }

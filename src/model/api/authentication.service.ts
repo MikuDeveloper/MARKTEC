@@ -20,7 +20,8 @@ export class AuthenticationService {
      if (user) {
        this.user = {
          email: user.email, // Identificador único del usuario
-         name: user.displayName//displayName puede ser nulo si no se proporciona al autenticar.
+         name: user.displayName,//displayName puede ser nulo si no se proporciona al autenticar.
+         role: user.displayName
        };
         //para indicar que el usuario está autenticado.
         localStorage.setItem('isAuthenticated', 'true')

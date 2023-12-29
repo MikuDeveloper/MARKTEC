@@ -3,5 +3,5 @@ export interface UserModel {
   name? : string |null
   address? : string
   phoneNumber? : string
-  role? : string
+  role? : string |null
 }
