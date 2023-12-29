@@ -16,9 +16,8 @@ export class HomeComponent {
   navigateToTics() {
     this.router.navigate(['login']);
   }
-
+  
   logout(): void {
     this.authService.logout();
-    //this.router.navigate(['/login']); no sirve jsjs
    }
 }

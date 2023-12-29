@@ -1,42 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule} from '@angular/forms';
+import { AlertService } from '../../../shared/alerts/alert.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ FormsModule],
+  imports: [ FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
-  email: string = '';
-  password: string = '';
-  errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+export class LoginComponent implements OnInit {
+  email: string = ''
+  password: string = ''
+  showError = false
+
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    public alertService: AlertService
+    ) {}
 
   ngOnInit(): void {
-    if (this.authService.isLoggedIn) {
-      this.router.navigate(['/home']);
-    }
   }
 
-  onSubmit(): void {
-    if (this.email && this.password) {
+  clickLogin(): void {
+    if (!this.email || !this.password) {
+      this.alertService.showAlert('Por favor, completa todos los campos.')
+    } else {
       this.authService.login(this.email, this.password)
         .then(() => {
-          // Redirigir al usuario a la página deseada después del inicio de sesión
-          this.router.navigate(['/home']); // Asegúrate de tener una ruta llamada 'home'
+          // Verificar nuevamente si el usuario está autenticado antes de redirigir
+          if (this.authService.isLoggedIn) {
+            // Redirigir al usuario a la página deseada después del inicio de sesión
+            this.router.navigate(['home']);
+          } else {
+            this.alertService.showAlert('El correo o la contraseña no coinciden');
+          }
         })
         .catch(error => {
-          console.error('Error en el inicio de sesión:', error);
-          this.errorMessage = 'Error en el inicio de sesión. Verifica tus credenciales.';
+          this.alertService.showAlert(error.message);
+          
         });
-    } else {
-      this.errorMessage = 'Por favor, completa todos los campos.';
     }
   }
 }
