@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NavService} from "../../model/utils/navbar.utils";
 
 @Component({
   selector: 'app-sale',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './sale.component.scss'
 })
 export class SaleComponent {
-
+  constructor(private navService: NavService) {
+    this.navService.toggleNav(true);
+  }
 }

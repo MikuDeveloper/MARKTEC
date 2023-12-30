@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NavService} from "../../model/utils/navbar.utils";
 
 @Component({
   selector: 'app-login',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
+  constructor(private navService: NavService) {
+    this.navService.toggleNav(false);
+  }
 }

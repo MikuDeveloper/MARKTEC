@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {NavService} from "../model/utils/navbar.utils";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -9,12 +11,17 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy{
   title : string = 'MARKTEC'
   selectedRoute : HTMLElement | undefined
-  constructor(private router : Router) { }
+  subscription : Subscription
+  constructor(private router : Router, private navService : NavService) {
+    this.subscription = this.navService.showNav$.subscribe(value => this.showNav = value);
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
   goToRoute(route : string) {
-    //this.setAndRemoveSelectedStyle(route)
     this.closeSidebar()
     this.router.navigate([route]).then().catch()
   }
@@ -28,4 +35,5 @@ export class AppComponent {
     this.selectedRoute = sidebarItem
     this.selectedRoute.classList.add('selected')
   }
+  public showNav : boolean = false;
 }
