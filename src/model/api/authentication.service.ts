@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../../firebase';
+
 import { Router } from '@angular/router';
 import { AlertService } from '../alerts/alert.service';
 import { UserModel } from '../../model/entities/user.model';
+import { auth } from '../../firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -67,13 +68,13 @@ export class AuthenticationService {
   }
 
   isLogged():boolean{
-    const authenticated =  localStorage.getItem('isAuthenticated') === 'true' //comparar si el valor recuperado es estrictamente igual a la cadena de texto 
-    //Verifica si el usuario está autenticado 
+    const authenticated =  localStorage.getItem('isAuthenticated') === 'true' //comparar si el valor recuperado es estrictamente igual a la cadena de texto
+    //Verifica si el usuario está autenticado
     if (authenticated){
-        return true;        
+        return true;
     }else{
         return false
-        
+
     }
   }
 }

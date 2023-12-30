@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FirestoreService } from '../firestore.service';
-import { Objeto } from '../firestore-interface';
+import { FirestoreService } from '../../model/api/firestore.service';
+import { Objeto } from '../../model/entities/firestore-interface';
 import {AsyncPipe,NgForOf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 @Component({

@@ -1,8 +1,8 @@
 // firestore.service.ts
 import { Injectable } from '@angular/core';
 import { collection, setDoc,getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
-import { database } from './firebase';
-import { Objeto } from './firestore-interface';
+import { database } from '../../firebase';
+import { Objeto } from '../entities/firestore-interface';
 
 @Injectable({
   providedIn: 'root',
