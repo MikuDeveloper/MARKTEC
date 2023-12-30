@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AuthenticationService } from '../model/api/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 export class AppComponent {
   title : string = 'MARKTEC'
   selectedRoute : HTMLElement | undefined
+  userAuthenticated = inject(AuthenticationService)
+
   constructor(private router : Router) { }
   goToRoute(route : string) {
     //this.setAndRemoveSelectedStyle(route)
