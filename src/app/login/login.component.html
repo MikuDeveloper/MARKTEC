@@ -1,3 +1,25 @@
+
+<section class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-2 col-sm-2"></div>
+    <div id="login-section" class="col-lg-4 col-md-8 col-sm-8">
+      <form id="login-form"(ngSubmit)="clickLogin()">
+        <div class="alert alert-danger" role="alert" *ngIf="alertService.alertMessage | async as alertMessage">
+          {{ alertMessage.message }}
+        </div>
+        <div id="login-title" class="text-center"><h4>Inicio de sesión</h4></div>
+        <label class="form-label" for="login-email">Correo electrónico:</label>
+        <input class="form-control" type="email" name="login-email" id="login-email" placeholder="example@example.com" [(ngModel)]="email"/>
+        <label class="form-label" for="login-password">Contraseña:</label>
+        <input class="form-control" type="password" name="login-password" id="login-password" [(ngModel)]="password"/>
+
+        <div class="text-center mt-3"><button class="btn btn-primary" type="submit">Ingresar</button></div>
+      </form>
+    </div>
+    <div class="col-lg-4 col-md-2 col-sm-2"></div>
+  </div>
+</section>
+<!--
 <div class="limiter">
     <div class="container-login100" style="background-color: #F2F2F2">
       <div class="wrap-login100 p-t-30 p-b-50">
@@ -12,20 +34,20 @@
             <input class="input100" type="email" id="email" name="email" placeholder="E-mail" [(ngModel)]="email" required>
             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
           </div>
-  
+
           <div class="wrap-input100 " >
             <input class="input100" type="password" id="password" name="password" placeholder="Contraseña" [(ngModel)]="password" required>
             <span class="focus-input100" data-placeholder="&#xe80f;"></span>
           </div>
-  
+
           <div class="container-login100-form-btn m-t-32">
             <button type="submit" class="login100-form-btn">
               Login
             </button>
           </div>
-  
+
         </form>
       </div>
     </div>
   </div>
-  
+ -->

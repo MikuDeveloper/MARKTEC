@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NavService} from "../../model/utils/navbar.utils";
 
 @Component({
   selector: 'app-reports',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './reports.component.scss'
 })
 export class ReportsComponent {
-
+  constructor(private navService: NavService) {
+    this.navService.toggleNav(true);
+  }
 }

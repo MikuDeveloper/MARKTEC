@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import {NavService} from "../../model/utils/navbar.utils";
 import { FirestoreService } from '../../model/api/firestore.service';
 import { Objeto } from '../../model/entities/firestore-interface';
 import {AsyncPipe,NgForOf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-employees',
   standalone: true,
@@ -20,9 +22,11 @@ export class EmployeesComponent {
     role: '',
     id:''
   }
-  constructor(private databaseService : FirestoreService){
+  constructor(private navService: NavService,private databaseService : FirestoreService) {
+    this.navService.toggleNav(true);
     this.employees = this.databaseService.getCollectionData("employees")
   }
+
     addNewDocument() {
       this.databaseService.addDocument("employees", this.employees_doc).then((docRef) => {
 
