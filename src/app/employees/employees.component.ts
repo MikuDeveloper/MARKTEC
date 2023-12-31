@@ -22,6 +22,14 @@ export class EmployeesComponent {
     role: '',
     id:''
   }
+  infoEmployee: Objeto = {
+    email: '',
+    name: '',
+    address: '',
+    phoneNumber: '',
+    role: '',
+    id:''
+  }
   constructor(private navService: NavService,private databaseService : FirestoreService) {
     this.navService.toggleNav(true);
     this.employees = this.databaseService.getCollectionData("employees")
@@ -29,15 +37,22 @@ export class EmployeesComponent {
 
     addNewDocument() {
       this.databaseService.addDocument("employees", this.employees_doc).then((docRef) => {
-
         console.log(this.employees_doc)
       });
     }
-    deleteDocument(id?:string){
-      id =''+id
-      this.databaseService.deleteDocument("employees",id)
+    //Método para pasar los datos de la tarjetas al modal de eliminación a través de otra interfaz
+    clickInfo(employee:Objeto){
+      this.infoEmployee =employee
     }
+
+    deleteDocument(id:string){
+      this.databaseService.deleteDocument("employees",id).then(()=> {
+        this.employees = this.databaseService.getCollectionData("employees")
+      });
+    }
+
     updateDocument(id:string){
-      this.databaseService.updateDocument("employees",id,this.employees_doc)
+      console.log(id,this.infoEmployee)
+      this.databaseService.updateDocument("employees",id,this.infoEmployee)
     }
 }

@@ -1,27 +1,30 @@
-
 <div class="row">
-  <div class="col-sm-6 mb-3 mb-sm-0">
+  <div class="col-sm-4 mb-3 mb-sm-0"></div>
+  <div class="col-sm-4 mb-3 mb-sm-0">
     <div class="card" *ngFor="let employee of employees | async">
       <div class="card-body">
         <h5 class="card-title">Foto del Empleado</h5>
         <div>
-          <h6>{{employee.email}}</h6>
-          <h6>{{employee.name}}</h6>
-          <h6>{{employee.address}}</h6>
-          <h6>{{employee.phoneNumber}}</h6>
-          <h6>{{employee.role}}</h6>
+          <h6 class="text-center">{{employee.email}}</h6>
+          <h6 class="text-center">{{employee.name}}</h6>
+          <h6 class="text-center">{{employee.address}}</h6>
+          <h6 class="text-center">{{employee.phoneNumber}}</h6>
+          <h6 class="text-center">{{employee.role}}</h6>
           </div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil-fill"></i>Editar</button>
-        <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-pencil-fill"></i>Eliminar</button>
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal"(click)="clickInfo(employee)">Editar</button>
+        <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal"(click)="clickInfo(employee)">Eliminar</button>
       </div>
     </div>
   </div>
+  <div class="col-sm-4 mb-3 mb-sm-0"></div>
 </div>
+
 <div>
-  <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#newModal"><i class="bi bi-pencil-fill"></i>Nuevo</button>
+  <button class="btn btn-outline-success position-fixed bottom-0 end-0 translate-middle" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo</button>
 </div>
+
 <!-- Modal  para Crear a un Nuevo Usuario-->
 <div class="modal fade" id="newModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
@@ -60,15 +63,41 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">Eliminar</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <p>Se eliminará el usuario: {{infoEmployee.name}}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-danger" (click)="deleteDocument(employees_doc.id)">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"(click)="deleteDocument(infoEmployee.id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Editar la información un Usuario-->
+<div class="modal" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="fileName">Nombre</label>
+        <input type="text" class="form-control"  [(ngModel)]="infoEmployee.name">
+        <label for="fileName">Dirección</label>
+        <input type="text" class="form-control"  [(ngModel)]="infoEmployee.address">
+        <label for="fileName">Número de Teléfono</label>
+        <input type="text" class="form-control"  [(ngModel)]="infoEmployee.phoneNumber">
+        <label for="fileName">Rol</label>
+        <input type="text" class="form-control"  [(ngModel)]="infoEmployee.role">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"(click)="updateDocument(infoEmployee.id)">Guardar Cambios</button>
       </div>
     </div>
   </div>
