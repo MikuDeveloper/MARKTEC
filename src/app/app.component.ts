@@ -1,8 +1,9 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {NavService} from "../model/utils/navbar.utils";
 import {Subscription} from "rxjs";
+import { AuthenticationService } from '../model/api/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,7 @@ import {Subscription} from "rxjs";
 export class AppComponent implements OnDestroy{
   title : string = 'MARKTEC'
   selectedRoute : HTMLElement | undefined
-<<<<<<<<< Temporary merge branch 1
   userAuthenticated = inject(AuthenticationService)
-
-  constructor(private router : Router) { }
-=========
   subscription : Subscription
   constructor(private router : Router, private navService : NavService) {
     this.subscription = this.navService.showNav$.subscribe(value => this.showNav = value);
@@ -26,7 +23,6 @@ export class AppComponent implements OnDestroy{
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
   }
->>>>>>>>> Temporary merge branch 2
   goToRoute(route : string) {
     this.closeSidebar()
     this.router.navigate([route]).then().catch()

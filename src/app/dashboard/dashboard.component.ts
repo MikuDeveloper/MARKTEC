@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {NavService} from "../../model/utils/navbar.utils";
-import { AuthenticationService} from '../../model/api/authentication.service';
+import { NavService } from '../../model/utils/navbar.utils';
+import { AuthenticationService } from '../../model/api/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,3 +22,4 @@ export class DashboardComponent {
   logOut(): void{
     this.authService.signOutUser() 
   }
+}
