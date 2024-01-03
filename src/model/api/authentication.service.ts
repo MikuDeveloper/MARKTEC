@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase';
 import { Router } from '@angular/router';
-import { AlertService } from '../alerts/alert.service';
+//import { AlertService } from '../alerts/alert.service';
 import { UserModel } from '../../model/entities/user.model';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +13,7 @@ export class AuthenticationService {
 
   constructor(
     private router:Router,
-    private alertService: AlertService
+    //private alertService: AlertService,
   ) { onAuthStateChanged(auth, (user) => {
     // Si existe un usuario, se asignan detalles del usuario a la propiedad 'user'.
      if (user) {
@@ -40,11 +39,24 @@ export class AuthenticationService {
       this.router.navigate(['dashboard'])
     } catch (error: any) {
       console.error(error)
-      if (error.code === 'auth/too-many-requests') {
-       this.alertService.showAlert("Has realizado demasiados intentos de inicio de sesión fallidos. Informar al Administrador.");
-      } else {
-        this.alertService.showAlert("El usuario o la contraseña no son válidos") //Podemos usar un error.message
+      switch(error.code){
+        case 'auth/invalid-email':
+          throw new Error ("El correo no es válido")
+          break
+        case  'auth/invalid-credential':
+          throw new Error("La contraseña no es válido")  
+        break
+        case 'auth/network-request-failed':
+          throw new Error ("No hay conexión a la Red. Intentelo más tarde")
+          break
+        default:
+          throw new Error ('El usuario o la contraseña no son válidos')
       }
+      // if (error.code === 'auth/too-many-requests') {
+      //   throw new Error("Has realizado demasiados intentos de inicio de sesión fallidos. Informar al Administrador.");
+      // } else {
+      //   throw new Error ("El usuario o la contraseña no son válidos") //Podemos usar un error.message
+      // }
     }
   }
   async updateUser() {

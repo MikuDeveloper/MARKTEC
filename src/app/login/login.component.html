@@ -5,9 +5,9 @@
           Iniciar Sesión
         </span>
         <form class="login100-form p-b-33 p-t-5" (ngSubmit)="clickLogin()">
-          <div class="alert alert-danger" role="alert" *ngIf="alertService.alertMessage | async as alertMessage">
-            {{ alertMessage.message }}
-           </div>
+          <div class="alert alert-danger" *ngIf="showError">
+            {{ showError }}
+          </div>
           <div class="wrap-input100 " >
             <input class="input100" type="email" id="email" name="email" placeholder="E-mail" [(ngModel)]="email" required>
             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
