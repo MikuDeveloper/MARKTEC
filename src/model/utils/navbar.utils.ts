@@ -14,11 +14,9 @@ export class NavService {
 
   private  _userData = new BehaviorSubject<User | null | undefined>(null);
   userData$ = this._userData.asObservable()
-
   setData() {
     onAuthStateChanged(auth, user => this._userData.next(user))
   }
-
   getData() {
     return this._userData.getValue()
   }
