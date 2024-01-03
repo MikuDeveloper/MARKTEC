@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticationService} from '../../model/api/authentication.service';
-import { Router } from '@angular/router';
+import {NavService} from "../../model/utils/navbar.utils";
 
 @Component({
   selector: 'app-dashboard',
@@ -10,13 +9,7 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-
-  constructor(
-    private authService: AuthenticationService,
-    private router: Router
-  ){}
-
-  logOut():void{
-    this.authService.signOutUser() 
+  constructor(private navService: NavService) {
+    this.navService.toggleNav(true);
   }
 }

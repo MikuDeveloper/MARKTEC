@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 //import { AlertService } from '../../model/alerts/alert.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-
+import {NavService} from "../../model/utils/navbar.utils";
 
 @Component({
   selector: 'app-login',
@@ -25,8 +24,11 @@ export class LoginComponent {
   constructor(
     private authService: AuthenticationService, 
     private router: Router,
+    private navService: NavService
     //public alertService: AlertService
-  ){}
+  ){
+    this.navService.toggleNav(false);
+  }
 
   clickLogin(): void {
     this.showError = null
