@@ -12,10 +12,10 @@
 
       <div class="btn-group">
         <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          Nombre de usuario
+          {{currentUser?.email}}
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+          <li><a class="dropdown-item" (click)="signOut(auth)" style="cursor: pointer">Cerrar sesión</a></li>
         </ul>
       </div>
     </div>

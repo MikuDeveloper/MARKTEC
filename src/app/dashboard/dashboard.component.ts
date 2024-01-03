@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavService} from "../../model/utils/navbar.utils";
+import { NavService } from '../../model/utils/navbar.utils';
 
 @Component({
   selector: 'app-dashboard',
