@@ -14,6 +14,11 @@ import {Subscription} from "rxjs";
 export class AppComponent implements OnDestroy{
   title : string = 'MARKTEC'
   selectedRoute : HTMLElement | undefined
+<<<<<<<<< Temporary merge branch 1
+  userAuthenticated = inject(AuthenticationService)
+
+  constructor(private router : Router) { }
+=========
   subscription : Subscription
   constructor(private router : Router, private navService : NavService) {
     this.subscription = this.navService.showNav$.subscribe(value => this.showNav = value);
@@ -21,6 +26,7 @@ export class AppComponent implements OnDestroy{
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
   }
+>>>>>>>>> Temporary merge branch 2
   goToRoute(route : string) {
     this.closeSidebar()
     this.router.navigate([route]).then().catch()
