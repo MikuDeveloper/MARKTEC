@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule} from '@angular/forms';
-import { AlertService } from '../../../shared/alerts/alert.service';
+import { AlertService } from '../../../model/alerts/alert.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

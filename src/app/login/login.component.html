@@ -1,0 +1,20 @@
+<section class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-2 col-sm-2"></div>
+    <div id="login-section" class="col-lg-4 col-md-8 col-sm-8">
+      <form id="login-form" (ngSubmit)="clickLogin()">
+        <div class="alert alert-danger" *ngIf="showError">
+          {{ showError }}
+        </div>
+        <div id="login-title" class="text-center"><h4>Inicio de sesión</h4></div>
+        <label class="form-label" for="login-email">Correo electrónico:</label>
+        <input class="form-control" type="email" name="login-email" id="login-email" placeholder="example@example.com" [(ngModel)]="email"/>
+        <label class="form-label" for="login-password">Contraseña:</label>
+        <input class="form-control" type="password" name="login-password" id="login-password" [(ngModel)]="password"/>
+
+        <div class="text-center mt-3"><button class="btn btn-primary" type="submit">Ingresar</button></div>
+      </form>
+    </div>
+    <div class="col-lg-4 col-md-2 col-sm-2"></div>
+  </div>
+</section>

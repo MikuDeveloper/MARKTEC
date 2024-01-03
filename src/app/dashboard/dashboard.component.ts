@@ -22,4 +22,3 @@ export class DashboardComponent {
   logOut(): void{
     this.authService.signOutUser() 
   }
-}

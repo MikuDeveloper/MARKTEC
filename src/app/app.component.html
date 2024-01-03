@@ -1,2 +1,84 @@
+<header class="container-fluid">
+  <img src="assets/icons/logo-1.png" alt="logo" title="Marktec" width="48"/>
+  <h1>MARKTEC</h1>
+</header>
+
+@if (showNav) {
+  <nav class="navbar bg-light sticky-top mb-2">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offCanvasMenu" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Nombre de usuario
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+}
+
+<aside class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offCanvasMenu" aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">MENU</h5>
+    <button type="button" class="btn-close" id="btn-close-sidebar" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <section class="sidebar-item" id="dashboard-route" (click)="goToRoute('dashboard')" routerLink="/dashboard" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-grid"></i>
+      <p>Tablero</p>
+    </section>
+    <hr>
+    <section class="sidebar-item" id="inventory-route" (click)="goToRoute('inventory')" routerLink="/inventory" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-inventory-alt"></i>
+      <p>Inventario</p>
+    </section>
+    <section class="sidebar-item" id="sale-route" (click)="goToRoute('sale')" routerLink="/sale" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-dollar"></i>
+      <p>Venta</p>
+    </section>
+    <section class="sidebar-item" id="customers-route" (click)="goToRoute('customers')" routerLink="/customers" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-address-book"></i>
+      <p>Clientes</p>
+    </section>
+    <section class="sidebar-item" id="debts-route" (click)="goToRoute('debts')" routerLink="/debts" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-donate"></i>
+      <p>Adeudos</p>
+    </section>
+    <section class="sidebar-item" id="reports-route" (click)="goToRoute('reports')" routerLink="/reports" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-file-medical-alt"></i>
+      <p>Reportes</p>
+    </section>
+    <section class="sidebar-item" id="employees-route" (click)="goToRoute('employees')" routerLink="/employees" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-file-user"></i>
+      <p>Empleados</p>
+    </section>
+  </div>
+</aside>
 
 <router-outlet></router-outlet>
