@@ -18,7 +18,4 @@ export class DashboardComponent {
     ) {
     this.navService.toggleNav(true);
   }
-
-  logOut(): void{
-    this.authService.signOutUser() 
-  }
+}
