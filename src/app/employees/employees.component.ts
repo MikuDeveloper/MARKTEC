@@ -36,7 +36,7 @@ export class EmployeesComponent {
   }
 
     addNewDocument() {
-      this.databaseService.addDocument("employees", this.employees_doc).then((docRef) => {
+      this.databaseService.addDocument("employees", this.employees_doc,this.employees_doc.email).then((docRef) => {
         console.log(this.employees_doc)
       });
     }

@@ -16,16 +16,14 @@ export class FirestoreService {
     return querySnapshot.docs.map(doc => doc.data() as Objeto);
   }
 // Método para agregar datos, pide como paraetro el nombre de la colección y la interfaz
-  async addDocument(collectionName: string, data: Objeto) {
-    const newDocRef = doc(collection(database, collectionName));
-    data.id = newDocRef.id
-    await setDoc(newDocRef,data);
-    return ;
+  async addDocument(collectionName:string,data:Objeto,id:string){
+    const newDocRef = doc(database, collectionName, id)
+    await setDoc( newDocRef, data)
   }
 
   async updateDocument(collectionName: string, docId: string, data: any) {
-    const docRef = doc(database, collectionName, docId);
-    await updateDoc(docRef, data);
+    const docRef = doc(database, collectionName, docId)
+    await updateDoc(docRef, data)
   }
 
   async deleteDocument(collectionName: string, docId: string) {
