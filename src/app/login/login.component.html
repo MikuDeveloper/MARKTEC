@@ -26,9 +26,11 @@
                  ngModel #login_password="ngModel" required />
 
           <div class="text-center mt-3">
-            <button class="btn btn-primary" type="submit" >Ingresar</button>
+            <button class="btn btn-primary" type="submit" [disabled]="loginForm.form.invalid">Ingresar</button>
             @if (loginForm.form.invalid && loginForm.form.touched) {
               <p class="text-danger">*Completa los campos para poder ingresar.*</p>
+            }@else {
+              <p class="text-danger">{{showError}}</p>
             }
           </div>
         </div>

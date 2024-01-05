@@ -43,6 +43,9 @@ export class LoginComponent {
   }
   async login(form: any) {
     await this.authService.signInUser(form['login_email'], form['login_password'])
+    .catch(error => {
+      this.showError = error.message; //Muestra el error lanzado
+    });
   }
 
 }
