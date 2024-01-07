@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {NavService} from "../../model/utils/navbar.utils";
-import { AuthenticationService} from '../../model/api/authentication.service';
+import { NavService } from "../../model/utils/navbar.utils";
+import { AuthenticationService } from '../../model/api/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,4 +18,9 @@ export class DashboardComponent {
     ) {
     this.navService.toggleNav(true);
   }
+
+  goToRoute(route : string){
+    this.router.navigate([route]).then().catch()
+  }
 }
+

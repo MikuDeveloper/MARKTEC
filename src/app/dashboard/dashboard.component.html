@@ -1,1 +1,70 @@
-<p>dashboard works!</p>
+<section class="container">
+  <div class="text-center title">
+    <h3>Tablero de acciones</h3>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card" (click)="goToRoute('inventory')">
+        <div class="card-body text-center">
+          <i class="fi fi-rr-inventory-alt"></i>
+        </div>
+        <div class="card-footer text-center">
+          Inventario
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card" (click)="goToRoute('sale')">
+        <div class="card-body text-center">
+          <i class="fi fi-rr-dollar"></i>
+        </div>
+        <div class="card-footer text-center">
+          Venta
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card" (click)="goToRoute('customers')">
+        <div class="card-body text-center">
+          <i class="fi fi-rr-address-book"></i>
+        </div>
+        <div class="card-footer text-center">
+          Clientes
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card" (click)="goToRoute('debts')">
+        <div class="card-body text-center">
+          <i class="fi fi-rr-donate"></i>
+        </div>
+        <div class="card-footer text-center">
+          Adeudos
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card" (click)="goToRoute('reports')">
+        <div class="card-body text-center">
+          <i class="fi fi-rr-file-medical-alt"></i>
+        </div>
+        <div class="card-footer text-center">
+          Reportes
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card" (click)="goToRoute('employees')">
+        <div class="card-body text-center">
+          <i class="fi fi-rr-file-user"></i>
+        </div>
+        <div class="card-footer text-center">
+          Empleados
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
