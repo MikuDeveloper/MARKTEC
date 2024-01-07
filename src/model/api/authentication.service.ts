@@ -56,13 +56,13 @@ export class AuthenticationService {
           throw new Error ("*El correo no es válido*")
           break
         case  'auth/invalid-credential':
-          throw new Error("*La contraseña no es válido*")  
+          throw new Error("*El correo o la contraseña no es válido*")  
         break
         case 'auth/network-request-failed':
-          throw new Error ("*No hay conexión a la Red. Intentelo más tarde*")
+          throw new Error ("*No hay conexión a la Red. \n Intentelo más tarde*")
           break
         default:
-          throw new Error ('*El usuario o la contraseña no son válidos*')
+          throw new Error ('*El correo o la contraseña no son válidos*')
       }
     }
   }
