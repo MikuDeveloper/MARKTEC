@@ -10,7 +10,7 @@ import { FirestoreService } from './firestore.service';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private userSubject = new BehaviorSubject<UserModel | null>(null);
+  private userSubject = new BehaviorSubject<UserModel | null | undefined>(null);
   
   user$ = this.userSubject.asObservable();
 
@@ -28,9 +28,10 @@ export class AuthenticationService {
          email: user.email, // Identificador único del usuario
          name: userByEmail.name,//displayName puede ser nulo si no se proporciona al autenticar.
          role: userByEmail.role
-       });
+        });
         }else{
-          console.error(`No se encontraron datos para el usuario con correo electrónico ${user.email}`);  
+          console.error(`No se encontraron datos para el usuario con correo electrónico ${user.email}`);
+          this.userSubject.next(undefined)
         }
       }catch(error){
         console.error('Error al obtener datos del usuario desde Firestore:', error);
@@ -43,7 +44,12 @@ export class AuthenticationService {
   }
 
   async signUpUser(email : string, password : string) {
-    return await createUserWithEmailAndPassword(auth, email, password)
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error('Error al registrar el usuario en Firebase Authentication:', error);
+      throw error; // Propaga el error para que pueda ser manejado en el componente que llama a esta función
+    }
   }
 
   async signInUser(email : string, password : string): Promise <void>{
@@ -59,7 +65,7 @@ export class AuthenticationService {
           throw new Error("*El correo o la contraseña no es válido*")  
         break
         case 'auth/network-request-failed':
-          throw new Error ("*No hay conexión a la Red. \n Intentelo más tarde*")
+          throw new Error ("*No hay conexión a la Red :/ \n Intentelo más tarde*")
           break
         default:
           throw new Error ('*El correo o la contraseña no son válidos*')
@@ -82,6 +88,19 @@ export class AuthenticationService {
       this.router.navigate(['login'])
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  async sendVerificationEmail(email: string, password: string) {
+    const actionCodeSettings = {
+      url: 'https://www.youtube.com/watch?v=koBsCwzhzv8', // URL a la que se redirigirá después de la verificación
+    };
+
+    try {
+      // Utiliza la función sendPasswordResetEmail para enviar el correo con la contraseña temporal
+      await sendPasswordResetEmail(auth, email, actionCodeSettings);
+    } catch (error) {
+      console.error('Error al enviar el correo de verificación:', error);
     }
   }
 

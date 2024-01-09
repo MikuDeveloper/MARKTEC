@@ -5,4 +5,5 @@ export interface Objeto{
   address:string,
   phoneNumber:string,
   role:string
+  password:string //es temporal
 }

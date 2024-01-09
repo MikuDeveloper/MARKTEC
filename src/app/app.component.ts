@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { User, onAuthStateChanged, signOut } from 'firebase/auth'
+import {User, signOut, onAuthStateChanged} from 'firebase/auth'
 import { NavService } from '../model/utils/navbar.utils';
 import { Subscription } from 'rxjs';
 import { auth } from '../firebase';
@@ -27,7 +27,6 @@ export class AppComponent implements OnDestroy {
     onAuthStateChanged(auth,user => {
       if (user) this.router.navigate(['/dashboard']).then().catch()
     })
-
   }
 
   ngOnDestroy(): void {

@@ -16,10 +16,13 @@ export class FirestoreService {
   }
 // Método para agregar datos, pide como paraetro el nombre de la colección y la interfaz
   async addDocument(collectionName: string, data: Objeto) {
+    const temporaryPassword = this.generateTemporaryPassword();
+    data.password = temporaryPassword;
+
     const newDocRef = doc(collection(database, collectionName));
     data.id = newDocRef.id
     await setDoc(newDocRef,data);
-    return ;
+    return temporaryPassword;
   }
 
   async updateDocument(collectionName: string, docId: string, data: any) {
@@ -31,4 +34,14 @@ export class FirestoreService {
     const docRef = doc(database, collectionName, docId);
     await deleteDoc(docRef);
   }
+
+  generateTemporaryPassword() {
+    let length = 6;
+    let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let retVal = "";
+    for (let i = 0; i < length; ++i) {
+      retVal += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+    return retVal;
+   }
 }
