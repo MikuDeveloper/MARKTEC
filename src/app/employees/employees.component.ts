@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {NavService} from "../../model/utils/navbar.utils";
+import { NavService } from "../../model/utils/navbar.utils";
 import { FirestoreService } from '../../model/api/firestore.service';
-import { Objeto } from '../../model/entities/firestore-interface';
-import {AsyncPipe,NgForOf} from '@angular/common';
+import { AsyncPipe,NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Objeto } from '../../model/entities/firestore-interface';
 
 @Component({
   selector: 'app-employees',
@@ -14,32 +14,21 @@ import { FormsModule } from '@angular/forms';
 })
 export class EmployeesComponent {
   employees : Promise<Objeto[]> | undefined
-  employees_doc :  Objeto = {
-    email: '',
-    name: '',
-    address: '',
-    phoneNumber: '',
-    role: '',
-    id:''
-  }
   infoEmployee: Objeto = {
-    email: '',
-    name: '',
-    address: '',
-    phoneNumber: '',
-    role: '',
-    id:''
+    email: '', name: '', address: '', phoneNumber: '', role: ''
   }
+
   constructor(private navService: NavService,private databaseService : FirestoreService) {
     this.navService.toggleNav(true);
     this.employees = this.databaseService.getCollectionData("employees")
+    console.log(this.employees)
   }
-
-    addNewDocument() {
-      this.databaseService.addDocument("employees", this.employees_doc,this.employees_doc.email).then((docRef) => {
-        console.log(this.employees_doc)
+  addNewDocument(form : Objeto){
+    console.log(form)
+      this.databaseService.addDocument("employees",form,form.email).then((docRef) => {
       });
     }
+
     //Método para pasar los datos de la tarjetas al modal de eliminación a través de otra interfaz
     clickInfo(employee:Objeto){
       this.infoEmployee =employee
@@ -51,8 +40,10 @@ export class EmployeesComponent {
       });
     }
 
-    updateDocument(id:string){
-      console.log(id,this.infoEmployee)
-      this.databaseService.updateDocument("employees",id,this.infoEmployee)
+    updateDocument(form: Objeto){
+      form.email = this.infoEmployee.email
+      console.log(form)
+      console.log(this.infoEmployee)
+      this.databaseService.updateDocument("employees",form.email,form)
     }
 }

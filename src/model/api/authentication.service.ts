@@ -4,7 +4,8 @@ import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmail
 import { Router } from '@angular/router';
 import { AlertService } from '../alerts/alert.service';
 import { UserModel } from '../../model/entities/user.model';
-import { auth } from '../../firebase';
+import { auth } from '../../app/firebase';
+
 
 @Injectable({
   providedIn: 'root'
