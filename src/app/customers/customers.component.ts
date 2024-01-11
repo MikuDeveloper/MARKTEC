@@ -2,18 +2,19 @@ import { Component } from '@angular/core';
 import { NavService } from "../../model/utils/navbar.utils";
 import { FirestoreService } from '../../model/api/firestore.service';
 import { AsyncPipe,NgForOf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { CustomerModel } from '../../model/entities/customer.model';
-import { filter } from 'rxjs';
+import { Observable, Observer, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [AsyncPipe,NgForOf,FormsModule],
+  imports: [AsyncPipe,NgForOf,FormsModule,ReactiveFormsModule],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss'
 })
 export class CustomersComponent {
   customers : Promise<CustomerModel[]> | undefined
+  searchControl =  new FormControl('')
   selectedFilter: string = ''
   infoCustomer : CustomerModel = {
     voterKey : '',
@@ -28,6 +29,15 @@ export class CustomersComponent {
   constructor(private navService: NavService, private databaseService:FirestoreService) {
     this.navService.toggleNav(true);
     this.customers = this.databaseService.getCollectionDataC("customers")
+    //Método para buscador
+    this.searchControl.valueChanges
+    .pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    )
+    .subscribe(async query => {
+      this.customers = this.databaseService.searchData(query);
+    });
   }
   //Método para
   addNewDocument(form : CustomerModel){
@@ -65,4 +75,5 @@ export class CustomersComponent {
       }else
       this.customers = this.databaseService.getCollectionDataC("customers")
     }
+
 }

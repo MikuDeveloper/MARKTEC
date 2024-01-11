@@ -4,6 +4,7 @@ import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where } f
 import { Objeto } from '../entities/firestore-interface';
 import { database } from '../../app/firebase';
 import { CustomerModel } from '../entities/customer.model';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -42,6 +43,12 @@ async getFilterCollection(field:string,filter:string){
   const q = query(collection(database, "customers"), where(field, "==",filter));
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map(doc => doc.data() as CustomerModel);
+}
+// Método para buscador de datos
+  async searchData(search: string | null){
+  const q = query(collection(database, "customers"), where("voterKey", "==",search));
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map(doc => doc.data() as CustomerModel)
 }
 // Método para agregar datos, pide como paraetro el nombre de la colección y la interfaz
 async addDocumentC(collectionName:string,data:CustomerModel,id:string){
