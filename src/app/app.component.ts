@@ -2,9 +2,10 @@ import {Component, OnDestroy} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { User, signOut } from 'firebase/auth'
-import { NavService } from '../model/utils/navbar.utils';
-import { Subscription } from 'rxjs';
 import { auth } from '../firebase';
+import { NavService } from "../model/utils/navbar.util";
+import { Subscription } from "rxjs";
+import {SessionService} from "../model/utils/session.service";
 
 @Component({
   selector: 'app-root',
@@ -15,12 +16,14 @@ import { auth } from '../firebase';
 })
 export class AppComponent implements OnDestroy {
   title: string = 'MARKTEC'
-  selectedRoute: HTMLElement | undefined
+  showNav: boolean = false
+  currentUser: User | null | undefined
   navSubscription: Subscription
-  userSubscription : Subscription
-  constructor(private router: Router, private navService: NavService) {
+  userSubscription: Subscription
+
+  constructor(private router: Router, private navService: NavService, private authentication: SessionService) {
     this.navSubscription = this.navService.showNav$.subscribe(value => this.showNav = value)
-    this.userSubscription = this.navService.userData$.subscribe(data => this.currentUser = data)
+    this.userSubscription = this.authentication.getUser$().subscribe(user => this.currentUser = user)
   }
 
   ngOnDestroy(): void {
@@ -38,15 +41,7 @@ export class AppComponent implements OnDestroy {
     close.click()
   }
 
-  setAndRemoveSelectedStyle(id: string) {
-    let sidebarItem: HTMLElement = document.getElementById(`${id}-route`)! as HTMLElement
-    if (typeof this.selectedRoute !== 'undefined') this.selectedRoute.classList.remove('selected')
-    this.selectedRoute = sidebarItem
-    this.selectedRoute.classList.add('selected')
+  async closeSession() {
+    await signOut(auth)
   }
-
-  public showNav: boolean = false
-  public currentUser: User | null | undefined
-  protected readonly signOut = signOut;
-  protected readonly auth = auth;
 }

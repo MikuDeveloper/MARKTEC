@@ -7,18 +7,18 @@ import { CustomersComponent } from './customers/customers.component';
 import { DebtsComponent } from './debts/debts.component';
 import { ReportsComponent } from './reports/reports.component';
 import { EmployeesComponent } from './employees/employees.component';
-import { AuthGuard } from '../model/utils/auth.guard';
+import { RoutesGuard } from "../model/utils/routes.guard";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
-  { path: 'sale', component: SaleComponent, canActivate: [AuthGuard] },
-  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] },
-  { path: 'debts', component: DebtsComponent, canActivate: [AuthGuard] },
-  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
-  { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [RoutesGuard] },
+  { path: 'inventory', component: InventoryComponent, canActivate: [RoutesGuard] },
+  { path: 'sale', component: SaleComponent, canActivate: [RoutesGuard] },
+  { path: 'customers', component: CustomersComponent, canActivate: [RoutesGuard] },
+  { path: 'debts', component: DebtsComponent, canActivate: [RoutesGuard] },
+  { path: 'reports', component: ReportsComponent, canActivate: [RoutesGuard] },
+  { path: 'employees', component: EmployeesComponent, canActivate: [RoutesGuard] },
 
   { path:'**', redirectTo: 'login', pathMatch: 'full' }
 ];
