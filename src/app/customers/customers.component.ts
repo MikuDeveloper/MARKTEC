@@ -4,6 +4,7 @@ import { FirestoreService } from '../../model/api/firestore.service';
 import { AsyncPipe,NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomerModel } from '../../model/entities/customer.model';
+import { filter } from 'rxjs';
 @Component({
   selector: 'app-customers',
   standalone: true,
@@ -13,6 +14,7 @@ import { CustomerModel } from '../../model/entities/customer.model';
 })
 export class CustomersComponent {
   customers : Promise<CustomerModel[]> | undefined
+  selectedFilter: string = ''
   infoCustomer : CustomerModel = {
     voterKey : '',
     name : '',
@@ -51,5 +53,16 @@ export class CustomersComponent {
       console.log(form)
       console.log(this.infoCustomer)
       this.databaseService.updateDocument("customers",form.email,form)
+    }
+    //Método para filtrar sin deuda
+    filter(){
+      console.log(this.selectedFilter,this.customers)
+      if(this.selectedFilter == "sin deuda"){
+      this.customers = this.databaseService.getFilterCollection("status","sin deuda")
+      console.log(this.selectedFilter,this.customers)
+      }else if(this.selectedFilter == "adeuda"){
+      this.customers = this.databaseService.getFilterCollection("status","adeuda")
+      }else
+      this.customers = this.databaseService.getCollectionDataC("customers")
     }
 }

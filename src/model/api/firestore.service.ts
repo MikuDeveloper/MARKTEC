@@ -1,6 +1,6 @@
 // firestore.service.ts
 import { Injectable } from '@angular/core';
-import { collection, setDoc,getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where } from 'firebase/firestore';
 import { Objeto } from '../entities/firestore-interface';
 import { database } from '../../app/firebase';
 import { CustomerModel } from '../entities/customer.model';
@@ -35,6 +35,12 @@ export class FirestoreService {
 // Método para obtener datos, pide como paraetro el nombre de la coleccion
 async getCollectionDataC(collectionName: string) {
   const querySnapshot = await getDocs(collection(database, collectionName));
+  return querySnapshot.docs.map(doc => doc.data() as CustomerModel);
+}
+//Método para filtros
+async getFilterCollection(field:string,filter:string){
+  const q = query(collection(database, "customers"), where(field, "==",filter));
+  const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map(doc => doc.data() as CustomerModel);
 }
 // Método para agregar datos, pide como paraetro el nombre de la colección y la interfaz

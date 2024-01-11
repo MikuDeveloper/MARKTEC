@@ -1,11 +1,25 @@
+ <div class="container-sm">
+  <h1 class="text-center">Clientes</h1>
+  <hr>
+
+ </div>
+ <!-- Filtro por deuda-->
+ <div class="container-sm">
+  <label for="filter">Agrega un Filtro:</label>
+  <select class="form-select" [(ngModel)] = "selectedFilter" (change)="filter()">
+    <option value=""[disabled]="">Sin Filtro</option>
+    <option value="sin deuda">Sin Deuda</option>
+    <option value="adeuda">Con Deuda</option>
+  </select>
+</div>
+<br>
 <div class="container">
   <div class="row">
     <div class="col-sm-6 mb-3 mb-sm-0 "*ngFor="let customer of customers | async">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Foto del Empleado</h5>
+          <h5 class="card-title">Fotos de Credencial</h5>
           <div>
-
             <h6 class="text-center">{{customer.name}}</h6>
             <h6 class="text-center">{{customer.voterKey}}</h6>
             <h6 class="text-center">{{customer.email}}</h6>
