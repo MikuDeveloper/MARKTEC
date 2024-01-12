@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser, sendSignInLinkToEmail } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser, sendSignInLinkToEmail, signInWithEmailLink } from 'firebase/auth';
 import { Router } from '@angular/router';
 import { UserModel } from '../../model/entities/user.model';
 import { auth } from '../../firebase';
@@ -44,8 +44,22 @@ export class AuthenticationService {
   }
 
   async signUpUser(email : string, password : string) {
+    const actionCodeSettings = {
+      url: 'https://marktec-cdhidalgo.web.app/login',
+    }
     try {
-      const userCredentiall = await createUserWithEmailAndPassword(auth, email, password);
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings).then(() => {
+        // El enlace fue enviado con éxito. Informa al usuario.
+        // Guarda el correo electrónico localmente para no tener que pedirle al usuario que lo ingrese nuevamente
+        // si abre el enlace en el mismo dispositivo.
+        window.localStorage.setItem('emailForSignIn', email);
+        // ...
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+      const userCredentiall = await signInWithEmailLink(auth, email, password)
+      //await createUserWithEmailAndPassword(auth, email, password);
       return userCredentiall;
     } catch (error) {
       console.error('Error al registrar el usuario en Firebase Authentication:', error);

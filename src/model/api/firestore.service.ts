@@ -29,6 +29,9 @@ export class FirestoreService {
   async addDocument(collectionName:string,data:Objeto,id:string){
     const newDocRef = doc(database, collectionName, id)
     await setDoc( newDocRef, data)
+
+    const temporaryPassword = this.generateTemporaryPassword();
+    return temporaryPassword;
   }
 // Método para actualizar datos de un documento de la colección de Employees
   async updateDocument(collectionName: string, docId: string, data: any) {

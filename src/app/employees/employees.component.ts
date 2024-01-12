@@ -20,34 +20,27 @@ export class EmployeesComponent {
     email: '', name: '', address: '', phoneNumber: '', role: ''
   }
 
-  constructor(private navService: NavService,private databaseService : FirestoreService) {
+  constructor(private navService: NavService,private databaseService: FirestoreService, private authenticationService: AuthenticationService) {
     this.navService.toggleNav(true);
     this.employees = this.databaseService.getCollectionData("employees")
     console.log(this.employees)
   }
 
-      /*
-      this.databaseService.addDocument("employees", this.employees_doc).then(async(temporaryPassword) => {
-        console.log(this.employees_doc)
-        // Obtén la contraseña temporal generada durante la creación del usuario en Firestore
-        
-        // Luego, registra al usuario en Firebase Authentication con la contraseña temporal
-        try {
-          console.log('entra en el try')
-          await this.authenticationService.signUpUser(this.employees_doc.email, temporaryPassword);
-    
-          console.log('Usuario registrado en Firebase Authentication:', this.employees_doc.email);
-        } catch (error) {
-          console.error('Error al registrar el usuario en Firebase Authentication:', error);
-          // Puedes manejar el error de alguna manera, como mostrar un mensaje al usuario
-        }
-        console.log('fuera del try catch')
-              // Luego, enviar el correo con la contraseña temporal
-              this.authenticationService.sendVerificationEmail(this.employees_doc.email, temporaryPassword);
-    */
   addNewDocument(form : Objeto){
     console.log(form)
-      this.databaseService.addDocument("employees",form,form.email).then((docRef) => {
+      this.databaseService.addDocument("employees",form,form.email).then(async(temporaryPassword) => {
+          //registra al usuario en Firebase Authentication con la contraseña temporal
+          try {
+            console.log('entra en el try')
+            await this.authenticationService.signUpUser(form.email, temporaryPassword);
+      
+            console.log('Usuario registrado en Firebase Authentication:', form.email);
+          } catch (error) {
+            console.error('Error al registrar el usuario en Firebase Authentication:', error);
+          }
+          console.log('fuera del try catch')
+          // Luego, enviar el correo con la contraseña temporal
+          this.authenticationService.sendVerificationEmail(form.email, temporaryPassword);
       });
     }
 
