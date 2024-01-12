@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavService } from "../../model/utils/navbar.utils";
 import { FirestoreService } from '../../model/api/firestore.service';
-import { Objeto } from '../../model/entities/firestore-interface';
-import { AsyncPipe,NgForOf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { auth } from '../../firebase';
 import { AuthenticationService } from '../../model/api/authentication.service';
+import { AsyncPipe,NgForOf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Objeto } from '../../model/entities/firestore-interface';
 
 @Component({
   selector: 'app-employees',
@@ -16,22 +16,17 @@ import { AuthenticationService } from '../../model/api/authentication.service';
 })
 export class EmployeesComponent {
   employees : Promise<Objeto[]> | undefined
-  employees_doc :  Objeto = {
-    email: '',
-    name: '',
-    address: '',
-    phoneNumber: '',
-    role: '',
-    id:'',
-    password:''
-  }
-  constructor(private navService: NavService,private databaseService : FirestoreService, private authenticationService: AuthenticationService) {
-    this.navService.toggleNav(true);
-    this.employees = this.databaseService.getCollectionData("employees")
+  infoEmployee: Objeto = {
+    email: '', name: '', address: '', phoneNumber: '', role: ''
   }
 
-    addNewDocument() {
-      
+  constructor(private navService: NavService,private databaseService : FirestoreService) {
+    this.navService.toggleNav(true);
+    this.employees = this.databaseService.getCollectionData("employees")
+    console.log(this.employees)
+  }
+
+      /*
       this.databaseService.addDocument("employees", this.employees_doc).then(async(temporaryPassword) => {
         console.log(this.employees_doc)
         // Obtén la contraseña temporal generada durante la creación del usuario en Firestore
@@ -49,14 +44,29 @@ export class EmployeesComponent {
         console.log('fuera del try catch')
               // Luego, enviar el correo con la contraseña temporal
               this.authenticationService.sendVerificationEmail(this.employees_doc.email, temporaryPassword);
+    */
+  addNewDocument(form : Objeto){
+    console.log(form)
+      this.databaseService.addDocument("employees",form,form.email).then((docRef) => {
       });
     }
-    deleteDocument(id?:string){
-      id =''+id
-      this.databaseService.deleteDocument("employees",id)
+
+    //Método para pasar los datos de la tarjetas al modal de eliminación a través de otra interfaz
+    clickInfo(employee:Objeto){
+      this.infoEmployee =employee
     }
-    updateDocument(id:string){
-      this.databaseService.updateDocument("employees",id,this.employees_doc)
+
+    deleteDocument(id:string){
+      this.databaseService.deleteDocument("employees",id).then(()=> {
+        this.employees = this.databaseService.getCollectionData("employees")
+      });
+    }
+
+    updateDocument(form: Objeto){
+      form.email = this.infoEmployee.email
+      console.log(form)
+      console.log(this.infoEmployee)
+      this.databaseService.updateDocument("employees",form.email,form)
     }
     
 }
