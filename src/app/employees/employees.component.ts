@@ -32,20 +32,23 @@ export class EmployeesComponent {
 
     addNewDocument() {
       
-      this.databaseService.addDocument("employees", this.employees_doc).then((docRef) => {
+      this.databaseService.addDocument("employees", this.employees_doc).then(async(temporaryPassword) => {
         console.log(this.employees_doc)
-        // Luego, enviar el correo con la contraseña temporal
-        this.authenticationService.sendVerificationEmail(this.employees_doc.email, this.employees_doc.password);
-
         // Obtén la contraseña temporal generada durante la creación del usuario en Firestore
-        const temporaryPassword = this.employees_doc.password
+        
         // Luego, registra al usuario en Firebase Authentication con la contraseña temporal
         try {
-          this.authenticationService.signUpUser(this.employees_doc.email, temporaryPassword);
+          console.log('entra en el try')
+          await this.authenticationService.signUpUser(this.employees_doc.email, temporaryPassword);
+    
+          console.log('Usuario registrado en Firebase Authentication:', this.employees_doc.email);
         } catch (error) {
           console.error('Error al registrar el usuario en Firebase Authentication:', error);
           // Puedes manejar el error de alguna manera, como mostrar un mensaje al usuario
         }
+        console.log('fuera del try catch')
+              // Luego, enviar el correo con la contraseña temporal
+              this.authenticationService.sendVerificationEmail(this.employees_doc.email, temporaryPassword);
       });
     }
     deleteDocument(id?:string){

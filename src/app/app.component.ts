@@ -24,9 +24,9 @@ export class AppComponent implements OnDestroy {
     this.navSubscription = this.navService.showNav$.subscribe(value => this.showNav = value)
     this.userSubscription = this.navService.userData$.subscribe(data => this.currentUser = data)
     
-    onAuthStateChanged(auth,user => {
-      if (user) this.router.navigate(['/dashboard']).then().catch()
-    })
+    // onAuthStateChanged(auth,user => {
+    //   if (user) this.router.navigate(['/dashboard']).then().catch()
+    // })
   }
 
   ngOnDestroy(): void {

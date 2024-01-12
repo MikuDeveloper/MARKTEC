@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser, sendSignInLinkToEmail } from 'firebase/auth';
 import { Router } from '@angular/router';
 import { UserModel } from '../../model/entities/user.model';
 import { auth } from '../../firebase';
@@ -11,7 +11,7 @@ import { FirestoreService } from './firestore.service';
 })
 export class AuthenticationService {
   private userSubject = new BehaviorSubject<UserModel | null | undefined>(null);
-  
+
   user$ = this.userSubject.asObservable();
 
   constructor(
@@ -29,15 +29,15 @@ export class AuthenticationService {
          name: userByEmail.name,//displayName puede ser nulo si no se proporciona al autenticar.
          role: userByEmail.role
         });
+        this.router.navigate(['/dashboard']).then().catch()
         }else{
           console.error(`No se encontraron datos para el usuario con correo electrónico ${user.email}`);
-          this.userSubject.next(undefined)
+          this.userSubject.next(null)
         }
       }catch(error){
         console.error('Error al obtener datos del usuario desde Firestore:', error);
       } 
-      
-     } else { //Si no hay usuario.
+     } else{ //Si no hay usuario.
         this.userSubject.next(null)
      }
    });
@@ -45,7 +45,8 @@ export class AuthenticationService {
 
   async signUpUser(email : string, password : string) {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredentiall = await createUserWithEmailAndPassword(auth, email, password);
+      return userCredentiall;
     } catch (error) {
       console.error('Error al registrar el usuario en Firebase Authentication:', error);
       throw error; // Propaga el error para que pueda ser manejado en el componente que llama a esta función
@@ -90,7 +91,7 @@ export class AuthenticationService {
       console.error(error)
     }
   }
-
+  //Enviar un correo al correo del usuario nuevo que se registra para validar su registro 
   async sendVerificationEmail(email: string, password: string) {
     const actionCodeSettings = {
       url: 'https://www.youtube.com/watch?v=koBsCwzhzv8', // URL a la que se redirigirá después de la verificación
@@ -98,7 +99,8 @@ export class AuthenticationService {
 
     try {
       // Utiliza la función sendPasswordResetEmail para enviar el correo con la contraseña temporal
-      await sendPasswordResetEmail(auth, email, actionCodeSettings);
+      const sendEmail= await sendSignInLinkToEmail(auth, email, actionCodeSettings)
+      return sendEmail
     } catch (error) {
       console.error('Error al enviar el correo de verificación:', error);
     }
