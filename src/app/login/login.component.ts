@@ -8,6 +8,7 @@ import { auth } from "../../firebase";
 import firebase from "firebase/compat";
 import AuthError = firebase.auth.AuthError;
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -21,6 +22,7 @@ import AuthError = firebase.auth.AuthError;
 })
 export class LoginComponent {
   isLoading: boolean = false
+  errorMessage: string = ''
   constructor(private navService: NavService, private router: Router) {
     this.navService.toggleNav(false);
     onAuthStateChanged(auth, user => {
@@ -35,7 +37,9 @@ export class LoginComponent {
         this.goToHome()
       })
       .catch((exception : AuthError) => {
-        console.log(this.getLoginErrorMessage(exception.code))
+        const toast = document.getElementById("toast-login") as Element
+        const toastInstance = new bootstrap.Toast(toast);
+        toastInstance.show()
       })
       .finally(() => {
         this.isLoading = false
