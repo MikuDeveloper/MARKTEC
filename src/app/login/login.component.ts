@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavService } from '../../model/utils/navbar.util';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import { Router } from "@angular/router";
 import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "../../firebase";
@@ -13,7 +13,8 @@ import AuthError = firebase.auth.AuthError;
   standalone: true,
   imports: [
     FormsModule,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
