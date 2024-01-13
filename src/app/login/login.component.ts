@@ -7,7 +7,7 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "../../firebase";
 import firebase from "firebase/compat";
 import AuthError = firebase.auth.AuthError;
-import * as bootstrap from 'bootstrap';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -22,8 +22,7 @@ import * as bootstrap from 'bootstrap';
 })
 export class LoginComponent {
   isLoading: boolean = false
-  errorMessage: string = ''
-  constructor(private navService: NavService, private router: Router) {
+  constructor(private navService: NavService, private router: Router, private toast: ToastrService) {
     this.navService.toggleNav(false);
     onAuthStateChanged(auth, user => {
       if (user) this.goToHome()
@@ -37,10 +36,7 @@ export class LoginComponent {
         this.goToHome()
       })
       .catch((exception : AuthError) => {
-        this.errorMessage = this.getLoginErrorMessage(exception.code)
-        const toast = document.getElementById("toast-login") as Element
-        const toastInstance = new bootstrap.Toast(toast);
-        toastInstance.show()
+        this.toast.error(this.getLoginErrorMessage(exception.code), 'ERROR DE INICIO DE SESIÓN')
       })
       .finally(() => {
         this.isLoading = false
