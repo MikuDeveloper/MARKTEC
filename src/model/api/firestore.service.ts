@@ -45,8 +45,8 @@ async getFilterCollection(field:string,filter:string){
   return querySnapshot.docs.map(doc => doc.data() as CustomerModel);
 }
 // Método para buscador de datos
-  async searchData(search: string | null){
-  const q = query(collection(database, "customers"), where("voterKey", "==",search));
+  async searchData(search: string | null,collectionName:string){
+  const q = query(collection(database, collectionName), where("voterKey", "==",search));
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map(doc => doc.data() as CustomerModel)
 }

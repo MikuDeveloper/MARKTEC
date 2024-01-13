@@ -1,15 +1,15 @@
- <div class="container-sm">
+ <div class="container">
   <h1 class="text-center">Clientes</h1>
   <hr>
  </div>
  <div class="container">
-  <form class="d-flex">
+  <form class="d-flex w-50 mx-auto mt-3">
     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="searchControl"/>
   </form>
  </div>
  <!-- Filtro por deuda-->
- <div class="container-sm">
-  <select class="form-select" [(ngModel)] = "selectedFilter" (change)="filter()">
+ <div class="container">
+  <select class="form-select w-50 mx-auto mt-3" [(ngModel)] = "selectedFilter" (change)="filter()">
     <option value="" disabled selected>Elige un Filtro:</option>
     <option value="sin deuda">Sin Deuda</option>
     <option value="adeuda">Con Deuda</option>
@@ -18,24 +18,53 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-sm-6 mb-3 mb-sm-0 "*ngFor="let customer of customers | async">
-      <div class="card">
+    <div class="col-sm-4 mb-3 mb-sm-0 "*ngFor="let customer of customers | async">
+      <div class="card my-custom-card">
         <div class="card-body">
-          <h5 class="card-title">Fotos de Credencial</h5>
-          <div>
-            <h6 class="text-center">{{customer.name}}</h6>
-            <h6 class="text-center">{{customer.voterKey}}</h6>
-            <h6 class="text-center">{{customer.email}}</h6>
-            <h6 class="text-center">{{customer.address}}</h6>
-            <h6 class="text-center">{{customer.phoneNumber}}</h6>
-            <h6 class="text-center">{{customer.facebook}}</h6>
-            <h6 class="text-center">{{customer.status}}</h6>
-            <h6 class="text-center">{{customer.debt}}</h6>
+          <h5 class="card-title text-center">Fotos de Credencial</h5>
+            <div>
+              <table class="table">
+                <tbody>
+                  <tr class="col">
+                    <td><h6>Nombre</h6></td>
+                    <td><h5 class="text-center">{{customer.name}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Clave de Elector</h6></td>
+                    <td><h5 class="text-center">{{customer.voterKey}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Email</h6></td>
+                    <td><h5 class="text-center">{{customer.email}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Dirección</h6></td>
+                    <td><h5 class="text-center">{{customer.address}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Teléfono</h6></td>
+                    <td><h5 class="text-center">{{customer.phoneNumber}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Facebook</h6></td>
+                    <td><h5 class="text-center">{{customer.facebook}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Estatus</h6></td>
+                    <td><h5 class="text-center">{{customer.status}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Deuda</h6></td>
+                    <td><h5 class="text-center">{{customer.debt}}</h5></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
         </div>
-        <div class="card-footer">
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)">Editar</button>
-          <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(customer)">Eliminar</button>
+        <div class="card-footer d-flex justify-content-between">
+          <button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)">Editar</button>
+          <button class="btn btn-outline-success position-relative" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="clickInfo(customer)">Info</button>
+          <button class="btn btn-outline-danger position-relative" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(customer)">Eliminar</button>
         </div>
       </div>
     </div>
@@ -43,7 +72,8 @@
 </div>
 
 <div>
-  <button class="btn btn-outline-success position-fixed bottom-0 end-0 translate-middle" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo</button>
+  <button class="btn btn-outline-primary position-fixed bottom-0 end-0 translate-middle"
+  data-bs-toggle="modal" data-bs-target="#newModal"><i class="fi fi-rr-add"></i></button>
 </div>
 
 <!-- Modal  para Crear a un Nuevo Usuario-->
@@ -172,4 +202,61 @@
     </div>
   </form>
 </div>
+<div class="modal" id="infoModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Detalles de Usuario</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <table class="table">
+                    <tbody>
+                      <tr class="col">
+                        <td><h6>Nombre</h6></td>
+                        <td><h5 class="text-center">{{infoCustomer.name}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Clave de Elector</h6></td>
+                        <td><h5 class="text-center">{{infoCustomer.voterKey}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Email</h6></td>
+                        <td><h5 class="text-center">{{infoCustomer.email}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Dirección</h6></td>
+                        <td><h5 class="text-center">{{infoCustomer.address}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Teléfono</h6></td>
+                        <td><h5 class="text-center">{{infoCustomer.phoneNumber}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Facebook</h6></td>
+                        <td><h5 class="text-center">{{infoCustomer.facebook}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Estatus</h6></td>
+                        <td><h5 class="text-center">{{infoCustomer.status}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Deuda</h6></td>
+                        <td><h5 class="text-center">{{infoCustomer.debt}}</h5></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>

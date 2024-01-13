@@ -36,7 +36,7 @@ export class CustomersComponent {
       distinctUntilChanged()
     )
     .subscribe(async query => {
-      this.customers = this.databaseService.searchData(query);
+      this.customers = this.databaseService.searchData(query,"customers");
     });
   }
   //Método para

@@ -1,0 +1,19 @@
+/* En tu archivo de estilos de componente o en tu hoja de estilos global */
+.my-custom-card {
+  background-color: rgb(44,128,255);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.my-custom-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.my-custom-card .card-title {
+  color: #f0f0f0;
+}
+
+.my-custom-card .card-footer {
+  background-color: #f0f0f0;
+}
