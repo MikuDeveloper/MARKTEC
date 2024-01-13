@@ -3,24 +3,24 @@
   <h1>MARKTEC</h1>
 </header>
 
-@if (showNav) {
-  <nav class="navbar bg-light sticky-top mb-2">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offCanvasMenu" aria-controls="offcanvasNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <div class="btn-group">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          {{currentUser?.email}}
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" (click)="closeSession()" style="cursor: pointer">Cerrar sesión</a></li>
-        </ul>
-      </div>
+<nav class="navbar bg-light sticky-top mb-2" [hidden]="!showNav">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offCanvasMenu" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        {{currentUser?.email}}
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" (click)="closeSession()" style="cursor: pointer">Cerrar sesión</a></li>
+      </ul>
     </div>
-  </nav>
-}
+  </div>
+</nav>
+
 
 <aside class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offCanvasMenu" aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
