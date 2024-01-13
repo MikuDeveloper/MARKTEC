@@ -15,7 +15,11 @@
                  ngModel #login_password="ngModel" required />
 
           <div class="text-center mt-3">
-            <button class="btn btn-primary" type="submit" [disabled]="loginForm.form.invalid">Ingresar</button>
+            <button class="btn btn-primary" type="submit" [disabled]="loginForm.form.invalid || isLoading">
+              <span [hidden]="isLoading">Ingresar</span>
+              <span class="spinner-grow spinner-grow-sm" aria-hidden="true" [hidden]="!isLoading"></span>
+              <span role="status" [hidden]="!isLoading">Ingresando...</span>
+            </button>
             @if (loginForm.form.invalid && loginForm.form.touched) {
               <p class="text-danger">*Completa los campos para poder ingresar.*</p>
             }
