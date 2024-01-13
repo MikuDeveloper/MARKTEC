@@ -7,7 +7,7 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "../../firebase";
 import firebase from "firebase/compat";
 import AuthError = firebase.auth.AuthError;
-
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +37,7 @@ export class LoginComponent {
         this.goToHome()
       })
       .catch((exception : AuthError) => {
+        this.errorMessage = this.getLoginErrorMessage(exception.code)
         const toast = document.getElementById("toast-login") as Element
         const toastInstance = new bootstrap.Toast(toast);
         toastInstance.show()
@@ -50,7 +51,7 @@ export class LoginComponent {
     this.router.navigate(['/dashboard']).then()
   }
 
-  getLoginErrorMessage(code : string) {
+  getLoginErrorMessage(code : string) : string {
     switch (code) {
       case 'auth/invalid-credential': return 'Correo o contraseña incorrectos.'
       case 'auth/invalid-email': return 'Formato de email no válido.'
