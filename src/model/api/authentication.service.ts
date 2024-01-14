@@ -29,7 +29,7 @@ export class AuthenticationService {
          name: userByEmail.name,//displayName puede ser nulo si no se proporciona al autenticar.
          role: userByEmail.role
         });
-        this.router.navigate(['/dashboard']).then().catch()
+        this.router.navigate(['/employees']).then().catch()
         }else{
           console.error(`No se encontraron datos para el usuario con correo electrónico ${user.email}`);
           this.userSubject.next(null)
@@ -44,27 +44,7 @@ export class AuthenticationService {
   }
 
   async signUpUser(email : string, password : string) {
-    const actionCodeSettings = {
-      url: 'https://marktec-cdhidalgo.web.app/login',
-    }
-    try {
-      await sendSignInLinkToEmail(auth, email, actionCodeSettings).then(() => {
-        // El enlace fue enviado con éxito. Informa al usuario.
-        // Guarda el correo electrónico localmente para no tener que pedirle al usuario que lo ingrese nuevamente
-        // si abre el enlace en el mismo dispositivo.
-        window.localStorage.setItem('emailForSignIn', email);
-        // ...
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-      const userCredentiall = await signInWithEmailLink(auth, email, password)
-      //await createUserWithEmailAndPassword(auth, email, password);
-      return userCredentiall;
-    } catch (error) {
-      console.error('Error al registrar el usuario en Firebase Authentication:', error);
-      throw error; // Propaga el error para que pueda ser manejado en el componente que llama a esta función
-    }
+    await createUserWithEmailAndPassword(auth, email, password)
   }
 
   async signInUser(email : string, password : string): Promise <void>{

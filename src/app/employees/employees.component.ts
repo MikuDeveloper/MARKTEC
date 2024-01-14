@@ -28,19 +28,7 @@ export class EmployeesComponent {
 
   addNewDocument(form : Objeto){
     console.log(form)
-      this.databaseService.addDocument("employees",form,form.email).then(async(temporaryPassword) => {
-          //registra al usuario en Firebase Authentication con la contraseña temporal
-          try {
-            console.log('entra en el try')
-            await this.authenticationService.signUpUser(form.email, temporaryPassword);
-      
-            console.log('Usuario registrado en Firebase Authentication:', form.email);
-          } catch (error) {
-            console.error('Error al registrar el usuario en Firebase Authentication:', error);
-          }
-          console.log('fuera del try catch')
-          // Luego, enviar el correo con la contraseña temporal
-          this.authenticationService.sendVerificationEmail(form.email, temporaryPassword);
+      this.databaseService.addDocument("employees",form,form.email).then((docRef) => {
       });
     }
 
