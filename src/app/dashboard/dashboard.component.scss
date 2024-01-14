@@ -1,0 +1,23 @@
+.card {
+  border-radius: 15pt;
+  margin: 10pt;
+  box-shadow: 3pt 3pt 0 rgb(134, 134, 134);
+  cursor: pointer;
+
+  .card-body {
+    color: rgb(100, 100, 100);
+    background-color: rgb(238, 238, 238);
+    font-size: 64pt;
+    border-radius: 15pt 15pt 0 0;
+  }
+
+  .card-footer {
+    color: white;
+    background-color: rgb(44, 128, 255);
+    border-radius: 0 0 15pt 15pt;
+  }
+}
+
+.card:hover {
+  box-shadow: 0 0 10pt 1pt rgba(44, 128, 255, 0.7);
+}
