@@ -38,18 +38,6 @@
                     <td><h5 class="text-center">{{customer.email}}</h5></td>
                   </tr>
                   <tr>
-                    <td><h6>Dirección</h6></td>
-                    <td><h5 class="text-center">{{customer.address}}</h5></td>
-                  </tr>
-                  <tr>
-                    <td><h6>Teléfono</h6></td>
-                    <td><h5 class="text-center">{{customer.phoneNumber}}</h5></td>
-                  </tr>
-                  <tr>
-                    <td><h6>Facebook</h6></td>
-                    <td><h5 class="text-center">{{customer.facebook}}</h5></td>
-                  </tr>
-                  <tr>
                     <td><h6>Estatus</h6></td>
                     <td><h5 class="text-center">{{customer.status}}</h5></td>
                   </tr>
@@ -62,9 +50,9 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
-          <button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)">Editar</button>
-          <button class="btn btn-outline-success position-relative" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="clickInfo(customer)">Info</button>
-          <button class="btn btn-outline-danger position-relative" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(customer)">Eliminar</button>
+          <button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)"><i class="fi fi-rr-pencil"></i></button>
+          <button class="btn btn-outline-success position-relative" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="clickInfo(customer)"><i class="fi fi-rr-info"></i></button>
+          <button class="btn btn-outline-danger position-relative" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(customer)"><i class="fi fi-rr-trash"></i></button>
         </div>
       </div>
     </div>
@@ -207,12 +195,52 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4>Detalles de Usuario</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-6">
               <div class="card">
+                <div class="card-title">
+                  <h3 class="text-center">Información del Cliente</h3>
+                </div>
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col"><h6>Nombre</h6></th>
+                        <th scope="col"><h6>Clave de Elector</h6></th>
+                        <th scope="col"><h6>Email</h6></th>
+                        <th scope="col"><h6>Dirección</h6></th>
+                        <th scope="col"><h6>Teléfono</h6></th>
+                        <th scope="col"><h6>Facebook</h6></th>
+                        <th scope="col"><h6>Estatus</h6></th>
+                        <th scope="col"><h6>Deuda</h6></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>texto</td>
+                        <td>texto</td>
+                        <td>texto</td>
+                        <td>texto</td>
+                        <td>texto</td>
+                        <td>texto</td>
+                        <td>texto</td>
+                        <td>texto</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row d-md-none">
+              <div class="card">
+                <div class="card-title">
+                  <h3 class="text-center">Información del Cliente</h3>
+                  <hr>
+                </div>
                 <div class="card-body">
                   <table class="table">
                     <tbody>
@@ -252,11 +280,95 @@
                   </table>
                 </div>
               </div>
-
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-title">
+                  <h3 class="text-center">Compras</h3>
+                  <hr>
+                </div>
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Datos</th>
+                        <th scope="col">Información</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td><h6>Nombre</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Precio</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Usado/Nuevo</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Usado/Nuevo</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>IMEI</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>IMEI</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Color</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Operador</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Condicion Bateria</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Almacenamiento</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Color</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Fecha de Compra</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><h6>Status</h6></td>
+                        <td><h5>texto</h5></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="modal-footer"></div>
     </div>
   </div>
 </div>
