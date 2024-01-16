@@ -29,7 +29,7 @@ export class AuthenticationService {
          name: userByEmail.name,//displayName puede ser nulo si no se proporciona al autenticar.
          role: userByEmail.role
         });
-        this.router.navigate(['/employees']).then().catch()
+        this.router.navigate(['/inventory']).then().catch()
         }else{
           console.error(`No se encontraron datos para el usuario con correo electrónico ${user.email}`);
           this.userSubject.next(null)

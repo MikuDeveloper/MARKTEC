@@ -9,7 +9,7 @@
                     <span class="input-group-text" id="addon-wrapping">
                         <i class="fi fi-rr-search"></i>
                     </span>
-                    <input type="text" class="form-control" placeholder="Buscar..." aria-describedby="addon-wrapping">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Buscar..." aria-describedby="addon-wrapping">
                 </div>
             </div>
         </div>
@@ -80,8 +80,8 @@
                         </div>
                         <div class="row mt-2 mt-2">
                             <div class="col-md-12">
-                                <a href="#" class="btn btn-link float-start" data-bs-toggle="modal" data-bs-target="#editModal">Detalles de ingreso</a>
-                                <a href="#" class="btn btn-link float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Otros detalles</a>
+                                <a href="#" class="btn btn-link float-start" data-toggle="tooltip" data-bs-title="Detalles">Detalles de ingreso</a>
+                                <p><a href="#" class="btn btn-link float-end" data-bs-toggle="tooltip" data-bs-title="Otros">Otros detalles</a></p>
                             </div>  
                         </div>
                         <div class="row mt-2">
@@ -93,10 +93,6 @@
                 </div>
               </div>
           </div>
-          <!-- <div class="card-footer">
-            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
-            <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
-          </div> -->
         </div>
       </div>
     </div>
@@ -125,7 +121,7 @@
   </div>
 
   <div>
-    <button class="btn btn-outline-success position-fixed bottom-0 end-0 translate-middle pb-0" data-bs-toggle="modal" data-bs-target="#newItem" title="Agregar Artículo">
+    <button class="btn btn-outline-primary position-fixed bottom-0 end-0 translate-middle pb-0" data-bs-toggle="modal" data-bs-target="#newItem" title="Agregar Artículo">
       <i class="fi fi-rr-add"></i>
     </button>
   </div>
@@ -142,37 +138,37 @@
           </div>
           <div class="modal-body">
               <!-- Model -->
-              <label for="fileName">Modelo</label>
+              <label for="model">Modelo</label>
               <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
               <!-- IMEI -->
-              <label for="fileName">IMEI</label>
+              <label for="imei">IMEI</label>
               <input type="text" id="imei" class="form-control mb-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
               <!-- Price -->
-              <label for="fileName">Precio</label>
+              <label for="price">Precio</label>
               <input type="text" id="price" class="form-control mb-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
               <!-- Topic -->
-              <label for="fileName">Categoría</label>
+              <label for="topic">Categoría</label>
               <input type="text" id="topic" class="form-control mb-3" name="topic" placeholder="Escribe aquí" required/>
               <!-- Color -->
-              <label for="fileName">Color</label>
+              <label for="color">Color</label>
               <input type="text" id="color" class="form-control mb-3" name="color" placeholder="Escribe aquí" required/>
               <!-- Storage -->
-              <label for="fileName">Almacenamiento</label>
+              <label for="storage">Almacenamiento</label>
               <input type="text" id="storage" class="form-control mb-3" name="storage" placeholder="Escribe aquí" required/>
               <!-- Date -->
-              <label for="fileName">Fecha</label>
+              <label for="date">Fecha</label>
               <input type="text" id="date" class="form-control mb-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
               <!-- Operator -->
-              <label for="fileName">Operador</label>
+              <label for="operator">Operador</label>
               <input type="text" id="operator" class="form-control mb-3" name="operator" placeholder="Escribe aquí" required/>
               <!-- Battery state -->
-              <label for="fileName">Estado de la batería</label>
+              <label for="batteryState">Estado de la batería</label>
               <input type="text" id="batteryState" class="form-control mb-3" name="batteryState" placeholder="Escribe aquí" required/>
               <!-- PhysicalState -->
-              <label for="fileName">Estado Físico</label>
+              <label for="physicalState">Estado Físico</label>
               <input type="text" id="physicalState" class="form-control mb-3" name="physicalState" placeholder="Escribe aquí" required/>
               <!-- Observations -->
-              <label for="fileName">Observaciones Adicionales</label>
+              <label for="observations">Observaciones Adicionales</label>
               <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
           </div>
           <div class="modal-footer">
@@ -214,37 +210,37 @@
           </div>
           <div class="modal-body">
            <!-- Model -->
-           <label for="fileName">Modelo</label>
+           <label for="model">Modelo</label>
            <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
            <!-- IMEI -->
-           <label for="fileName">IMEI</label>
+           <label for="imei">IMEI</label>
            <input type="text" id="imei" class="form-control mb-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
            <!-- Price -->
-           <label for="fileName">Precio</label>
+           <label for="price">Precio</label>
            <input type="text" id="price" class="form-control mb-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
            <!-- Topic -->
-           <label for="fileName">Categoría</label>
+           <label for="topic">Categoría</label>
            <input type="text" id="topic" class="form-control mb-3" name="topic" placeholder="Escribe aquí" required/>
            <!-- Color -->
-           <label for="fileName">Color</label>
+           <label for="color">Color</label>
            <input type="text" id="color" class="form-control mb-3" name="color" placeholder="Escribe aquí" required/>
            <!-- Storage -->
-           <label for="fileName">Almacenamiento</label>
+           <label for="storage">Almacenamiento</label>
            <input type="text" id="storage" class="form-control mb-3" name="storage" placeholder="Escribe aquí" required/>
            <!-- Date -->
-           <label for="fileName">Fecha</label>
+           <label for="date">Fecha</label>
            <input type="text" id="date" class="form-control mb-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
            <!-- Operator -->
-           <label for="fileName">Operador</label>
+           <label for="operator">Operador</label>
            <input type="text" id="operator" class="form-control mb-3" name="operator" placeholder="Escribe aquí" required/>
            <!-- Battery state -->
-           <label for="fileName">Estado de la batería</label>
+           <label for="batteryState">Estado de la batería</label>
            <input type="text" id="batteryState" class="form-control mb-3" name="batteryState" placeholder="Escribe aquí" required/>
            <!-- PhysicalState -->
-           <label for="fileName">Estado Físico</label>
+           <label for="physicalState">Estado Físico</label>
            <input type="text" id="physicalState" class="form-control mb-3" name="physicalState" placeholder="Escribe aquí" required/>
            <!-- Observations -->
-           <label for="fileName">Observaciones Adicionales</label>
+           <label for="observations">Observaciones Adicionales</label>
            <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
           </div>
           <div class="modal-footer">

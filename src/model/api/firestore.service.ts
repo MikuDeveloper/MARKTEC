@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where } from 'firebase/firestore';
 import { Objeto } from '../entities/firestore-interface';
-import { database } from '../../app/firebase';
+import { database } from '../../firebase';
 import { CustomerModel } from '../entities/customer.model';
 import { Observable, of } from 'rxjs';
 
