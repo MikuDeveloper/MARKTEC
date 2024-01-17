@@ -6,7 +6,7 @@ import { auth } from '../firebase';
 import { NavService } from "../model/utils/navbar.util";
 import { Subscription } from "rxjs";
 import { SessionService } from "../model/utils/session.service";
-import * as bootstrap from 'bootstrap'
+import {ElementsService} from "../model/utils/elements.service";
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   navSubscription: Subscription
   userSubscription: Subscription
 
-  constructor(private router: Router, private navService: NavService, private authentication: SessionService) {
+  constructor(private router: Router, private navService: NavService, private authentication: SessionService, private elementsService: ElementsService) {
     this.navSubscription = this.navService.showNav$.subscribe(value => this.showNav = value)
     this.userSubscription = this.authentication.getUser$().subscribe(user => this.currentUser = user)
   }
@@ -47,6 +47,6 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(e => new bootstrap.Dropdown(e))
+    this.elementsService.initializeDropdowns()
   }
 }
