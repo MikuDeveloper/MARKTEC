@@ -1,11 +1,12 @@
-import {Component, OnDestroy} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { User, signOut } from 'firebase/auth'
 import { auth } from '../firebase';
 import { NavService } from "../model/utils/navbar.util";
 import { Subscription } from "rxjs";
-import {SessionService} from "../model/utils/session.service";
+import { SessionService } from "../model/utils/session.service";
+import * as bootstrap from 'bootstrap'
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ import {SessionService} from "../model/utils/session.service";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, AfterViewInit {
   title: string = 'MARKTEC'
   showNav: boolean = false
   currentUser: User | null | undefined
@@ -43,5 +44,9 @@ export class AppComponent implements OnDestroy {
 
   async closeSession() {
     await signOut(auth)
+  }
+
+  ngAfterViewInit(): void {
+    document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(e => new bootstrap.Dropdown(e))
   }
 }
