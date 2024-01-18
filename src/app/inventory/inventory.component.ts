@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {NavService} from "../../model/utils/navbar.utils";
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 @Component({
   selector: 'app-inventory',
   standalone: true,
-  imports: [],
+  imports: [TooltipModule],
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.scss',
 })
