@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../../model/api/authentication.service';
 import { Router } from '@angular/router';
-//import { AlertService } from '../../model/alerts/alert.service';
-import { CommonModule } from '@angular/common';
+import { NavService } from '../../model/utils/navbar.utils';
+import { AuthenticationService } from '../../model/api/authentication.service';
 import { FormsModule } from '@angular/forms';
-import {NavService} from "../../model/utils/navbar.utils";
+import { NgIf, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    NgIf
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -25,7 +25,6 @@ export class LoginComponent {
     private authService: AuthenticationService, 
     private router: Router,
     private navService: NavService
-    //public alertService: AlertService
   ){
     this.navService.toggleNav(false);
   }
@@ -42,4 +41,11 @@ export class LoginComponent {
         });
     }
   }
+  async login(form: any) {
+    await this.authService.signInUser(form['login_email'], form['login_password'])
+    .catch(error => {
+      this.showError = error.message; //Muestra el error lanzado
+    });
+  }
+
 }

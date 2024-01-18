@@ -8,4 +8,5 @@ export interface ProductModel {
   category : string
   entryDate : Date
   operator : string
+  location : string
 }

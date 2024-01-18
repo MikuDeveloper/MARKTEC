@@ -1,5 +1,4 @@
 export interface Objeto{
-  id:string
   email:string,
   name:string,
   address:string,
