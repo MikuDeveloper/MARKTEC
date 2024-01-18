@@ -23,6 +23,8 @@
           <div class="text-center mt-3">
             @if (loginForm.form.invalid && loginForm.form.touched) {
               <p class="text-danger">*Completa los campos para poder ingresar.*</p>
+            }@else {
+              <p class="text-danger">{{showError}}</p>
             }
             <button class="btn btn-primary" type="submit" [disabled]="loginForm.form.invalid || isLoading">
               <span [hidden]="isLoading">Ingresar</span>
