@@ -1,38 +1,31 @@
-<section class="container">
-  <div class="row">
-    <div class="col-lg-4 col-md-2 col-sm-2"></div>
-    <div id="login-section" class="col-lg-4 col-md-8 col-sm-8">
-      <form id="login-form" #loginForm="ngForm" (ngSubmit)="login(loginForm.value)" autocomplete="on">
-        <fieldset class="form-group">
-          <legend class="text-center"><b>Inicio de sesión</b></legend>
+<div class="container-fluid">
+  <div id="login-section" class="col-lg-4 col-md-8 col-sm-8 position-relative top-50 start-50 translate-middle">
+    <form id="login-form" #loginForm="ngForm" (ngSubmit)="login(loginForm.value)" autocomplete="on">
+      <fieldset class="form-group">
+        <legend class="text-center"><b>Inicio de sesión</b></legend>
 
-          <div class="form-floating mt-5">
-            <input class="form-control" type="email" name="login_email" id="login_email"
-                   placeholder="example@example.com" ngModel #login_email="ngModel" [required]="true"
-                   [ngClass]="{'is-invalid':(login_email.invalid && login_email.touched)}" autocomplete="email" />
-            <label class="form-label" for="login_email">Correo electrónico</label>
-          </div>
+        <div class="form-floating mt-5">
+          <input class="form-control" type="email" name="login_email" id="login_email"
+                 placeholder="example@example.com" ngModel #login_email="ngModel" [required]="true"
+                 [ngClass]="{'is-invalid':(login_email.invalid && login_email.touched)}" autocomplete="email" />
+          <label class="form-label" for="login_email">Correo electrónico</label>
+        </div>
 
-          <div class="form-floating mt-3">
-            <input class="form-control" type="password" name="login_password" id="login_password"
-                   placeholder="Contraseña" ngModel #login_password="ngModel" [required]="true"
-                   [ngClass]="{'is-invalid':(login_password.invalid && login_password.touched)}" autocomplete="current-password" />
-            <label class="form-label" for="login_password">Contraseña</label>
-          </div>
+        <div class="form-floating mt-3">
+          <input class="form-control" type="password" name="login_password" id="login_password"
+                 placeholder="Contraseña" ngModel #login_password="ngModel" [required]="true"
+                 [ngClass]="{'is-invalid':(login_password.invalid && login_password.touched)}" autocomplete="current-password" />
+          <label class="form-label" for="login_password">Contraseña</label>
+        </div>
 
-          <div class="text-center mt-3">
-            @if (loginForm.form.invalid && loginForm.form.touched) {
-              <p class="text-danger">*Completa los campos para poder ingresar.*</p>
-            }
-            <button class="btn btn-primary" type="submit" [disabled]="loginForm.form.invalid || isLoading">
-              <span [hidden]="isLoading">Ingresar</span>
-              <span class="spinner-grow spinner-grow-sm" aria-hidden="true" [hidden]="!isLoading"></span>
-              <span role="status" [hidden]="!isLoading">Ingresando...</span>
-            </button>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-    <div class="col-lg-4 col-md-2 col-sm-2"></div>
+        <div class="text-center mt-3">
+          <button class="btn btn-primary" type="submit" [disabled]="loginForm.form.invalid || isLoading">
+            <span [hidden]="isLoading">Ingresar</span>
+            <span class="spinner-grow spinner-grow-sm" aria-hidden="true" [hidden]="!isLoading"></span>
+            <span role="status" [hidden]="!isLoading">Ingresando...</span>
+          </button>
+        </div>
+      </fieldset>
+    </form>
   </div>
-</section>
+</div>
