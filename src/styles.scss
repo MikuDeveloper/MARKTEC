@@ -2,30 +2,45 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/@flaticon/flaticon-uicons/css/regular/all.css";
 @import "../node_modules/ngx-toastr/toastr.css";
+
+:root {
+  --white: rgb(255,255,255);
+  --white-1: rgb(238, 238, 238);
+  --white-2: rgb(220, 220, 220);
+  --white-3: rgb(190, 190, 190);
+  --black: rgb(0, 0, 0);
+  --base-gray-1: rgb(134, 134, 134);
+  --base-gray-2: rgb(100, 100, 100);
+  --base-blue: rgb(44, 128, 255);
+  --base-blue-shadow: rgba(44, 128, 255, 0.6);
+  --base-blue-hover: rgb(70, 144, 255);
+  --base-blue-2: rgb(0, 32, 96);
+}
+
 /* General elements */
 html {
-
-}
-h1 {
-
-}
-h2 {
-
-}
-h3 {
-
-}
-
-h4 {
-
-}
-
-h5 {
-
-}
-
-h6 {
-
+  font-size: 12pt;
+  h1 {
+    font-size: 2.4rem;
+  }
+  h2 {
+    font-size: 2.2rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+  h4 {
+    font-size: 1.8rem;
+  }
+  h5 {
+    font-size: 1.6rem;
+  }
+  h6 {
+    font-size: 1.4rem;
+  }
+  a {
+    cursor: pointer;
+  }
 }
 
 /* General styles */
@@ -38,8 +53,7 @@ header {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: rgb(44, 128, 255);
-  font-size: 18pt;
+  background-color: var(--base-blue);
   font-weight: 900;
   color: white;
   padding: 5pt;
@@ -51,7 +65,7 @@ header {
 
 /* Styles for sidebar */
 .offcanvas {
-  background-color: rgb(238, 238, 238);
+  background-color: var(--white-1);
 }
 
 .offcanvas-body {
@@ -60,7 +74,7 @@ header {
   hr {
     border: none;
     height: 2pt;
-    background: #000;
+    background: var(--black);
   }
 }
 
@@ -71,14 +85,14 @@ header {
   justify-content: flex-start;
   height: 40pt;
   width: 100%;
-  color: black;
-  background-color: rgb(238, 238, 238);
+  color: var(--black);
+  background-color: var(--white-1);
   cursor: pointer;
   .sidebar-shape {
-    fill: rgb(238, 238, 238);
+    fill: var(--white-1);
   }
   .fi {
-   font-size: 20pt;
+   font-size: 1.4rem;
    padding-left: 20pt;
    padding-right: 10pt;
    height: 65%;
@@ -89,26 +103,21 @@ header {
 }
 
 .sidebar-item:hover:not(.selected) {
-  background-color: rgb(220, 220, 220);
+  background-color: var(--white-2);
   .sidebar-shape {
-    fill: rgb(190, 190, 190);
+    fill: var(--white-3);
   }
 }
 
 .sidebar-item:hover {
-  background-color: rgb(70, 144, 255);
+  background-color: var(--base-blue-hover);
 }
 
 .selected {
-  color: white;
-  background-color: rgb(44, 128, 255);
+  color: var(--white);
+  background-color: var(--base-blue);
   .sidebar-shape {
     display: block;
-    fill: rgb(0, 32, 96);
+    fill: var(--base-blue-2)
   }
-}
-
-.hidden-item {
-  position: relative;
-  top: -100pt
 }
