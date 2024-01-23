@@ -3,5 +3,86 @@
     <h3>Reportes</h3>
   </div>
   <hr>
-
 </section>
+<section class="container-sm">
+  <!-- Campos -->
+   <div class="row mt-4">
+    <div class="col-md-3 mb-3">
+      <p class="mb-0">Fecha Inicial</p>
+      <input type="date" class="form-control">
+    </div>
+    <div class="col-md-3 mb-3">
+      <p class="mb-0">Fecha Final</p>
+      <input type="date" class="form-control">
+    </div>
+    <div class="col-md-6 mb-3 d-flex justify-content-end align-items-end">
+      <div class="align-baseline me-3">
+        <button class="btn btn-primary" type="button">
+          <i class="fi fi-rr-eye"></i>
+        </button>
+      </div>
+      <div class="align-baseline">
+        <button class="btn btn-primary" type="button">
+          <i class="fi fi-rr-print"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+        <!-- Encabezado de la tabla -->
+        <thead>
+            <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">IMEI</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Categoría
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">    
+                </button>
+                <ul class="dropdown-menu">
+                  <li class="m-2">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                      <label class="form-check-label" for="flexCheckDefault1">
+                        Opción 1
+                      </label>
+                    </div>
+                  </li>
+                  <li class="m-2">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                      <label class="form-check-label" for="flexCheckDefault2">
+                        Opción 2
+                      </label>
+                    </div>
+                  </li>
+                  <li class="m-2">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                      <label class="form-check-label" for="flexCheckDefault3">
+                        Opción 3
+                      </label>
+                    </div>
+                  </li>
+                  <!-- Agrega más opciones según sea necesario -->
+                </ul>
+              </div>
+            </th>
+            <th scope="col">Vendedor</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            <tr>
+                <td>dd/mm/aa</td>
+                <td>000000000000000</td>
+                <td>Iphone 15</td>
+                <td>Teléfono celular</td>
+                <td>Juan</td>
+            </tr>
+        </tbody>
+      </table>
+  </div>
+  <br>
+</section>
+  

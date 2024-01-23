@@ -1,22 +1,23 @@
-<div class="container-sm">
-    <h1 class="text-center">Inventario</h1>
-    <hr>
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
-                <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">
-                        <i class="fi fi-rr-search"></i>
-                    </span>
-                    <input type="text" class="form-control" id="search" name="search" placeholder="Buscar..." aria-describedby="addon-wrapping">
-                </div>
-            </div>
+<section class="container">
+  <div class="row text-center title">
+    <h3>Inventario</h3>
+  </div>
+  <hr><br>
+</section>
+<section class="container-sm">
+  <div class="row">
+    <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">
+                <i class="fi fi-rr-search"></i>
+            </span>
+            <input type="text" class="form-control" id="search" name="search" placeholder="Buscar..." aria-describedby="addon-wrapping">
         </div>
     </div>
-    <br>
-   </div>
-  <div class="container">
+</div>
+<br>
+</section>
+<section class="container-sm">
     <!-- Primera Fila -->
     <div class="row">
         <!-- First card -->
@@ -80,14 +81,18 @@
                         </div>
                         <div class="row mt-2 mt-2">
                             <div class="col-md-12">
-                                <a href="#" class="btn btn-link float-start" tooltip="Tooltip" placement="top">Detalles de ingreso</a>
-                                <p><a href="#" class="btn btn-link float-end" data-bs-toggle="tooltip" data-bs-title="Otros">Otros detalles</a></p>
+                                <a class="btn btn-link float-start" data-bs-toggle="tooltip" [attr.title]="getDetails()">Detalles de ingreso</a>
+                                <a class="btn btn-link float-end" data-bs-toggle="tooltip" [attr.title]="getOthers()">Otros detalles</a>
                             </div>  
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-12">
-                                <button class="btn btn-outline-primary float-start" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
-                                <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
+                                <button class="btn btn-outline-primary float-start" data-bs-toggle="modal" data-bs-target="#editModal">
+                                  <i class="fi fi-rr-edit"></i>
+                                </button>
+                                <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                  <i class="fi fi-rr-trash"></i>
+                                </button>
                             </div>  
                         </div>
                 </div>
@@ -96,9 +101,9 @@
         </div>
       </div>
     </div>
-  </div>
+</section>
+<section class="container-sm">
   <!-- Pagination -->
-  <div class="container">
     <div class="row">
       <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
         <nav  aria-label="...">
@@ -118,18 +123,16 @@
         </nav>
       </div>  
     </div>
-  </div>
-
+</section>
+<div class="container-sm">
   <div>
     <button class="btn btn-outline-primary position-fixed bottom-0 end-0 translate-middle pb-0" data-bs-toggle="modal" data-bs-target="#newItem" title="Agregar Artículo">
-      <i class="fi fi-rr-add"></i>
+      <i class="fi fi-rr-apps-add"></i>
     </button>
   </div>
-  
-  
+</div>  
   <!-- Modal para agregar Producto-->
-<div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-    <form>
+  <div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -137,6 +140,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <form>
               <!-- Model -->
               <label for="model">Modelo</label>
               <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
@@ -170,6 +174,7 @@
               <!-- Observations -->
               <label for="observations">Observaciones Adicionales</label>
               <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -177,7 +182,6 @@
           </div>
         </div>
       </div>
-    </form>
   </div>
 
   <!-- Modal para Eliminar un artículo-->
@@ -201,14 +205,14 @@
   
   <!-- Modal para Editar la información del artículo-->
   <div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
-    <form>
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Editar Artículo</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <form>
            <!-- Model -->
            <label for="model">Modelo</label>
            <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
@@ -242,12 +246,14 @@
            <!-- Observations -->
            <label for="observations">Observaciones Adicionales</label>
            <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
+           </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Guardar Cambios</button>
+            <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">Guardar Cambios</button>
           </div>
         </div>
-      </div>
-    </form>
+      </div> 
   </div>
+
+  

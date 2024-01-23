@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavService } from "../../model/utils/navbar.utils";
+import { NavService } from "../../model/utils/navbar.util";
 import { FirestoreService } from '../../model/api/firestore.service';
 import { auth } from '../../firebase';
 import { AuthenticationService } from '../../model/api/authentication.service';

@@ -56,8 +56,8 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-4" *ngIf="(authService.user$ | async)?.role === 'Administrador'">
-      <div class="card" (click)="goToRoute('employees')">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="card" (click)="goToRoute('employees')"> <!-- *ngIf="(authService.user$ | async)?.role === 'Administrador'" -->
         <div class="card-body text-center">
           <i class="fi fi-rr-file-user"></i>
         </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavService } from "../../model/utils/navbar.utils";
+import { NavService } from "../../model/utils/navbar.util";
 import { FirestoreService } from '../../model/api/firestore.service';
 import { AsyncPipe,NgForOf } from '@angular/common';
 import { FormControl, FormsModule,ReactiveFormsModule } from '@angular/forms';

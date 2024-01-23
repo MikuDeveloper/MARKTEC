@@ -170,8 +170,7 @@
   </div>
   
 <!-- Modal  para Crear a un Nuevo Cliente-->
-<div class="modal fade" id="newCustomer" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-    <form>
+<div class="modal fade" id="newCustomer" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">  
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -179,7 +178,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-  
+            <form>
               <!-- Nombre -->
               <label for="fileName">Nombre Completo</label>
               <input type="text" id="name" class="form-control mb-3" name="name" placeholder="Escribe aquí"required />
@@ -198,6 +197,7 @@
               <!-- Facebook -->
               <label for="fileName">Facebook</label>
               <input type="text" id="facebook" class="form-control mb-3" name="facebook" placeholder="Escribe aquí" required/>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -205,11 +205,9 @@
           </div>
         </div>
       </div>
-    </form>
   </div>
   <!-- Modal para agregar Artículo en venta-->
   <div class="modal fade" id="newItemforSale" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-    <form>
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -217,6 +215,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <form>
               <!-- Model -->
               <label for="fileName">Modelo</label>
               <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
@@ -250,6 +249,7 @@
               <!-- Observations -->
               <label for="fileName">Observaciones Adicionales</label>
               <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
+            </form>  
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -257,11 +257,9 @@
           </div>
         </div>
       </div>
-    </form>
   </div>
   <!-- Modal para agregar Artículo-->
-<div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-    <form>
+<div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">   
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -269,6 +267,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <form>
               <!-- Model -->
               <label for="fileName">Modelo</label>
               <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
@@ -302,6 +301,7 @@
               <!-- Observations -->
               <label for="fileName">Observaciones Adicionales</label>
               <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
+              </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -309,7 +309,6 @@
           </div>
         </div>
       </div>
-    </form>
   </div>
   <!-- Modal para Eliminar articulo-->
 <div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
@@ -330,15 +329,15 @@
   </div>
 </div>
 <!-- Modal para Editar la información del artículo-->
-<div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
-  <form>
-    <div class="modal-dialog">
+<div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static"> 
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Editar Artículo</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+         <form> 
          <!-- Model -->
          <label for="fileName">Modelo</label>
          <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
@@ -372,14 +371,14 @@
          <!-- Observations -->
          <label for="fileName">Observaciones Adicionales</label>
          <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
+         </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Guardar Cambios</button>
+          <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">Guardar Cambios</button>
         </div>
       </div>
     </div>
-  </form>
 </div>
 
   
