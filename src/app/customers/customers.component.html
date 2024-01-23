@@ -3,11 +3,9 @@
   <hr>
  </div>
  <div class="container">
-  <form class="d-flex w-50 mx-auto mt-3">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="searchControl"/>
-  </form>
+  <input class="form-control w-50 mx-auto mt-3" [(ngModel)]="searchValue" (ngModelChange)="onSearchChange()" type="text" placeholder="Buscar...">
  </div>
- <!-- Filtro por deuda-->
+ <!-- Filtro por deuda -->
  <div class="container">
   <select class="form-select w-50 mx-auto mt-3" [(ngModel)] = "selectedFilter" (change)="filter()">
     <option value="" disabled selected>Elige un Filtro:</option>
@@ -18,7 +16,7 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-sm-4 mb-3 mb-sm-0 "*ngFor="let customer of customers | async">
+    <div class="col-sm-4 mb-3 mb-sm-0 "*ngFor="let customer of customers">
       <div class="card my-custom-card">
         <div class="card-body">
           <h5 class="card-title text-center">Fotos de Credencial</h5>
@@ -59,6 +57,7 @@
   </div>
 </div>
 
+<!-- Botón para agregar a un Nuevo Cliente-->
 <div>
   <button class="btn btn-outline-primary position-fixed bottom-0 end-0 translate-middle"
   data-bs-toggle="modal" data-bs-target="#newModal"><i class="fi fi-rr-add"></i></button>
@@ -164,13 +163,6 @@
           <label for="fileName">Número de Teléfono</label>
           <input type="text" class="form-control" name="phoneNumber" ngModel #phoneNumber="ngModel"
           [(ngModel)]="infoCustomer.phoneNumber" required maxlength="10" minlength="10" pattern="^[0-9]+$">
-          <!--
-          <select class="form-select" id="role" aria-label="Default select example" name="role"
-            ngModel #role="ngModel" [(ngModel)]="" required>
-              <option value="" disabled selected>--</option>
-              <option value="Empleado">Empleado</option>
-              <option value="Administrador">Administrador</option>
-            </select>-->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

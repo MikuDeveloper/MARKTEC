@@ -1,10 +1,10 @@
 // firestore.service.ts
 import { Injectable } from '@angular/core';
-import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where } from 'firebase/firestore';
+import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where, or, orderBy, startAt, endAt } from 'firebase/firestore';
 import { Objeto } from '../entities/firestore-interface';
 import { database } from '../../app/firebase';
 import { CustomerModel } from '../entities/customer.model';
-import { Observable, of } from 'rxjs';
+
 
 
 @Injectable({
@@ -44,12 +44,21 @@ async getFilterCollection(field:string,filter:string){
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map(doc => doc.data() as CustomerModel);
 }
-// Método para buscador de datos
-  async searchData(search: string | null,collectionName:string){
-  const q = query(collection(database, collectionName), where("voterKey", "==",search));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => doc.data() as CustomerModel)
+// Método para buscador de datos de dos
+async searchData(search: string | null, collectionName: string, field: string, fieldTwo: string): Promise<CustomerModel[]> {
+  try {
+    const q = query(collection(database, collectionName), where(field, "==", search));
+    const querySnapshot = await getDocs(q);
+
+    console.log(search, querySnapshot.docs.map(doc => doc.data() as CustomerModel));
+
+    return querySnapshot.docs.map(doc => doc.data() as CustomerModel);
+  } catch (error) {
+    console.error("Error al buscar datos:", error);
+    throw error; // Puedes manejar el error de otra manera según tus necesidades
+  }
 }
+
 // Método para agregar datos, pide como paraetro el nombre de la colección y la interfaz
 async addDocumentC(collectionName:string,data:CustomerModel,id:string){
   let variableType: string = typeof id;
