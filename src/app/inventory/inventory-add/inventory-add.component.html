@@ -1,0 +1,101 @@
+<form class="row g-3" #inventoryAddForm="ngForm" (ngSubmit)="addToInventory(inventoryAddForm.value)">
+  <legend>Añadir producto</legend>
+
+  <div class="form-group mb-4">
+    <div class="form-floating mb-2">
+      <input type="datetime-local" name="entryDate" id="entryDate" class="form-control" placeholder="Fecha"
+             ngModel #entryDate="ngModel" [ngClass]="{'is-invalid':(entryDate.invalid && entryDate.dirty)}" [required]="true" />
+      <label for="entryDate">Fecha de entrada</label>
+    </div>
+    <div class="form-floating">
+      <select name="category" id="category" class="form-select" aria-label="Select category"
+              ngModel #category="ngModel" [ngClass]="{'is-invalid':(category.invalid && category.dirty)}" [required]="true">
+        <option value="">--Elegir categoría--</option>
+        <option value="Celular">Celular</option>
+        <option value="Consola">Consola</option>
+        <option value="Computadora">Computadora</option>
+        <option value="Otro">Otro</option>
+      </select>
+      <label for="category">Categoría</label>
+    </div>
+  </div>
+
+  <div class="form-group mb-4">
+    <div class="form-floating mb-2">
+      <input type="text" name="IMEI" id="IMEI" class="form-control" placeholder="8282882"
+             ngModel #IMEI="ngModel" [ngClass]="{'is-invalid':(IMEI.invalid && IMEI.dirty)}" [required]="true" />
+      <label for="IMEI">IMEI</label>
+    </div>
+    <div class="form-floating mb-2">
+      <input type="text" name="model" id="model" class="form-control" placeholder="2019"
+             ngModel #model="ngModel" [ngClass]="{'is-invalid':(model.invalid && model.dirty)}" [required]="true" />
+      <label for="model">Modelo</label>
+    </div>
+    <div class="form-floating mb-2">
+      <input type="text" name="color" id="color" class="form-control" placeholder="Rojo, azul..."
+             ngModel #color="ngModel" [ngClass]="{'is-invalid':(color.invalid && color.dirty)}" [required]="true" />
+      <label for="color">Color</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" name="storage" id="storage" class="form-control" placeholder="64GB"
+             ngModel #storage="ngModel" [ngClass]="{'is-invalid':(storage.invalid && storage.dirty)}" [required]="true" />
+      <label for="storage">Almacenamiento</label>
+    </div>
+  </div>
+
+  <div class="form-group mb-4">
+    <div class="form-floating mb-2">
+      <input type="text" name="physicalState" id="physicalState" class="form-control" placeholder="Bueno, malo..."
+             ngModel #physicalState="ngModel" [ngClass]="{'is-invalid':(physicalState.invalid && physicalState.dirty)}"
+             [required]="true" />
+      <label for="physicalState">Estado físico</label>
+    </div>
+    <div class="form-floating mb-2">
+      <input type="text" name="batteryState" id="batteryState" class="form-control" placeholder="Bueno, malo..."
+             ngModel #batteryState="ngModel" [ngClass]="{'is-invalid':(batteryState.invalid && batteryState.dirty)}"
+             [required]="true" />
+      <label for="batteryState">Estado de la batería</label>
+    </div>
+    <div class="form-floating">
+      <textarea name="comments" id="comments" class="form-control" placeholder="Sin comentarios..." ngModel [required]="false"></textarea>
+      <label for="comments">Comentarios adicionales</label>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4">
+    <div class="form-floating">
+      <select name="location" id="location" class="form-select" aria-label="Select location"
+              ngModel #location="ngModel" [ngClass]="{'is-invalid':(location.invalid && location.dirty)}" [required]="true">
+        <option value="">--Elegir ubicación--</option>
+        <option value="Ciudad Hidalgo">Ciudad Hidalgo</option>
+        <option value="Tuxpan">Tuxpan</option>
+      </select>
+      <label for="location">Ubicación</label>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4">
+    <div class="input-group">
+      <span class="input-group-text">$</span>
+      <div class="form-floating">
+        <input type="text" name="price" id="price" class="form-control" aria-label="Precio" placeholder="00"
+               ngModel [required]="false" />
+        <label for="price">Precio</label>
+      </div>
+      <span class="input-group-text">.00</span>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4">
+    <div class="form-floating">
+      <input type="text" name="employeeId" id="employeeId" class="form-control" placeholder="Email de usuario"
+             ngModel #employeeId="ngModel" [ngClass]="{'is-invalid':(employeeId.invalid && employeeId.dirty)}"
+             [required]="true" readonly [(ngModel)]="currentUser"/>
+      <label for="employeeId">Usuario que registra</label>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary" [disabled]="inventoryAddForm.invalid">Añadir</button>
+  </div>
+</form>

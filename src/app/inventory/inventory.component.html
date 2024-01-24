@@ -3,5 +3,38 @@
     <h3>Inventario</h3>
   </div>
   <hr>
+  <form class="row" #inventorySearchForm="ngForm" (ngSubmit)="searchProduct(inventorySearchForm.value)" autocomplete="on">
+    <div class="col-lg-7 col-md-7 mt-1">
+      <div class="form-floating">
+        <input type="search" ngModel #search="ngModel" placeholder="Buscar producto..."
+               name="search_inventory"
+               id="search_inventory"
+               class="form-control form-control-sm"
+               [required]="true" [ngClass]="{'is-invalid':(search.invalid && search.dirty)}"/>
+        <label for="search_inventory">Buscar producto...</label>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 mt-1">
+      <div class="form-floating">
+        <select class="form-select form-control-sm" #filter="ngModel" ngModel id="type_inventory"
+                name="filter_inventory" aria-label="Select type"
+                [required]="true" [ngClass]="{'is-invalid':(filter.invalid && filter.dirty)}">
+          <option value="">--Seleccionar--</option>
+          <option value="IMEI">IMEI/No. Serie</option>
+          <option value="Modelo">Modelo</option>
+          <option value="Tipo">Tipo</option>
+        </select>
+        <label for="type_inventory">Filtrar por:</label>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-2 mt-1 text-center align-self-center">
+      <button type="submit" class="btn btn-primary btn-lg" [disabled]="inventorySearchForm.invalid">Buscar</button>
+    </div>
+  </form>
 
+  <router-outlet></router-outlet>
 </section>
+
+<div class="fab" routerLink="add">
+  <i class="fi fi-rr-add"></i>
+</div>

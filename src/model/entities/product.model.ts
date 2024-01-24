@@ -1,12 +1,14 @@
 export interface ProductModel {
+  entryDate : Date
+  category : string
   IMEI : string
   model : string
-  color  : string
+  color : string
   storage : string
   physicalState : string
   batteryState : string
-  category : string
-  entryDate : Date
-  operator : string
+  comments? : string
   location : string
+  price? : number
+  employeeId? : string
 }
