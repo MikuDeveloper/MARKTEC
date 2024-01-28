@@ -1,0 +1,145 @@
+<app-reports></app-reports>
+<section class="container">
+    <div class="row text-center title">
+      <h3>Reportes: Inventario</h3>
+    </div>
+    <hr>
+</section>
+<section class="container-sm">
+    <!-- Campos -->
+     <div class="row mt-4">
+      <div class="col-md-3 mb-3">
+        <div class="form-floating">
+          <input type="date" id="startDate" class="form-control">
+          <label for="startDate" class="form-label">Fecha Inicial</label>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="form-floating">
+          <input type="date" id="endDate" class="form-control">
+          <label for="endDate" class="form-label">Fecha Final</label>
+        </div>
+      </div>
+      <!-- Filtrado por: -->
+      <div class="col-md-3 mb-3">
+        <div class="form-floating">
+          <select class="form-select form-select-md mb-3" id="floatingSelect" aria-label=".form-select-lg example" [(ngModel)]="selectedFilter">
+          <option selected value="" >--Todo--</option>
+          <option value="model">Modelo</option>
+          <option value="category">Categoría</option>
+          <option value="color">Color</option>
+          <option value="gb">GB</option>
+          <option value="estadoFisico">Estado Físico</option>
+          <option value="operador">Operador</option>
+          <option value="estadoBateria">Estado de Batería</option>
+        </select>
+        <label for="floatingSelect" class="form-label">Filtrar por:</label>
+        </div> 
+      </div>
+      <!-- Fin: Filtrado por: -->
+      <!-- Segundo Select: -->
+      <div class="col-md-3 mb-3">
+        <div class="form-floating" *ngIf="selectedFilter !== ''">
+          <select class="form-select form-select-md mb-3" id="floatingCategory" aria-label=".form-select-lg example">
+          <option selected value="all">--Todo--</option>
+          <option *ngFor="let option of getFilteredOptions()" [value]="option">{{option}}</option>
+        </select>
+        <label for="floatingCategory" class="form-label">{{ getFilterLabel()}}</label>
+        </div>
+      </div>
+      <!-- Fin: Segundo select -->
+      </div>
+      <div class="row mt-2">
+      <!-- Columnas Visibles -->
+      <div class="col-md-3 mb-3">
+        <button class="btn btn-outline-primary dropdown-toggle " type="button" id="columnVisibilityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          Columnas Visbles
+        </button>
+        <div class="form-group" >
+        <ul class="dropdown-menu" (click)="toggleDropdown($event)">
+          <li class="m-2" *ngFor="let column of columnHead">
+            <div class="form-check" (click)="toggleCheckbox(column)">
+              <input class="form-check-input" type="checkbox" id="checkBox" [(ngModel)]="columnVisibility[column]" >
+              <label class="form-check-label" for="checkBox" (click)="toggleCheckbox(column)" >
+                {{ column }}
+              </label>
+            </div>
+          </li>   
+        </ul>
+        </div>
+      </div>
+      <!-- Fin: Columnas Visibles -->
+      <div class="col-md-6 mb-3 d-flex justify-content-end align-items-end">
+        <div class="align-baseline me-3">
+          <button class="btn btn-primary" type="button">
+            <i class="fi fi-rr-filter"></i>
+          </button>
+        </div>
+        <div class="align-baseline">
+          <button class="btn btn-primary" type="button">
+            <i class="fi fi-rr-print"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered text-center table-sm">
+          <!-- Encabezado de la tabla -->
+          <thead>
+              <tr>
+                <th scope="col" *ngIf="columnVisibility.Fecha">Fecha de Entrada</th>
+                <th scope="col" *ngIf="columnVisibility.Modelo">Modelo</th>
+                <th scope="col" *ngIf="columnVisibility['IMEI']">IMEI</th>
+                <th scope="col" *ngIf="columnVisibility.Operador">Precio</th>
+                <th scope="col" *ngIf="columnVisibility['Categoría']">Categoría</th>
+                <th scope="col" *ngIf="columnVisibility.Precio">Precio</th>
+                <th scope="col" *ngIf="columnVisibility.Color">Color</th>
+                <th scope="col" *ngIf="columnVisibility['GB']">GB</th>
+                <th scope="col" *ngIf="columnVisibility.EstadoFisico">Estado Físico</th>
+                <th scope="col" *ngIf="columnVisibility['Estado de Batería']">Estado de Batería</th>
+                <th scope="col" *ngIf="columnVisibility.Hora">Hora</th>
+                <th scope="col" *ngIf="columnVisibility.Ubicacion">Ubicación</th>
+              </tr>
+          </thead>
+          <tbody class="align-middle" *ngFor="let item of itemsReport | async">
+              <tr>
+                <td *ngIf="columnVisibility.Fecha">{{item.color}}</td>
+                <td *ngIf="columnVisibility['IMEI']">{{item.imei}}</td>
+                <td *ngIf="columnVisibility.Modelo">{{item.model}}</td>
+                <td *ngIf="columnVisibility['Categoría']">{{item.category}}</td>
+                <td *ngIf="columnVisibility.Operador">{{item.operator}}</td>
+                <td *ngIf="columnVisibility.Color">{{item.color}}</td>
+                <td *ngIf="columnVisibility['GB']">{{item.storage}}</td>
+                <td *ngIf="columnVisibility.EstadoFisico">{{item.physicalState}}</td>
+                <td *ngIf="columnVisibility['Estado de Batería']">{{item.batteryState}}</td>
+                <td *ngIf="columnVisibility.Ubicacion">{{item.location}}</td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+    <br>
+  </section>
+    
+<!-- Pagination -->
+<section class="container-sm">
+  <div class="row">
+      <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
+        <nav  aria-label="...">
+          <ul class="pagination">
+            <li class="page-item disabled mb-2">
+              <span class="page-link"><i class="fi fi-rr-angle-left"></i></span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">2</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item mb-2">
+              <a class="page-link" href="#"><i class="fi fi-rr-angle-right"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>  
+    </div>
+</section>
+  

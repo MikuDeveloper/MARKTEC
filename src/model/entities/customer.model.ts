@@ -1,8 +1,10 @@
 export interface CustomerModel {
-  voterKey : string
-  name : string
-  address : string
-  phoneNumber : string
-  email : string
-  facebook : string
+  address : string,
+  debt: number,
+  email : string,
+  name : string,
+  phoneNumber : string,
+  facebook : string,
+  status: string,
+  voterKey : string,
 }

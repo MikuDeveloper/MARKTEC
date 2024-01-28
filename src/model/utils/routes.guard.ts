@@ -16,7 +16,7 @@ export class RoutesGuard {
           observer.next(false)
           this.router.navigate(['/login']).then().catch()
         }
-        observer.complete()
+        observer.complete() //Esto indica que no habrá más emisiones.
       })
     })
   }

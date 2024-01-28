@@ -64,14 +64,14 @@
       <i class="fi fi-rr-donate"></i>
       <p>Adeudos</p>
     </section>
-    <section class="sidebar-item" id="reports-route" (click)="goToRoute('reports')" routerLink="/reports" routerLinkActive="selected">
+    <section class="sidebar-item" id="reports-route" (click)="goToRoute('reports-inventory')" routerLink="/reports" routerLinkActive="selected">
       <svg height="100%" width="15pt">
         <rect width="10pt" height="100%" class="sidebar-shape" />
       </svg>
       <i class="fi fi-rr-file-medical-alt"></i>
       <p>Reportes</p>
     </section>
-    <section class="sidebar-item" id="employees-route" (click)="goToRoute('employees')" routerLink="/employees" routerLinkActive="selected">
+    <section class="sidebar-item" id="employees-route" (click)="goToRoute('employees')" routerLink="/employees" routerLinkActive="selected"> <!-- *ngIf="(authService.user$ | async)?.role === 'Administrador'" -->
       <svg height="100%" width="15pt">
         <rect width="10pt" height="100%" class="sidebar-shape" />
       </svg>

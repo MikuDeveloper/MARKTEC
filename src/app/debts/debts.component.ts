@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import {NavService} from "../../model/utils/navbar.util";
 
 @Component({
