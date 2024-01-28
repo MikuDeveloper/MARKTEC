@@ -16,10 +16,9 @@
           <span class="input-group-text" id="addon-wrapping">
               <i class="fi fi-rr-search"></i>
           </span>
-          <input class="form-control w-50 mx-auto mt-3" [(ngModel)]="searchCustomers" (ngModelChange)="onSearchChange($event.target.value)" type="text" placeholder="Buscar...">
-          <div *ngFor="let customer of customers">
-              <div (click)="selectCustomer(customer)">{{customer.name}}</div>
-          </div>
+          <input id="search" type="text" class="form-control" [(ngModel)]="searchCustomers" ngModel #searchCustomers="ngModel" (ngModelChange)="onSearchChange()"
+          [ngbTypeahead]="searchCustomer" placeholder="Search" aria-label="Search">
+          <p></p>
       </div>
     </div>
     <div class="col-sm-6 mb-3 mb-sm-0 ">
@@ -27,7 +26,8 @@
           <span class="input-group-text" id="addon-wrapping">
               <i class="fi fi-rr-search"></i>
           </span>
-          <input class="form-control w-50 mx-auto mt-3" [(ngModel)]="searchSale" (ngModelChange)="onSearchChange($event.target.value)" type="text" placeholder="Buscar...">
+          <input class="form-control w-50 mx-auto mt-3" [(ngModel)]="searchSale" (ngModelChange)="onSearchChange()"
+          type="text" placeholder="Buscar...">
       </div>
     </div>
   </div>

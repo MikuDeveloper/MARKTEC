@@ -5,11 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerModel } from '../../model/entities/customer.model';
 import { FirestoreService } from '../../model/api/firestore.service';
 import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-sale',
   standalone: true,
-  imports: [NgIf,CommonModule,FormsModule,ReactiveFormsModule,],
+  imports: [NgIf,CommonModule,FormsModule,ReactiveFormsModule,NgbModule,],
   templateUrl: './sale.component.html',
   styleUrl: './sale.component.scss'
 })
@@ -36,11 +37,19 @@ export class SaleComponent {
   }
   async ngOnInit(){
     this.originalCustomers = await this.databaseService.getCollectionDataC("customers");
+    console.log(this.originalCustomers)
     this.customers = [...this.originalCustomers]
   }
 
-  onSearchChange(searchValues:string): void {
-      this.searchCustomers = searchValues
+  searchCustomer = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.originalCustomers.filter((v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
+
+  onSearchChange(): void {
       const searchValue = this.removeAccents(this.searchCustomers.toLowerCase());
       this.customers = this.originalCustomers.filter(customer =>
       this.removeAccents(customer.name.toLowerCase()).includes(searchValue) ||
