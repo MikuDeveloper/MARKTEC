@@ -4,30 +4,83 @@
   <br>
   <div class="container">
       <div class="row">
-          <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
-              <div class="input-group flex-nowrap">
-                  <span class="input-group-text" id="addon-wrapping">
-                      <i class="fi fi-rr-search"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="Buscar..." aria-describedby="addon-wrapping">
-              </div>
-          </div>
+
       </div>
   </div>
   <br>
  </div>
 <div class="container">
   <div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0 ">
+      <div class="input-group flex-nowrap">
+          <span class="input-group-text" id="addon-wrapping">
+              <i class="fi fi-rr-search"></i>
+          </span>
+          <input class="form-control w-50 mx-auto mt-3" [(ngModel)]="searchCustomers" (ngModelChange)="onSearchChange($event.target.value)" type="text" placeholder="Buscar...">
+          <div *ngFor="let customer of customers">
+              <div (click)="selectCustomer(customer)">{{customer.name}}</div>
+          </div>
+      </div>
+    </div>
+    <div class="col-sm-6 mb-3 mb-sm-0 ">
+      <div class="input-group flex-nowrap">
+          <span class="input-group-text" id="addon-wrapping">
+              <i class="fi fi-rr-search"></i>
+          </span>
+          <input class="form-control w-50 mx-auto mt-3" [(ngModel)]="searchSale" (ngModelChange)="onSearchChange($event.target.value)" type="text" placeholder="Buscar...">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
       <!-- First card -->
     <div class="col-sm-6 mb-3 mb-sm-0 ">
-      <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newCustomer">
+      <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newCustomer" *ngIf="mostrarBoton">
         <div class="card-body">
           <i class="fi fi-rr-add"></i>
           <h6 class="card-title">Nuevo Cliente</h6>
         </div>
       </div>
+       <!-- Tarjeta de Cliente -->
+          <div class="card my-custom-card" *ngIf="mostrarTarjeta">
+            <div class="card-body">
+              <h5 class="card-title text-center">Fotos de Credencial</h5>
+                <div>
+                  <table class="table">
+                    <tbody>
+                      <tr class="col">
+                        <td><h6>Nombre</h6></td>
+                        <td><h5 class="text-center">{{customerNew.name}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Clave de Elector</h6></td>
+                        <td><h5 class="text-center">{{customerNew.voterKey}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Email</h6></td>
+                        <td><h5 class="text-center">{{customerNew.email}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Estatus</h6></td>
+                        <td><h5 class="text-center">{{customerNew.status}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Deuda</h6></td>
+                        <td><h5 class="text-center">{{customerNew.debt}}</h5></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+              <!--<button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)"><i class="fi fi-rr-pencil"></i></button>
+              <button class="btn btn-outline-success position-relative" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="clickInfo(customer)"><i class="fi fi-rr-info"></i></button>
+              <button class="btn btn-outline-danger position-relative" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(customer)"><i class="fi fi-rr-trash"></i></button>-->
+            </div>
+          </div>
     </div>
     <!-- Arrow icon -->
+
 
     <!-- Second card -->
     <div class="col-sm-6 mb-3 mb-sm-0 ">
@@ -171,7 +224,7 @@
 
 <!-- Modal  para Crear a un Nuevo Cliente-->
 <div class="modal fade" id="newCustomer" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-  <form>
+  <form #addForm="ngForm" (ngSubmit)="guardarForm(addForm.value)">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -182,22 +235,28 @@
 
             <!-- Nombre -->
             <label for="fileName">Nombre Completo</label>
-            <input type="text" id="name" class="form-control mt-3" name="name" placeholder="Escribe aquí"required />
+            <input type="text" id="name" class="form-control mb-3" name="name" placeholder="Escribe aquí"
+            ngModel #name="ngModel"required />
             <!-- Voter key -->
             <label for="fileName">Clave del Elector</label>
-            <input type="text" id="voterKey" class="form-control mt-3" name="voterKey" placeholder="Escribe aquí" required/>
+            <input type="text" id="voterKey" class="form-control mb-3" name="voterKey" placeholder="Escribe aquí"
+            ngModel #voterKey="ngModel"required/>
             <!-- Address -->
             <label for="fileName">Dirección</label>
-            <input type="text" id="address" class="form-control mt-3" name="address" placeholder="Escribe aquí" required/>
+            <input type="text" id="address" class="form-control mb-3" name="address" placeholder="Escribe aquí"
+            ngModel #address="ngModel" required/>
             <!-- Phone Number -->
             <label for="fileName">Número de Teléfono</label>
-            <input type="text" id="phoneNumber" class="form-control mt-3" name="phoneNumber" placeholder="Escribe aquí" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
+            <input type="text" id="phoneNumber" class="form-control mb-3" name="phoneNumber" placeholder="Escribe aquí"
+            ngModel #phoneNumber="ngModel" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
             <!-- Email -->
             <label for="fileName">Correo Electrónico</label>
-            <input type="text" id="email" class="form-control mt-3" name="email" placeholder="Escribe aquí" required email/>
+            <input type="text" id="email" class="form-control mb-3" name="email" placeholder="Escribe aquí"
+            ngModel #email="ngModel" required email/>
             <!-- Facebook -->
             <label for="fileName">Facebook</label>
-            <input type="text" id="facebook" class="form-control mt-3" name="facebook" placeholder="Escribe aquí" required/>
+            <input type="text" id="facebook" class="form-control mb-3" name="facebook" placeholder="Escribe aquí"
+            ngModel #facebook="ngModel" required/>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -311,3 +370,4 @@
     </div>
   </form>
 </div>
+
