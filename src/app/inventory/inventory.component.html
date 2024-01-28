@@ -1,9 +1,16 @@
+<div id="addNewProduct" class="fab"
+     routerLink="add" routerLinkActive #route="routerLinkActive" [routerLinkActive]="['visually-hidden']">
+  <i class="fi fi-rr-add"></i>
+</div>
+
 <section class="container">
   <div class="row text-center title">
     <h3>Inventario</h3>
   </div>
   <hr>
-  <form class="row" #inventorySearchForm="ngForm" (ngSubmit)="searchProduct(inventorySearchForm.value)" autocomplete="on">
+  <form id="searchProduct" class="row" [ngClass]="{'visually-hidden' : route.isActive}"
+        #inventorySearchForm="ngForm" (ngSubmit)="searchProduct(inventorySearchForm.value)"
+        autocomplete="on">
     <div class="col-lg-7 col-md-7 mt-1">
       <div class="form-floating">
         <input type="search" ngModel #search="ngModel" placeholder="Buscar producto..."
@@ -34,7 +41,3 @@
 
   <router-outlet></router-outlet>
 </section>
-
-<div class="fab" routerLink="add">
-  <i class="fi fi-rr-add"></i>
-</div>

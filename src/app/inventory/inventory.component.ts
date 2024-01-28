@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavService} from "../../model/utils/navbar.util";
 import {FormsModule} from "@angular/forms";
 import {NgClass} from "@angular/common";
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-inventory',
@@ -11,7 +11,8 @@ import {RouterLink, RouterOutlet} from "@angular/router";
     FormsModule,
     NgClass,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    RouterLinkActive
   ],
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.scss',
