@@ -10,6 +10,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { RoutesGuard } from "../model/utils/routes.guard";
 import { InventoryReportComponent } from './reports/inventory-report/inventory-report.component';
 import { SalesReportComponent } from './reports/sales-report/sales-report.component';
+import { InventoryAddComponent } from './inventory/inventory-add/inventory-add.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
