@@ -2,3 +2,13 @@ th{
     background-color: #0D6EFD;
     color: white;
 }
+
+/* Agregar contorno al botón */
+.btn-outline-custom {
+    border: 1px solid #6c757d; /* Color y grosor del contorno */
+  }
+  
+  /* Cambiar el color del texto del botón */
+  .btn-light-custom {
+    color: #000; /* Color del texto */
+  }

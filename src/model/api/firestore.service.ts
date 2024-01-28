@@ -5,6 +5,7 @@ import { Objeto } from '../entities/firestore-interface';
 import { database } from '../../firebase';
 import { CustomerModel } from '../entities/customer.model';
 import { Observable, of } from 'rxjs';
+import { ProductModel } from '../entities/product.model';
 
 
 @Injectable({
@@ -15,8 +16,13 @@ export class FirestoreService {
 // Método para obtener datos, pide como paraetro el nombre de la colección de Employees
   async getCollectionData(collectionName: string) {
     const querySnapshot = await getDocs(collection(database, collectionName));
-    return querySnapshot.docs.map(doc => doc.data() as Objeto);
+    return querySnapshot.docs.map(doc => doc.data() as Objeto );
   }
+  async getCollectionDataTest(collectionName: string) {
+    const querySnapshot = await getDocs(collection(database, collectionName));
+    return querySnapshot.docs.map(doc => doc.data() as ProductModel);
+  }
+
     /*
     const temporaryPassword = this.generateTemporaryPassword();
     data.password = temporaryPassword;

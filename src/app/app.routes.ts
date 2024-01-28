@@ -8,6 +8,8 @@ import { DebtsComponent } from './debts/debts.component';
 import { ReportsComponent } from './reports/reports.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { RoutesGuard } from "../model/utils/routes.guard";
+import { InventoryReportComponent } from './reports/inventory-report/inventory-report.component';
+import { SalesReportComponent } from './reports/sales-report/sales-report.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,5 +21,7 @@ export const routes: Routes = [
   { path: 'debts', component: DebtsComponent, canActivate: [RoutesGuard] },
   { path: 'reports', component: ReportsComponent, canActivate: [RoutesGuard] },
   { path: 'employees', component: EmployeesComponent, canActivate: [RoutesGuard] },
+  { path: 'reports-inventory', component: InventoryReportComponent, canActivate: [RoutesGuard] },
+  { path: 'reports-sales', component: SalesReportComponent, canActivate: [RoutesGuard] },
 
 ];

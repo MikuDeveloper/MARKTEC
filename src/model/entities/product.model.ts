@@ -1,5 +1,7 @@
+import { Timestamp } from "firebase/firestore"
+
 export interface ProductModel {
-  IMEI : string
+  imei : string
   model : string
   color  : string
   storage : string
@@ -8,5 +10,6 @@ export interface ProductModel {
   category : string
   entryDate : Date
   operator : string
+  hour: Timestamp
   location : string
 }
