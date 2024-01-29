@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {NavService} from "../../model/utils/navbar.utils";
+import { Component, TemplateRef } from '@angular/core';
+import {NavService} from "../../model/utils/navbar.util";
 
 @Component({
   selector: 'app-debts',

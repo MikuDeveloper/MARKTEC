@@ -1,1 +1,205 @@
-<p>debts works!</p>
+<section class="container">
+  <div class="row text-center title">
+    <h3>Adeudos</h3>
+  </div>
+  <hr><br>
+</section>
+<section class="container-sm">
+  <div class="row">
+    <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">
+                <i class="fi fi-rr-search"></i>
+            </span>
+            <input type="text" class="form-control" id="search" name="search" placeholder="Buscar..." aria-describedby="addon-wrapping">
+        </div>
+    </div>
+  </div>
+  <br>
+</section>
+<section class="container-sm">
+  <div class="table-responsive">
+        <table class="table table-bordered text-center">
+            <!-- Encabezado de la tabla -->
+            <thead>
+                <tr>
+                <th scope="col">Cliente</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nombre_cliente</td>
+                    <td>Nombre_producto</td>
+                    <td>$00.00 - <button class="btn btn-link align-baseline" data-bs-toggle="modal" data-bs-target="#details">Detalles</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<!-- Pagination -->
+<section class="container-sm">
+  <div class="row">
+      <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
+        <nav  aria-label="...">
+          <ul class="pagination">
+            <li class="page-item disabled mb-2">
+              <span class="page-link"><i class="fi fi-rr-angle-left"></i></span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">2</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item mb-2">
+              <a class="page-link" href="#"><i class="fi fi-rr-angle-right"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>  
+    </div>
+</section>
+  <!-- Modal Details-->
+<div class="modal fade" id="details" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header"> 
+            <div class="text-center d-flex justify-content-center align-items-center w-100">
+                <h1 class="modal-title fs-4" id="newModalLabel">Información de Adeudo</h1>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">         
+            <!-- Second column -->
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-6 ">
+                            <h6 class="text-end"><b>Cliente:</b></h6>
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="text">texto</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="text-end"><b>Producto:</b></h6>
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="text">texto</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="text-end"><b>Total:</b></h6>
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="text">texto</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="text-end"><b>Fecha Inicial:</b></h6>
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="text">texto</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="text-end"><b>Fecha Final:</b></h6>
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="text">texto</h6>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="modal-header text-center d-flex justify-content-center align-items-center">
+              <h1 class="fs-5" id="newModalLabel2">Fechas de Pago</h1>
+            </div>
+            <br>
+            <div class="container">
+              <div class="table-responsive">
+                  <table class="table table-bordered text-center">
+                      <!-- Encabezado de la tabla -->
+                      <thead>
+                          <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Monto</th>
+                          <th scope="col">Fecha límite</th>
+                          <th scope="col">Estatus</th>
+                          </tr>
+                      </thead>
+                      <tbody class="align-middle">
+                          <tr>
+                              <td>1</td>
+                              <td>$00.00</td>
+                              <td>dd/mm/aa</td>
+                              <td><button class="btn btn-outline-success disabled">Pagado</button></td>
+                          </tr>
+                          <tr>
+                              <td>2</td>
+                              <td>$00.00</td>
+                              <td>dd/mm/aa</td>
+                              <td><button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#pay">Atrasado</button></td>
+                          </tr>
+                          <tr>
+                              <td>3</td>
+                              <td>$00.00</td>
+                              <td>dd/mm/aa</td>
+                              <td><button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#pay">Pendiente</button></td>
+                          </tr>
+                          <tr>
+                              <td>4</td>
+                              <td>$00.00</td>
+                              <td>dd/mm/aa</td>
+                              <td>--</td>
+                          </tr>
+                          <tr>
+                              <td>5</td>
+                              <td>$00.00</td>
+                              <td>dd/mm/aa</td>
+                              <td>--</td>
+                          </tr>
+                          <tr>
+                              <td>6</td>
+                              <td>$00.00</td>
+                              <td>dd/mm/aa</td>
+                              <td>--</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <p>**Se aplica un interés del 3% en pagos tardíos, se verá reflejado en el próximo pago</p>
+          </div>
+          <!-- <div class="container"><hr></div> -->
+        </div>
+      </div>
+  </div>
+
+   <!-- Modal para agregar Monto-->
+<div class="modal fade" id="pay" tabindex="1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="newModalLabel">Agregar Monto</h1>
+        </div>
+        <div class="modal-body">
+          <form>
+            <!-- Amount -->
+            <label for="amount">Cantidad</label>
+            <input type="text" id="amount" class="form-control mb-3" name="amount" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#details" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#details" data-bs-dismiss="modal">Ingresar</button>
+        </div>
+      </div>
+    </div>
+</div>

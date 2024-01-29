@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavService } from "../../model/utils/navbar.utils";
 import { FirestoreService } from '../../model/api/firestore.service';
 import { AsyncPipe,NgForOf } from '@angular/common';
 import { FormControl, FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { CustomerModel } from '../../model/entities/customer.model';
+import { NavService } from '../../model/utils/navbar.util';
 @Component({
   selector: 'app-customers',
   standalone: true,

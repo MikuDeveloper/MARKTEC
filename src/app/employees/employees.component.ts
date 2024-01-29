@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavService } from "../../model/utils/navbar.utils";
 import { FirestoreService } from '../../model/api/firestore.service';
 import { AsyncPipe,NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Objeto } from '../../model/entities/firestore-interface';
+import { NavService } from '../../model/utils/navbar.util';
 
 @Component({
   selector: 'app-employees',

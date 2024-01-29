@@ -4,310 +4,442 @@
   <br>
   <div class="container">
       <div class="row">
-          <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
-              <div class="input-group flex-nowrap">
-                  <span class="input-group-text" id="addon-wrapping">
-                      <i class="fi fi-rr-search"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="Buscar..." aria-describedby="addon-wrapping">
-              </div>
-          </div>
+
       </div>
   </div>
   <br>
  </div>
 <div class="container">
   <div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0 ">
+      <div class="input-group flex-nowrap">
+          <span class="input-group-text" id="addon-wrapping">
+              <i class="fi fi-rr-search"></i>
+          </span>
+          <input id="search" type="text" class="form-control" [(ngModel)]="searchCustomers" (ngModelChange)="onSearchChange()"
+           placeholder="Search" aria-label="Search">
+          <p></p>
+      </div>
+    </div>
+    <div class="col-sm-6 mb-3 mb-sm-0 ">
+      <div class="input-group flex-nowrap">
+          <span class="input-group-text" id="addon-wrapping">
+              <i class="fi fi-rr-search"></i>
+          </span>
+          <input class="form-control w-50 mx-auto mt-3" [(ngModel)]="searchSale" (ngModelChange)="onSearchChange()"
+          type="text" placeholder="Buscar...">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
       <!-- First card -->
     <div class="col-sm-6 mb-3 mb-sm-0 ">
-      <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newCustomer">
+      <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newCustomer" *ngIf="mostrarBoton">
         <div class="card-body">
           <i class="fi fi-rr-add"></i>
           <h6 class="card-title">Nuevo Cliente</h6>
         </div>
       </div>
-    </div>
-    <!-- Arrow icon -->
-
-    <!-- Second card -->
-    <div class="col-sm-6 mb-3 mb-sm-0 ">
-      <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newItemforSale">
-        <div class="card-body">
-          <i class="fi fi-rr-add"></i>
-          <h6 class="card-title">Artículo en venta</h6>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Segunda Fila -->
-  <div class="row">
-  <h5 class="text">Artículos Recibidos</h5>
-      <!-- First card -->
-    <div class="col-sm-6 mb-3 mb-sm-0 ">
-      <div class="card">
-        <div class="card-body2">
-          <div class="row">
-              <!-- First column -->
-              <div class="col-md-4">
-                <h1>Imagen</h1>
-              </div>
-              <!-- Second column -->
-              <div class="col-md-8">
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Modelo:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">IMEI:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Precio:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Categoría:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Color:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Almacenamiento:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Fecha:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Operador:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Estado de batería:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Estado física:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <h6 class="text">Observaciones adicionales:</h6>
-                          </div>
-                          <div class="col-sm-8">
-                              <h6 class="text">texto</h6>
-                          </div>
-                      </div>
-                      <div class="row mt-2">
-                          <div class="col-md-12">
-                              <button class="btn btn-outline-primary float-start" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
-                              <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
-                          </div>
-
-                      </div>
-              </div>
+       <!-- Tarjeta de Cliente -->
+          <div class="card my-custom-card" *ngIf="mostrarTarjeta">
+            <div class="card-body">
+              <h5 class="card-title text-center">Fotos de Credencial</h5>
+                <div>
+                  <table class="table">
+                    <tbody>
+                      <tr class="col">
+                        <td><h6>Nombre</h6></td>
+                        <td><h5 class="text-center">{{customerNew.name}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Clave de Elector</h6></td>
+                        <td><h5 class="text-center">{{customerNew.voterKey}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Email</h6></td>
+                        <td><h5 class="text-center">{{customerNew.email}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Estatus</h6></td>
+                        <td><h5 class="text-center">{{customerNew.status}}</h5></td>
+                      </tr>
+                      <tr>
+                        <td><h6>Deuda</h6></td>
+                        <td><h5 class="text-center">{{customerNew.debt}}</h5></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
             </div>
         </div>
-        <!-- <div class="card-footer">
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
-          <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
-        </div> -->
+    </div>
+    <br>
+   </div>
+  <div class="container">
+    <div class="row">
+        <!-- First card -->
+      <div class="col-sm-6 mb-3 mb-sm-0 ">
+        <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newCustomer">
+          <div class="card-body">
+            <i class="fi fi-rr-add"></i>
+            <h6 class="card-title">Nuevo Cliente</h6>
+          </div>
+        </div>
+      </div>
+      <!-- Arrow icon -->
+
+      <!-- Second card -->
+      <div class="col-sm-6 mb-3 mb-sm-0 ">
+        <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newItemforSale">
+          <div class="card-body">
+            <i class="fi fi-rr-add"></i>
+            <h6 class="card-title">Artículo en venta</h6>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- Second card -->
-    <div class="col-sm-6 mb-3 mb-sm-0 ">
-      <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newItem">
-        <div class="card-body">
-          <i class="fi fi-rr-add"></i>
-          <h6 class="card-title">Agregar Artículo</h6>
+    <!-- Segunda Fila -->
+    <div class="row">
+    <h5 class="text">Artículos Recibidos</h5>
+        <!-- First card -->
+      <div class="col-sm-6 mb-3 mb-sm-0 ">
+        <div class="card">
+          <div class="card-body2">
+            <div class="row">
+                <!-- First column -->
+                <div class="col-md-4">
+                  <h1>Imagen</h1>
+                </div>
+                <!-- Second column -->
+                <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Modelo:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">IMEI:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Precio:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Categoría:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Color:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Almacenamiento:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Fecha:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Operador:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Estado de batería:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Estado física:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="text">Observaciones adicionales:</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                <h6 class="text">texto</h6>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <button class="btn btn-outline-primary float-start" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
+                                <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
+                            </div>
+
+                        </div>
+                </div>
+              </div>
+          </div>
+          <!-- <div class="card-footer">
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
+            <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
+          </div> -->
+        </div>
+      </div>
+      <!-- Second card -->
+      <div class="col-sm-6 mb-3 mb-sm-0 ">
+        <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newItem">
+          <div class="card-body">
+            <i class="fi fi-rr-add"></i>
+            <h6 class="card-title">Agregar Artículo</h6>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 <!-- Modal  para Crear a un Nuevo Cliente-->
 <div class="modal fade" id="newCustomer" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-  <form>
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="newModalLabel">Nuevo Cliente</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-            <!-- Nombre -->
-            <label for="fileName">Nombre Completo</label>
-            <input type="text" id="name" class="form-control mt-3" name="name" placeholder="Escribe aquí"required />
-            <!-- Voter key -->
-            <label for="fileName">Clave del Elector</label>
-            <input type="text" id="voterKey" class="form-control mt-3" name="voterKey" placeholder="Escribe aquí" required/>
-            <!-- Address -->
-            <label for="fileName">Dirección</label>
-            <input type="text" id="address" class="form-control mt-3" name="address" placeholder="Escribe aquí" required/>
-            <!-- Phone Number -->
-            <label for="fileName">Número de Teléfono</label>
-            <input type="text" id="phoneNumber" class="form-control mt-3" name="phoneNumber" placeholder="Escribe aquí" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
-            <!-- Email -->
-            <label for="fileName">Correo Electrónico</label>
-            <input type="text" id="email" class="form-control mt-3" name="email" placeholder="Escribe aquí" required email/>
-            <!-- Facebook -->
-            <label for="fileName">Facebook</label>
-            <input type="text" id="facebook" class="form-control mt-3" name="facebook" placeholder="Escribe aquí" required/>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ingresar</button>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
-<!-- Modal para agregar Artículo en venta-->
-<div class="modal fade" id="newItemforSale" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-  <form>
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="newModalLabel">Agregar Artículo en Venta</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <!-- Model -->
-            <label for="fileName">Modelo</label>
-            <input type="text" id="model" class="form-control mt-3" name="model" placeholder="Escribe aquí"required/>
-            <!-- IMEI -->
-            <label for="fileName">IMEI</label>
-            <input type="text" id="imei" class="form-control mt-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
-            <!-- Price -->
-            <label for="fileName">Precio</label>
-            <input type="text" id="price" class="form-control mt-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
-            <!-- Topic -->
-            <label for="fileName">Categoría</label>
-            <input type="text" id="topic" class="form-control mt-3" name="topic" placeholder="Escribe aquí" required/>
-            <!-- Color -->
-            <label for="fileName">Color</label>
-            <input type="text" id="color" class="form-control mt-3" name="color" placeholder="Escribe aquí" required/>
-            <!-- Storage -->
-            <label for="fileName">Almacenamiento</label>
-            <input type="text" id="storage" class="form-control mt-3" name="storage" placeholder="Escribe aquí" required/>
-            <!-- Date -->
-            <label for="fileName">Fecha</label>
-            <input type="text" id="date" class="form-control mt-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
-            <!-- Operator -->
-            <label for="fileName">Operador</label>
-            <input type="text" id="operator" class="form-control mt-3" name="operator" placeholder="Escribe aquí" required/>
-            <!-- Battery state -->
-            <label for="fileName">Estado de la batería</label>
-            <input type="text" id="batteryState" class="form-control mt-3" name="batteryState" placeholder="Escribe aquí" required/>
-            <!-- PhysicalState -->
-            <label for="fileName">Estado Físico</label>
-            <input type="text" id="physicalState" class="form-control mt-3" name="physicalState" placeholder="Escribe aquí" required/>
-            <!-- Observations -->
-            <label for="fileName">Observaciones Adicionales</label>
-            <input type="text" id="observations" class="form-control mt-3" name="observations" placeholder="Escribe aquí" required/>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ingresar</button>
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="newModalLabel">Nuevo Cliente</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <!-- Nombre -->
+              <label for="fileName">Nombre Completo</label>
+              <input type="text" id="name" class="form-control mb-3" name="name" placeholder="Escribe aquí"required />
+              <!-- Voter key -->
+              <label for="fileName">Clave del Elector</label>
+              <input type="text" id="voterKey" class="form-control mb-3" name="voterKey" placeholder="Escribe aquí" required/>
+              <!-- Address -->
+              <label for="fileName">Dirección</label>
+              <input type="text" id="address" class="form-control mb-3" name="address" placeholder="Escribe aquí" required/>
+              <!-- Phone Number -->
+              <label for="fileName">Número de Teléfono</label>
+              <input type="text" id="phoneNumber" class="form-control mb-3" name="phoneNumber" placeholder="Escribe aquí" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
+              <!-- Email -->
+              <label for="fileName">Correo Electrónico</label>
+              <input type="text" id="email" class="form-control mb-3" name="email" placeholder="Escribe aquí" required email/>
+              <!-- Facebook -->
+              <label for="fileName">Facebook</label>
+              <input type="text" id="facebook" class="form-control mb-3" name="facebook" placeholder="Escribe aquí" required/>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ingresar</button>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
-</div>
-<!-- Modal para agregar Artículo-->
+  </div>
+  <!-- Modal para agregar Artículo en venta-->
+  <div class="modal fade" id="newItemforSale" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="newModalLabel">Agregar Artículo en Venta</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <!-- Model -->
+              <label for="fileName">Modelo</label>
+              <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
+              <!-- IMEI -->
+              <label for="fileName">IMEI</label>
+              <input type="text" id="imei" class="form-control mb-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
+              <!-- Price -->
+              <label for="fileName">Precio</label>
+              <input type="text" id="price" class="form-control mb-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
+              <!-- Topic -->
+              <label for="fileName">Categoría</label>
+              <input type="text" id="topic" class="form-control mb-3" name="topic" placeholder="Escribe aquí" required/>
+              <!-- Color -->
+              <label for="fileName">Color</label>
+              <input type="text" id="color" class="form-control mb-3" name="color" placeholder="Escribe aquí" required/>
+              <!-- Storage -->
+              <label for="fileName">Almacenamiento</label>
+              <input type="text" id="storage" class="form-control mb-3" name="storage" placeholder="Escribe aquí" required/>
+              <!-- Date -->
+              <label for="fileName">Fecha</label>
+              <input type="text" id="date" class="form-control mb-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
+              <!-- Operator -->
+              <label for="fileName">Operador</label>
+              <input type="text" id="operator" class="form-control mb-3" name="operator" placeholder="Escribe aquí" required/>
+              <!-- Battery state -->
+              <label for="fileName">Estado de la batería</label>
+              <input type="text" id="batteryState" class="form-control mb-3" name="batteryState" placeholder="Escribe aquí" required/>
+              <!-- PhysicalState -->
+              <label for="fileName">Estado Físico</label>
+              <input type="text" id="physicalState" class="form-control mb-3" name="physicalState" placeholder="Escribe aquí" required/>
+              <!-- Observations -->
+              <label for="fileName">Observaciones Adicionales</label>
+              <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ingresar</button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!-- Modal para agregar Artículo-->
 <div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-  <form>
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="newModalLabel">Agregar Artículo</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <!-- Model -->
+              <label for="fileName">Modelo</label>
+              <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
+              <!-- IMEI -->
+              <label for="fileName">IMEI</label>
+              <input type="text" id="imei" class="form-control mb-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
+              <!-- Price -->
+              <label for="fileName">Precio</label>
+              <input type="text" id="price" class="form-control mb-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
+              <!-- Topic -->
+              <label for="fileName">Categoría</label>
+              <input type="text" id="topic" class="form-control mb-3" name="topic" placeholder="Escribe aquí" required/>
+              <!-- Color -->
+              <label for="fileName">Color</label>
+              <input type="text" id="color" class="form-control mb-3" name="color" placeholder="Escribe aquí" required/>
+              <!-- Storage -->
+              <label for="fileName">Almacenamiento</label>
+              <input type="text" id="storage" class="form-control mb-3" name="storage" placeholder="Escribe aquí" required/>
+              <!-- Date -->
+              <label for="fileName">Fecha</label>
+              <input type="text" id="date" class="form-control mb-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
+              <!-- Operator -->
+              <label for="fileName">Operador</label>
+              <input type="text" id="operator" class="form-control mb-3" name="operator" placeholder="Escribe aquí" required/>
+              <!-- Battery state -->
+              <label for="fileName">Estado de la batería</label>
+              <input type="text" id="batteryState" class="form-control mb-3" name="batteryState" placeholder="Escribe aquí" required/>
+              <!-- PhysicalState -->
+              <label for="fileName">Estado Físico</label>
+              <input type="text" id="physicalState" class="form-control mb-3" name="physicalState" placeholder="Escribe aquí" required/>
+              <!-- Observations -->
+              <label for="fileName">Observaciones Adicionales</label>
+              <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ingresar</button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!-- Modal para Eliminar articulo-->
+<div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Se eliminará el Artículo: </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal para Editar la información del artículo-->
+<div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="newModalLabel">Agregar Artículo</h1>
+          <h5 class="modal-title">Editar Artículo</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <!-- Model -->
-            <label for="fileName">Modelo</label>
-            <input type="text" id="model" class="form-control mt-3" name="model" placeholder="Escribe aquí"required/>
-            <!-- IMEI -->
-            <label for="fileName">IMEI</label>
-            <input type="text" id="imei" class="form-control mt-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
-            <!-- Price -->
-            <label for="fileName">Precio</label>
-            <input type="text" id="price" class="form-control mt-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
-            <!-- Topic -->
-            <label for="fileName">Categoría</label>
-            <input type="text" id="topic" class="form-control mt-3" name="topic" placeholder="Escribe aquí" required/>
-            <!-- Color -->
-            <label for="fileName">Color</label>
-            <input type="text" id="color" class="form-control mt-3" name="color" placeholder="Escribe aquí" required/>
-            <!-- Storage -->
-            <label for="fileName">Almacenamiento</label>
-            <input type="text" id="storage" class="form-control mt-3" name="storage" placeholder="Escribe aquí" required/>
-            <!-- Date -->
-            <label for="fileName">Fecha</label>
-            <input type="text" id="date" class="form-control mt-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
-            <!-- Operator -->
-            <label for="fileName">Operador</label>
-            <input type="text" id="operator" class="form-control mt-3" name="operator" placeholder="Escribe aquí" required/>
-            <!-- Battery state -->
-            <label for="fileName">Estado de la batería</label>
-            <input type="text" id="batteryState" class="form-control mt-3" name="batteryState" placeholder="Escribe aquí" required/>
-            <!-- PhysicalState -->
-            <label for="fileName">Estado Físico</label>
-            <input type="text" id="physicalState" class="form-control mt-3" name="physicalState" placeholder="Escribe aquí" required/>
-            <!-- Observations -->
-            <label for="fileName">Observaciones Adicionales</label>
-            <input type="text" id="observations" class="form-control mt-3" name="observations" placeholder="Escribe aquí" required/>
+         <form>
+         <!-- Model -->
+         <label for="fileName">Modelo</label>
+         <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
+         <!-- IMEI -->
+         <label for="fileName">IMEI</label>
+         <input type="text" id="imei" class="form-control mb-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
+         <!-- Price -->
+         <label for="fileName">Precio</label>
+         <input type="text" id="price" class="form-control mb-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
+         <!-- Topic -->
+         <label for="fileName">Categoría</label>
+         <input type="text" id="topic" class="form-control mb-3" name="topic" placeholder="Escribe aquí" required/>
+         <!-- Color -->
+         <label for="fileName">Color</label>
+         <input type="text" id="color" class="form-control mb-3" name="color" placeholder="Escribe aquí" required/>
+         <!-- Storage -->
+         <label for="fileName">Almacenamiento</label>
+         <input type="text" id="storage" class="form-control mb-3" name="storage" placeholder="Escribe aquí" required/>
+         <!-- Date -->
+         <label for="fileName">Fecha</label>
+         <input type="text" id="date" class="form-control mb-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
+         <!-- Operator -->
+         <label for="fileName">Operador</label>
+         <input type="text" id="operator" class="form-control mb-3" name="operator" placeholder="Escribe aquí" required/>
+         <!-- Battery state -->
+         <label for="fileName">Estado de la batería</label>
+         <input type="text" id="batteryState" class="form-control mb-3" name="batteryState" placeholder="Escribe aquí" required/>
+         <!-- PhysicalState -->
+         <label for="fileName">Estado Físico</label>
+         <input type="text" id="physicalState" class="form-control mb-3" name="physicalState" placeholder="Escribe aquí" required/>
+         <!-- Observations -->
+         <label for="fileName">Observaciones Adicionales</label>
+         <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
+         </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ingresar</button>
+          <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">Guardar Cambios</button>
         </div>
       </div>
     </div>
-  </form>
 </div>
+
+
+

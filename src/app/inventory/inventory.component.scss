@@ -1,0 +1,51 @@
+.fab {
+  width: 48pt;
+  height: 48pt;
+  background-color: #17d973;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 15pt;
+  right: 15pt;
+  color: var(--white);
+  box-shadow: 0 2pt 5pt 0 rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  line-height: 48pt;
+  text-align: center;
+  .fi {
+    font-size: 24pt;
+    vertical-align: middle;
+  }
+}
+
+.fab:hover {
+  background-color: #14e87a;
+  cursor: pointer;
+}
+.card {
+    border-radius: 10pt;
+    margin: 10pt;
+
+    .card-body {
+      color: rgb(100, 100, 100);
+      background-color: rgb(238, 238, 238);
+      font-size: 64pt;
+      border-radius: 10pt;
+    }
+
+    .card-body2 {
+        color: rgb(100, 100, 100);
+        background-color: rgb(255, 255, 255);
+        font-size: 64pt;
+        border-radius: 10pt;
+        margin: 10pt;
+        border-right:1xp;
+        border-color: black;
+
+      }
+
+  }
+
+  .fi-rr-apps-add {
+    font-size: 40px;
+  }
+

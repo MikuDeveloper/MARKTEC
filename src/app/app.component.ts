@@ -1,8 +1,12 @@
-import {Component, OnDestroy} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import {NavService} from "../model/utils/navbar.utils";
-import {Subscription} from "rxjs";
+import { User, signOut } from 'firebase/auth'
+import { auth } from '../firebase';
+import { NavService } from "../model/utils/navbar.util";
+import { Subscription } from "rxjs";
+import { SessionService } from "../model/utils/session.service";
+import {ElementsService} from "../model/utils/elements.service";
 
 @Component({
   selector: 'app-root',
@@ -11,31 +15,38 @@ import {Subscription} from "rxjs";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnDestroy{
-  title : string = 'MARKTEC'
-  selectedRoute : HTMLElement | undefined
+export class AppComponent implements OnDestroy, AfterViewInit {
+  title: string = 'MARKTEC'
+  showNav: boolean = false
+  currentUser: User | null | undefined
+  navSubscription: Subscription
+  userSubscription: Subscription
 
-  subscription : Subscription
-  constructor(private router : Router, private navService : NavService) {
-    this.subscription = this.navService.showNav$.subscribe(value => this.showNav = value);
+  constructor(private router: Router, private navService: NavService, private authentication: SessionService, private elementsService: ElementsService) {
+    this.navSubscription = this.navService.showNav$.subscribe(value => this.showNav = value)
+    this.userSubscription = this.authentication.getUser$().subscribe(user => this.currentUser = user)
   }
+
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    this.navSubscription.unsubscribe()
+    this.userSubscription.unsubscribe()
   }
 
-  goToRoute(route : string) {
+  goToRoute(route: string) {
     this.closeSidebar()
     this.router.navigate([route]).then().catch()
   }
+
   closeSidebar() {
-    const close : HTMLButtonElement = document.getElementById('btn-close-sidebar')! as HTMLButtonElement;
+    const close: HTMLButtonElement = document.getElementById('btn-close-sidebar')! as HTMLButtonElement
     close.click()
   }
-  setAndRemoveSelectedStyle(id : string) {
-    let sidebarItem : HTMLElement = document.getElementById(`${id}-route`)! as HTMLElement
-    if (typeof this.selectedRoute !== 'undefined') this.selectedRoute.classList.remove('selected')
-    this.selectedRoute = sidebarItem
-    this.selectedRoute.classList.add('selected')
+
+  async closeSession() {
+    await signOut(auth)
   }
-  public showNav : boolean = false;
+
+  ngAfterViewInit(): void {
+    this.elementsService.initializeDropdowns()
+  }
 }

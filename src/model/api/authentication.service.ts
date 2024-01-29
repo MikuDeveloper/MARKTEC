@@ -1,51 +1,69 @@
 import { Injectable } from '@angular/core';
-import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
-
+import { BehaviorSubject, Observable } from 'rxjs';
+import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser, sendSignInLinkToEmail, signInWithEmailLink } from 'firebase/auth';
 import { Router } from '@angular/router';
-import { AlertService } from '../alerts/alert.service';
 import { UserModel } from '../../model/entities/user.model';
-import { auth } from '../../app/firebase';
-
+import { auth } from '../../firebase';
+import { FirestoreService } from './firestore.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  user!: UserModel | null
-  //isAuthenticated: boolean = false
+  private userSubject = new BehaviorSubject<UserModel | null | undefined>(null);
+
+  user$ = this.userSubject.asObservable();
 
   constructor(
     private router:Router,
-    private alertService: AlertService
-  ) { onAuthStateChanged(auth, (user) => {
-    // Si existe un usuario, se asignan detalles del usuario a la propiedad 'user'.
-     if (user) {
-       this.user = {
+    private firestoreService: FirestoreService
+  ) { 
+    onAuthStateChanged(auth, async (user) => {
+     if (user) {// Si existe un usuario, se asignan detalles del usuario a la propiedad 'user'.
+      try{
+        const userData = await this.firestoreService.getCollectionData('employees');// Extraer datos del usuario desde Firestore
+        const userByEmail = userData.find((data) => data.email === user.email);// Filtrar los datos del usuario correspondiente al correo electrónico actual
+        if(userByEmail){
+          this.userSubject.next ({
          email: user.email, // Identificador único del usuario
-         name: user.displayName,//displayName puede ser nulo si no se proporciona al autenticar.
-         role: user.displayName
-       };
-        //para indicar que el usuario está autenticado.
-        localStorage.setItem('isAuthenticated', 'true')
-     } else { //Si no hay usuario.
-        this.user = null
-        localStorage.setItem('isAuthenticated', 'false')
+         name: userByEmail.name,//displayName puede ser nulo si no se proporciona al autenticar.
+         role: userByEmail.role
+        });
+        //this.router.navigate(['/inventory']).then().catch()
+        }else{
+          console.error(`No se encontraron datos para el usuario con correo electrónico ${user.email}`);
+          this.userSubject.next(null)
+        }
+      }catch(error){
+        console.error('Error al obtener datos del usuario desde Firestore:', error);
+      } 
+     } else{ //Si no hay usuario.
+        this.userSubject.next(null)
      }
-   });}
+   });
+  }
 
   async signUpUser(email : string, password : string) {
-    return await createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, email, password)
   }
+
   async signInUser(email : string, password : string): Promise <void>{
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-      this.router.navigate(['dashboard'])
+      await signInWithEmailAndPassword(auth, email, password)   
     } catch (error: any) {
       console.error(error)
-      if (error.code === 'auth/too-many-requests') {
-       this.alertService.showAlert("Has realizado demasiados intentos de inicio de sesión fallidos. Informar al Administrador.");
-      } else {
-        this.alertService.showAlert("El usuario o la contraseña no son válidos") //Podemos usar un error.message
+      switch(error.code){
+        case 'auth/invalid-email':
+          throw new Error ("*El correo no es válido*")
+          break
+        case  'auth/invalid-credential':
+          throw new Error("*El correo o la contraseña no es válido*")  
+        break
+        case 'auth/network-request-failed':
+          throw new Error ("*No hay conexión a la Red :/ \n Intentelo más tarde*")
+          break
+        default:
+          throw new Error ('*El correo o la contraseña no son válidos*')
       }
     }
   }
@@ -58,24 +76,38 @@ export class AuthenticationService {
   async resetPassword(email : string) {
     return await sendPasswordResetEmail(auth, email)
   }
+  
   async signOutUser (): Promise <void>{
     try {
       await signOut(auth)
-      this.user = null
-      this.router.navigate(['login']);
+      this.router.navigate(['login'])
     } catch (error) {
-      console.error(error);
+      console.error(error)
+    }
+  }
+  //Enviar un correo al correo del usuario nuevo que se registra para validar su registro 
+  async sendVerificationEmail(email: string, password: string) {
+    const actionCodeSettings = {
+      url: 'https://www.youtube.com/watch?v=koBsCwzhzv8', // URL a la que se redirigirá después de la verificación
+    };
+
+    try {
+      // Utiliza la función sendPasswordResetEmail para enviar el correo con la contraseña temporal
+      const sendEmail= await sendSignInLinkToEmail(auth, email, actionCodeSettings)
+      return sendEmail
+    } catch (error) {
+      console.error('Error al enviar el correo de verificación:', error);
     }
   }
 
-  isLogged():boolean{
-    const authenticated =  localStorage.getItem('isAuthenticated') === 'true' //comparar si el valor recuperado es estrictamente igual a la cadena de texto
-    //Verifica si el usuario está autenticado
-    if (authenticated){
-        return true;
-    }else{
-        return false
-
-    }
+  /*isLogged():Observable<boolean>{
+    return this.isAuthenticated$
   }
+  getUser(): Observable<UserModel | null> {
+    return this.user$ 
+  }
+  logOut(): void{
+    this.authService.signOutUser() 
+  }
+  */
 }

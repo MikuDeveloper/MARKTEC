@@ -1,1 +1,29 @@
-<p>reports works!</p>
+
+<div class="container-fluid">
+  <button class="btn btn-light btn-lg btn-outline-custom" type="button" data-bs-toggle="offcanvas" data-bs-target="#offCanvasReports" aria-controls="offcanvasNavbar">
+    <span class="fi fi-rr-clipboard-list"></span>
+  </button>
+</div>
+
+<aside class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offCanvasReports" aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Reportes</h5>
+    <button type="button" class="btn-close" id="btn-close-sidebar" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <section class="sidebar-item" id="inventory-route" (click)="goToRoute('reports-inventory')" routerLink="/inventory" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-inventory-alt"></i>
+      <p>Inventario</p>
+    </section>
+    <section class="sidebar-item" id="sale-route" (click)="goToRoute('reports-sales')" routerLink="/sale" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-dollar"></i>
+      <p>Venta</p>
+    </section>
+  </div>
+</aside>
