@@ -5,14 +5,17 @@
   </ol>
 </nav>
 
-<form id="inventoryAddForm" class="row g-2" #inventoryAddForm="ngForm" (ngSubmit)="addToInventory(inventoryAddForm.value)">
+<form id="inventoryAddForm" class="row g-2 needs-validation" #inventoryAddForm="ngForm" (ngSubmit)="addToInventory(inventoryAddForm.value)">
   <legend>Información del nuevo producto</legend>
 
   <div class="col-lg-6 col-md-6">
     <div class="form-floating">
-      <input type="datetime-local" name="entryDate" id="entryDate" class="form-control" placeholder="Fecha"
+      <!--<input type="datetime-local" name="entryDate" id="entryDate" class="form-control" placeholder="Fecha"
              ngModel #entryDate="ngModel" [ngClass]="{'is-invalid':(entryDate.invalid && entryDate.dirty)}" [required]="true" />
-      <label for="entryDate">Fecha de entrada</label>
+      <label for="entryDate">Fecha de entrada</label>-->
+      <input type="text" name="brand" id="brand" class="form-control" placeholder="Marca"
+             ngModel #brand="ngModel" [ngClass]="{'is-invalid':(brand.invalid && brand.dirty)}" [required]="true" />
+      <label for="brand">Marca</label>
     </div>
   </div>
 
@@ -56,34 +59,76 @@
     </div>
   </div>
 
-  <div class="col-lg-6 col-md-6 mb-4">
-    <div class="input-group">
-      <div class="form-floating">
-        <input type="text" name="storage" id="storage" class="form-control" placeholder="64GB"
-               ngModel #storage="ngModel" [ngClass]="{'is-invalid':(storage.invalid && storage.dirty)}" [required]="true" />
-        <label for="storage">Almacenamiento</label>
+  <div class="col-lg-6 col-md-6">
+    <div class="row">
+      <div class="col-lg-7 col-md-7 mb-2">
+        <div class="form-floating">
+          <input type="number" name="storageCapacity" id="storageCapacity" class="form-control" placeholder="64GB"
+                 ngModel #storageCapacity="ngModel" [ngClass]="{'is-invalid':(storageCapacity.invalid && storageCapacity.dirty)}"
+                 [required]="NA_Storage.value == false" [min]="1" [disabled]="NA_Storage.value == true" />
+          <label for="storageCapacity">Almacenamiento</label>
+        </div>
       </div>
-      <span class="input-group-text">GB</span>
+
+      <div class="col-lg-5 col-md-5 mb-2">
+        <div class="form-floating">
+          <select name="storageUnit" id="storageUnit" class="form-select" aria-label="Select storageUnit"
+                  ngModel #storageUnit="ngModel" [ngClass]="{'is-invalid':(storageUnit.invalid && storageUnit.dirty)}"
+                  [required]="NA_Storage.value == false" [disabled]="NA_Storage.value == true">
+            <option value="">--Tipo--</option>
+            <option value="MB">MB (Megabytes)</option>
+            <option value="GB">GB (Gigabytes)</option>
+            <option value="TB">TB (Terabytes)</option>
+          </select>
+          <label for="storageUnit">Unidad</label>
+        </div>
+      </div>
     </div>
 
+    <div class="row">
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="NA_Storage" value="true" ngModel #NA_Storage="ngModel" [ngModelOptions]="{standalone: true}" />
+          <label class="form-check-label" for="NA_Storage">No aplica</label>
+        </div>
+      </div>
+    </div>
   </div>
 
+
+
   <div class="col-lg-6 col-md-6">
+    <div class="form-text">*La estética se valora de 1 a 10.</div>
     <div class="form-floating">
-      <input type="text" name="physicalState" id="physicalState" class="form-control" placeholder="Bueno, malo..."
+      <input type="number" name="physicalState" id="physicalState" class="form-control" placeholder="Bueno, malo..."
              ngModel #physicalState="ngModel" [ngClass]="{'is-invalid':(physicalState.invalid && physicalState.dirty)}"
-             [required]="true" />
-      <label for="physicalState">Estado físico</label>
+             [required]="true" [min]="1" [max]="10" />
+      <label for="physicalState">Estética</label>
     </div>
   </div>
   <div class="col-lg-6 col-md-6">
-    <div class="form-floating">
-      <input type="text" name="batteryState" id="batteryState" class="form-control" placeholder="Bueno, malo..."
-             ngModel #batteryState="ngModel" [ngClass]="{'is-invalid':(batteryState.invalid && batteryState.dirty)}"
-             [required]="true" />
-      <label for="batteryState">Estado de la batería</label>
+    <div class="row">
+      <div class="col-12 mb-2">
+        <div class="form-text">*El estado de la batería se valora de 1 a 100.</div>
+        <div class="form-floating">
+          <input type="number" name="batteryState" id="batteryState" class="form-control" placeholder="Bueno, malo..."
+                 ngModel #batteryState="ngModel" [ngClass]="{'is-invalid':(batteryState.invalid && batteryState.dirty)}"
+                 [required]="NA_Battery.value == false" [min]="1" [max]="100" [disabled]="NA_Battery.value == true" />
+          <label for="batteryState">Estado de la batería</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="NA_Battery" value="true" ngModel #NA_Battery="ngModel" [ngModelOptions]="{standalone: true}" />
+          <label class="form-check-label" for="NA_Battery">No aplica</label>
+        </div>
+      </div>
     </div>
   </div>
+
   <div class="col-12 mb-4">
     <div class="form-floating">
       <textarea name="comments" id="comments" class="form-control" placeholder="Sin comentarios..." ngModel [required]="false"></textarea>
@@ -108,10 +153,10 @@
   </div>
 
   <div class="col-lg-6 col-md-6">
-    <!--<div class="form-floating" [hidden]="location.value != 'Prestado' && location.value != 'Querétaro'">
+    <!--<div class="form-floating">
       <input type="text" name="location_person" id="location_person" class="form-control" placeholder="Nombre de la persona"
              ngModel #location_person="ngModel" [ngClass]="{'is-invalid':(location_person.invalid && location_person.touched)}"
-             [required]="location.value == 'Prestado' || location.value == 'Querétaro' " />
+             [required]="location.value == 'Prestado' || location.value == 'Querétaro' " [disabled]="location.value != 'Prestado' && location.value != 'Querétaro'" />
       <label for="location_person">Persona</label>
     </div>-->
   </div>
@@ -120,8 +165,9 @@
     <div class="input-group">
       <span class="input-group-text">$</span>
       <div class="form-floating">
-        <input type="text" name="price" id="price" class="form-control" aria-label="Precio" placeholder="00"
-               ngModel [required]="false" />
+        <input type="number" name="price" id="price" class="form-control" aria-label="Precio" placeholder="00.00"
+               ngModel #price="ngModel" [ngClass]="{'is-invalid':(price.invalid && price.touched)}"
+               [required]="true" [min]="0" />
         <label for="price">Precio</label>
       </div>
       <span class="input-group-text">.00</span>

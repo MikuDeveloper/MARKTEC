@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgModel} from "@angular/forms";
 import {ProductModel} from "../../../model/entities/product.model";
 import {NgClass} from "@angular/common";
 import {SessionService} from "../../../model/utils/session.service";
@@ -21,6 +21,8 @@ import {ToastrService} from "ngx-toastr";
 })
 export class InventoryAddComponent {
   currentUser: string = 'Sin usuario'
+  batteryIsDisabled: boolean = false
+  storageIsDisabled: boolean = false
   isLoading: boolean = false
   name: string = ''
   constructor(private session: SessionService, private toast: ToastrService) {
@@ -31,7 +33,10 @@ export class InventoryAddComponent {
     this.isLoading = true
     let docRef = doc(collection(database, "inventory"))
     product.productId = docRef.id
-    product.storage = product.storage + ' GB'
+    product.entryDate = new Date()
+    product.batteryState = product.batteryState || 'No aplica'
+    product.storageCapacity = product.storageCapacity || 'No aplica'
+    product.storageUnit = product.storageUnit || 'No aplica'
     await setDoc(docRef, product)
       .then(() => {
         document.getElementById('inventoryAddForm')
@@ -41,4 +46,15 @@ export class InventoryAddComponent {
         this.isLoading = false
       })
   }
+
+  onBatteryCheckChange(event: Event) {
+    // @ts-ignore
+    this.batteryIsDisabled = event.target.checked
+  }
+  onStorageCheckChange(event: Event) {
+    // @ts-ignore
+    this.storageIsDisabled = event.target.checked
+  }
+
+  protected readonly NgModel = NgModel;
 }
