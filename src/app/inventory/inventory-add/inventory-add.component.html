@@ -25,6 +25,7 @@
               ngModel #category="ngModel" [ngClass]="{'is-invalid':(category.invalid && category.dirty)}" [required]="true">
         <option value="">--Elegir categoría--</option>
         <option value="Celular">Celulares</option>
+        <option value="Laptos">Laptos</option>
         <option value="Smartwatch">Smartwatchs</option>
         <option value="Tablet">Tablets</option>
         <option value="Consola">Consolas</option>
@@ -153,12 +154,12 @@
   </div>
 
   <div class="col-lg-6 col-md-6">
-    <!--<div class="form-floating">
+    <div class="form-floating">
       <input type="text" name="location_person" id="location_person" class="form-control" placeholder="Nombre de la persona"
              ngModel #location_person="ngModel" [ngClass]="{'is-invalid':(location_person.invalid && location_person.touched)}"
-             [required]="location.value == 'Prestado' || location.value == 'Querétaro' " [disabled]="location.value != 'Prestado' && location.value != 'Querétaro'" />
+             [required]=" location.value != 'Bodega' || location.value != 'Local' || location.value != 'Reparación' " [disabled]="location.value != 'Prestado' && location.value != 'Querétaro'" />
       <label for="location_person">Persona</label>
-    </div>-->
+    </div>
   </div>
 
   <div class="col-lg-6 col-md-6">

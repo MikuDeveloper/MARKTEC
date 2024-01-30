@@ -12,7 +12,7 @@ export interface ProductModel {
   batteryState? : number | string //%
   comments? : string
   location : string //Bodega, local, prestado (cliente y empleado), reparación, Querétaro(empleado)
-  //location_person? : string
+  location_person? : string
   price? : number
   employeeId : string
 }
