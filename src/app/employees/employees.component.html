@@ -4,6 +4,177 @@
   </div>
   <hr>
 
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0 "*ngFor="let employee of employees | async">
+      <div class="card card-custom">
+        <div class="card-header">
+          <h5 class="card-title text-center">Foto del Empleado</h5>
+        </div>
+        <div class="card-body">
+            <div>
+              <table>
+                <tbody>
+                  <tr>
+                    <td><h6>Email:</h6></td>
+                    <td><h5 class="text-center">{{employee.email}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Nombre:</h6></td>
+                    <td><h5 class="text-center">{{employee.name}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Dirección:</h6></td>
+                    <td><h5 class="text-center">{{employee.address}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Teléfono:</h6></td>
+                    <td><h5 class="text-center">{{employee.phoneNumber}}</h5></td>
+                  </tr>
+                  <tr>
+                    <td><h6>Rol:</h6></td>
+                    <td><h5 class="text-center">{{employee.role}}</h5></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-outline-primary btn-custom" data-bs-toggle="modal" data-bs-target="#editModal"(click)="clickInfo(employee)"><i class="fi fi-rr-pencil"></i></button>
+          <button class="btn btn-outline-danger btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal"(click)="clickInfo(employee)"><i class="fi fi-rr-trash"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <button class="btn btn-outline-primary position-fixed bottom-0 end-0 translate-middle"
+  data-bs-toggle="modal" data-bs-target="#newModal"><i class="fi fi-rr-add"></i></button>
+</div>
+
+<!-- Modal  para Crear a un Nuevo Usuario-->
+<div class="modal fade" id="newModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
+  <form #addForm="ngForm" (ngSubmit)="addNewDocument(addForm.value)">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="newModalLabel">Nuevo Usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <!-- Nombre -->
+            <label for="fileName">Nombre</label>
+            <input type="text" id="name" class="form-control mt-3" name="name" placeholder="Escribe aquí"
+            ngModel #name="ngModel"required />
+            <!-- Address -->
+            <label for="fileName">Direción</label>
+            <input type="text" id="address" class="form-control mt-3" name="address" placeholder="Escribe aquí"
+            ngModel #address="ngModel" required/>
+            <!-- Email -->
+            <label for="fileName">E-mail</label>
+            <input type="text" id="email" class="form-control mt-3" name="email" placeholder="Escribe aquí"
+            ngModel #email="ngModel" required email/>
+            <!-- Phone Number -->
+            <label for="fileName">Número de Teléfono</label>
+            <input type="text" id="phoneNumber" class="form-control mt-3" name="phoneNumber" placeholder="Escribe aquí"
+            ngModel #phoneNumber="ngModel" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
+            <!-- Rol -->
+            <label for="fileName">Escoge el Rol:</label>
+            <select class="form-select" id="role" aria-label="Default select example" name="role"
+            ngModel #role="ngModel" required>
+              <option value="" disabled selected>--</option>
+              <option value="Empleado">Empleado</option>
+              <option value="Administrador">Administrador</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"[disabled]="addForm.form.invalid">Ingresar</button>
+          @if (addForm.form.invalid && addForm.form.touched) {
+            @if(phoneNumber.invalid){
+              <p class="text-danger">*Revisa el número de Teléfono*</p>
+            }
+            @else if(email.invalid){
+              <p class="text-danger">*Revisa el correo electrónico*</p>
+            }@else {
+              <p class="text-danger">*Completa los campos para poder ingresar.*</p>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Modal para Eliminar un Usuario-->
+<div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Se eliminará el usuario: {{infoEmployee.name}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"(click)="deleteDocument(infoEmployee.email)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Editar la información un Usuario-->
+<div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
+  <form #editForm="ngForm" (ngSubmit)="updateDocument(editForm.value)">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <label for="fileName">Nombre</label>
+          <input type="text" class="form-control"  name="name"
+          ngModel #name="ngModel" [(ngModel)]="infoEmployee.name" required>
+          <label for="fileName">Dirección</label>
+          <input type="text" class="form-control"  name="address"
+          ngModel #address="ngModel" [(ngModel)]="infoEmployee.address" required>
+          <label for="fileName">Número de Teléfono</label>
+          <input type="text" class="form-control" name="phoneNumber" ngModel #phoneNumber="ngModel"
+          [(ngModel)]="infoEmployee.phoneNumber" required maxlength="10" minlength="10" pattern="^[0-9]+$">
+          <label for="fileName">Rol</label>
+          <!-- <input type="text" class="form-control" name="role"
+          ngModel #role="ngModel" [(ngModel)]="infoEmployee.role" required="">-->
+          <select class="form-select" id="role" aria-label="Default select example" name="role"
+            ngModel #role="ngModel" [(ngModel)]="infoEmployee.role" required>
+              <option value="" disabled selected>--</option>
+              <option value="Empleado">Empleado</option>
+              <option value="Administrador">Administrador</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal" [disabled]="editForm.form.invalid">Guardar Cambios</button>
+          @if (editForm.form.invalid && editForm.form.touched) {
+            @if(phoneNumber.invalid){
+              <p class="text-danger">*Revisa el número de Teléfono*</p>
+            }
+            @else if(name.invalid){
+              <p class="text-danger">*Revisa el Nombre</p>
+            }@else {
+              <p class="text-danger">*Completa los campos para poder ingresar.*</p>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
 </section>
 
 

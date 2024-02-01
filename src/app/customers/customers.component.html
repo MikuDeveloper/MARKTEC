@@ -1,175 +1,371 @@
- <div class="container-sm">
-  <h1 class="text-center">Clientes</h1>
+<section class="container">
+  <div class="row text-center title">
+    <h3>Empleados</h3>
+  </div>
   <hr>
- </div>
- <div class="container">
-  <form class="d-flex">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="searchControl"/>
-  </form>
- </div>
- <!-- Filtro por deuda-->
- <div class="container-sm">
-  <select class="form-select" [(ngModel)] = "selectedFilter" (change)="filter()">
-    <option value="" disabled selected>Elige un Filtro:</option>
-    <option value="sin deuda">Sin Deuda</option>
-    <option value="adeuda">Con Deuda</option>
-  </select>
-</div>
-<br>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6 mb-3 mb-sm-0 "*ngFor="let customer of customers | async">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Fotos de Credencial</h5>
-          <div>
-            <h6 class="text-center">{{customer.name}}</h6>
-            <h6 class="text-center">{{customer.voterKey}}</h6>
-            <h6 class="text-center">{{customer.email}}</h6>
-            <h6 class="text-center">{{customer.address}}</h6>
-            <h6 class="text-center">{{customer.phoneNumber}}</h6>
-            <h6 class="text-center">{{customer.facebook}}</h6>
-            <h6 class="text-center">{{customer.status}}</h6>
-            <h6 class="text-center">{{customer.debt}}</h6>
-            </div>
-        </div>
-        <div class="card-footer">
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)">Editar</button>
-          <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(customer)">Eliminar</button>
+  <div class="container">
+    <input class="form-control w-50 mx-auto mt-3" [(ngModel)]="searchValue"
+    (ngModelChange)="onSearchChange()" type="search" placeholder="Buscar...">
+   </div>
+   <!-- Filtro por deuda -->
+   <div class="container">
+    <select class="form-select w-50 mx-auto mt-3"  [(ngModel)]="selectedFilter" (change)="filter()">
+      <option value="" disabled selected>Elige un Filtro:</option>
+      <option value="sin deuda">Sin Deuda</option>
+      <option value="adeuda">Con Deuda</option>
+    </select>
+  </div>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-6 mb-3 mb-sm-1 "*ngFor="let customer of customers">
+        <div class="card my-custom-card">
+          <div class="card-body">
+            <h5 class="card-title text-center">Fotos de Credencial</h5>
+              <div>
+                <table class="table">
+                  <tbody>
+                    <tr class="col">
+                      <td><h6>Nombre</h6></td>
+                      <td><h5 class="text-center">{{customer.name}}</h5></td>
+                    </tr>
+                    <tr>
+                      <td><h6>Clave de Elector</h6></td>
+                      <td><h5 class="text-center">{{customer.voterKey}}</h5></td>
+                    </tr>
+                    <tr>
+                      <td><h6>Email</h6></td>
+                      <td><h5 class="text-center">{{customer.email}}</h5></td>
+                    </tr>
+                    <tr>
+                      <td><h6>Estatus</h6></td>
+                      <td><h5 class="text-center">{{customer.status}}</h5></td>
+                    </tr>
+                    <tr>
+                      <td><h6>Deuda</h6></td>
+                      <td><h5 class="text-center">{{customer.debt}}</h5></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)"><i class="fi fi-rr-pencil"></i></button>
+            <button class="btn btn-outline-success position-relative" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="clickInfo(customer)"><i class="fi fi-rr-info"></i></button>
+            <button class="btn btn-outline-danger position-relative" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(customer)"><i class="fi fi-rr-trash"></i></button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div>
-  <button class="btn btn-outline-success position-fixed bottom-0 end-0 translate-middle" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo</button>
-</div>
-
-<!-- Modal  para Crear a un Nuevo Usuario-->
-<div class="modal fade" id="newModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-  <form #addForm="ngForm" (ngSubmit)="addNewDocument(addForm.value)">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="newModalLabel">Nuevo Usuario</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-            <!-- Nombre -->
-            <label for="fileName">Nombre</label>
-            <input type="text" id="name" class="form-control mt-3" name="name" placeholder="Escribe aquí"
-            ngModel #name="ngModel"required />
-            <!-- Address -->
-            <label for="fileName">Direción</label>
-            <input type="text" id="address" class="form-control mt-3" name="address" placeholder="Escribe aquí"
-            ngModel #address="ngModel" required/>
-            <!-- Email -->
-            <label for="fileName">E-mail</label>
-            <input type="text" id="email" class="form-control mt-3" name="email" placeholder="Escribe aquí"
-            ngModel #email="ngModel" required email/>
-            <!-- voterKey -->
-            <label for="fileName">Clave de elector</label>
-            <input type="text" id="voterKey" class="form-control mt-3" name="voterKey" placeholder="Escribe aquí"
-            ngModel #voterKey="ngModel"required />
-            <!-- Phone Number -->
-            <label for="fileName">Número de Teléfono</label>
-            <input type="text" id="phoneNumber" class="form-control mt-3" name="phoneNumber" placeholder="Escribe aquí"
-            ngModel #phoneNumber="ngModel" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
-            <!-- facebook -->
-            <label for="fileName">Facebook</label>
-            <input type="text" id="facebook" class="form-control mt-3" name="facebook" placeholder="Escribe aquí"
-            ngModel #facebook="ngModel"required />
-            <!-- status -->
-            <label for="fileName">Status</label>
-            <input type="text" id="status" class="form-control mt-3" name="status" placeholder="Escribe aquí"
-            ngModel #status="ngModel"required />
-            <!-- debt -->
-            <label for="fileName">Deuda</label>
-            <input type="debt" id="facebook" class="form-control mt-3" name="debt" placeholder="Escribe aquí"
-            ngModel #debt="ngModel"required />
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"[disabled]="addForm.form.invalid">Ingresar</button>
-          @if (addForm.form.invalid && addForm.form.touched) {
-            @if(phoneNumber.invalid){
-              <p class="text-danger">*Revisa el número de Teléfono*</p>
-            }
-            @else if(email.invalid){
-              <p class="text-danger">*Revisa el correo electrónico*</p>
-            }@else {
-              <p class="text-danger">*Completa los campos para poder ingresar.*</p>
-            }
-          }
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
-<!-- Modal para Eliminar un Usuario-->
-<div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Eliminar</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Se eliminará el usuario: {{infoCustomer.name}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"(click)="deleteDocument(infoCustomer.voterKey)">Eliminar</button>
-      </div>
-    </div>
+  <!-- Botón para agregar a un Nuevo Cliente-->
+  <div>
+    <button class="btn btn-outline-primary position-fixed bottom-0 end-0 translate-middle"
+    data-bs-toggle="modal" data-bs-target="#newModal"><i class="fi fi-rr-add"></i></button>
   </div>
-</div>
 
-<!-- Modal para Editar la información un Usuario-->
-<div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
-  <form #editForm="ngForm" (ngSubmit)="updateDocument(editForm.value)">
+  <!-- Modal  para Crear a un Nuevo Usuario-->
+  <div class="modal fade" id="newModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
+    <form #addForm="ngForm" (ngSubmit)="addNewDocument(addForm.value)">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="newModalLabel">Nuevo Usuario</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+              <!-- Nombre -->
+              <label for="fileName">Nombre</label>
+              <input type="text" id="name" class="form-control mt-3" name="name" placeholder="Escribe aquí"
+              ngModel #name="ngModel"required />
+              <!-- Address -->
+              <label for="fileName">Direción</label>
+              <input type="text" id="address" class="form-control mt-3" name="address" placeholder="Escribe aquí"
+              ngModel #address="ngModel" required/>
+              <!-- Email -->
+              <label for="fileName">E-mail</label>
+              <input type="text" id="email" class="form-control mt-3" name="email" placeholder="Escribe aquí"
+              ngModel #email="ngModel" required email/>
+              <!-- voterKey -->
+              <label for="fileName">Clave de elector</label>
+              <input type="text" id="voterKey" class="form-control mt-3" name="voterKey" placeholder="Escribe aquí"
+              ngModel #voterKey="ngModel"required />
+              <!-- Phone Number -->
+              <label for="fileName">Número de Teléfono</label>
+              <input type="text" id="phoneNumber" class="form-control mt-3" name="phoneNumber" placeholder="Escribe aquí"
+              ngModel #phoneNumber="ngModel" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
+              <!-- facebook -->
+              <label for="fileName">Facebook</label>
+              <input type="text" id="facebook" class="form-control mt-3" name="facebook" placeholder="Escribe aquí"
+              ngModel #facebook="ngModel"required />
+              <!-- status -->
+              <label for="fileName">Status</label>
+              <input type="text" id="status" class="form-control mt-3" name="status" placeholder="Escribe aquí"
+              ngModel #status="ngModel"required />
+              <!-- debt -->
+              <label for="fileName">Deuda</label>
+              <input type="debt" id="facebook" class="form-control mt-3" name="debt" placeholder="Escribe aquí"
+              ngModel #debt="ngModel"required />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"[disabled]="addForm.form.invalid">Ingresar</button>
+            @if (addForm.form.invalid && addForm.form.touched) {
+              @if(phoneNumber.invalid){
+                <p class="text-danger">*Revisa el número de Teléfono*</p>
+              }
+              @else if(email.invalid){
+                <p class="text-danger">*Revisa el correo electrónico*</p>
+              }@else {
+                <p class="text-danger">*Completa los campos para poder ingresar.*</p>
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- Modal para Eliminar un Usuario-->
+  <div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Editar Usuario</h5>
+          <h5 class="modal-title">Eliminar</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <label for="fileName">Nombre</label>
-          <input type="text" class="form-control"  name="name"
-          ngModel #name="ngModel" [(ngModel)]="infoCustomer.name" required>
-          <label for="fileName">Dirección</label>
-          <input type="text" class="form-control"  name="address"
-          ngModel #address="ngModel" [(ngModel)]="infoCustomer.address" required>
-          <label for="fileName">Número de Teléfono</label>
-          <input type="text" class="form-control" name="phoneNumber" ngModel #phoneNumber="ngModel"
-          [(ngModel)]="infoCustomer.phoneNumber" required maxlength="10" minlength="10" pattern="^[0-9]+$">
-          <!--
-          <select class="form-select" id="role" aria-label="Default select example" name="role"
-            ngModel #role="ngModel" [(ngModel)]="" required>
-              <option value="" disabled selected>--</option>
-              <option value="Empleado">Empleado</option>
-              <option value="Administrador">Administrador</option>
-            </select>-->
+          <p>Se eliminará el usuario: {{infoCustomer.name}}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal" [disabled]="editForm.form.invalid">Guardar Cambios</button>
-          @if (editForm.form.invalid && editForm.form.touched) {
-            @if(phoneNumber.invalid){
-              <p class="text-danger">*Revisa el número de Teléfono*</p>
-            }
-            @else if(name.invalid){
-              <p class="text-danger">*Revisa el Nombre</p>
-            }@else {
-              <p class="text-danger">*Completa los campos para poder ingresar.*</p>
-            }
-          }
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"(click)="deleteDocument(infoCustomer.voterKey)">Eliminar</button>
         </div>
       </div>
     </div>
-  </form>
-</div>
+  </div>
 
+  <!-- Modal para Editar la información un Usuario-->
+  <div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
+    <form #editForm="ngForm" (ngSubmit)="updateDocument(editForm.value)">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <label for="fileName">Nombre</label>
+            <input type="text" class="form-control"  name="name"
+            ngModel #name="ngModel" [(ngModel)]="infoCustomer.name" required>
+            <label for="fileName">Dirección</label>
+            <input type="text" class="form-control"  name="address"
+            ngModel #address="ngModel" [(ngModel)]="infoCustomer.address" required>
+            <label for="fileName">Número de Teléfono</label>
+            <input type="text" class="form-control" name="phoneNumber" ngModel #phoneNumber="ngModel"
+            [(ngModel)]="infoCustomer.phoneNumber" required maxlength="10" minlength="10" pattern="^[0-9]+$">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal" [disabled]="editForm.form.invalid">Guardar Cambios</button>
+            @if (editForm.form.invalid && editForm.form.touched) {
+              @if(phoneNumber.invalid){
+                <p class="text-danger">*Revisa el número de Teléfono*</p>
+              }
+              @else if(name.invalid){
+                <p class="text-danger">*Revisa el Nombre</p>
+              }@else {
+                <p class="text-danger">*Completa los campos para poder ingresar.*</p>
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- Info Modal  (se colocara una visualización para pantallas md,xl y otra para sm) -->
+  <div class="modal" id="infoModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Detalles de Usuario</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-title">
+                    <h3 class="text-center">Información del Cliente</h3>
+                  </div>
+                  <div class="card-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col"><h6>Nombre</h6></th>
+                          <th scope="col"><h6>Clave de Elector</h6></th>
+                          <th scope="col"><h6>Email</h6></th>
+                          <th scope="col"><h6>Dirección</h6></th>
+                          <th scope="col"><h6>Teléfono</h6></th>
+                          <th scope="col"><h6>Facebook</h6></th>
+                          <th scope="col"><h6>Estatus</h6></th>
+                          <th scope="col"><h6>Deuda</h6></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>texto</td>
+                          <td>texto</td>
+                          <td>texto</td>
+                          <td>texto</td>
+                          <td>texto</td>
+                          <td>texto</td>
+                          <td>texto</td>
+                          <td>texto</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row d-md-none">
+                <div class="card">
+                  <div class="card-title">
+                    <h3 class="text-center">Información del Cliente</h3>
+                    <hr>
+                  </div>
+                  <div class="card-body">
+                    <table class="table">
+                      <tbody>
+                        <tr class="col">
+                          <td><h6>Nombre</h6></td>
+                          <td><h5 class="text-center">{{infoCustomer.name}}</h5></td>
+                        </tr>
+                        <tr>
+                          <td><h6>Clave de Elector</h6></td>
+                          <td><h5 class="text-center">{{infoCustomer.voterKey}}</h5></td>
+                        </tr>
+                        <tr>
+                          <td><h6>Email</h6></td>
+                          <td><h5 class="text-center">{{infoCustomer.email}}</h5></td>
+                        </tr>
+                        <tr>
+                          <td><h6>Dirección</h6></td>
+                          <td><h5 class="text-center">{{infoCustomer.address}}</h5></td>
+                        </tr>
+                        <tr>
+                          <td><h6>Teléfono</h6></td>
+                          <td><h5 class="text-center">{{infoCustomer.phoneNumber}}</h5></td>
+                        </tr>
+                        <tr>
+                          <td><h6>Facebook</h6></td>
+                          <td><h5 class="text-center">{{infoCustomer.facebook}}</h5></td>
+                        </tr>
+                        <tr>
+                          <td><h6>Estatus</h6></td>
+                          <td><h5 class="text-center">{{infoCustomer.status}}</h5></td>
+                        </tr>
+                        <tr>
+                          <td><h6>Deuda</h6></td>
+                          <td><h5 class="text-center">{{infoCustomer.debt}}</h5></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-title">
+                    <h3 class="text-center">Compras</h3>
+                    <hr>
+                  </div>
+                  <div class="card-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">No.</th>
+                          <th scope="col">Datos</th>
+                          <th scope="col">Información</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td><h6>Nombre</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Precio</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Usado/Nuevo</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Usado/Nuevo</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>IMEI</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>IMEI</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Color</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Operador</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Condicion Bateria</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Almacenamiento</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Color</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Fecha de Compra</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><h6>Status</h6></td>
+                          <td><h5>texto</h5></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>

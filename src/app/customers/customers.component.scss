@@ -1,0 +1,23 @@
+/* En tu archivo de estilos de componente o en tu hoja de estilos global */
+.my-custom-card {
+  margin: 20px;
+  background-color: #f0f0f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my-custom-card:hover {
+  transform: scale(1.05);
+  //background-color: rgb(44,128,255);
+  box-shadow: 0 0 10pt 1pt rgba(44, 128, 255, 0.7);
+}
+
+.my-custom-card .card-title {
+  color: #f0f0f0;
+}
+
+.my-custom-card .card-footer {
+  background-color: #f0f0f0;
+}
