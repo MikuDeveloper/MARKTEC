@@ -11,8 +11,9 @@ export interface ProductModel {
   physicalState : number //1 - 10
   batteryState? : number | string //%
   comments? : string
-  location : string //Bodega, local, prestado (cliente y empleado), reparación, Querétaro(empleado)
-  location_person? : string
+  location : string //Bodega, local, prestado (cliente y empleado), reparación, Querétaro(empleado), VENDIDO (EXCLUSIVO DE VENTA)
+  location_employee? : string
+  location_customer? : string
   price? : number
   employeeId : string
 }

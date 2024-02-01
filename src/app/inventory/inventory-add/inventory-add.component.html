@@ -5,7 +5,8 @@
   </ol>
 </nav>
 
-<form id="inventoryAddForm" class="row g-2 needs-validation" #inventoryAddForm="ngForm" (ngSubmit)="addToInventory(inventoryAddForm.value)">
+<form id="inventoryAddForm" class="row g-2 needs-validation" #inventoryAddForm="ngForm"
+      (ngSubmit)="addToInventory(inventoryAddForm.value, inventoryAddForm)">
   <legend>Información del nuevo producto</legend>
 
   <div class="col-lg-6 col-md-6">
@@ -89,7 +90,8 @@
     <div class="row">
       <div class="col-12">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="NA_Storage" value="true" ngModel #NA_Storage="ngModel" [ngModelOptions]="{standalone: true}" />
+          <input class="form-check-input" type="checkbox" id="NA_Storage" value="true" ngModel #NA_Storage="ngModel"
+                 [ngModelOptions]="{standalone: true}" />
           <label class="form-check-label" for="NA_Storage">No aplica</label>
         </div>
       </div>
@@ -123,7 +125,8 @@
     <div class="row">
       <div class="col-12">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="NA_Battery" value="true" ngModel #NA_Battery="ngModel" [ngModelOptions]="{standalone: true}" />
+          <input class="form-check-input" type="checkbox" id="NA_Battery" value="true" ngModel #NA_Battery="ngModel"
+                 [ngModelOptions]="{standalone: true}" />
           <label class="form-check-label" for="NA_Battery">No aplica</label>
         </div>
       </div>
@@ -157,7 +160,8 @@
     <div class="form-floating">
       <input type="text" name="location_person" id="location_person" class="form-control" placeholder="Nombre de la persona"
              ngModel #location_person="ngModel" [ngClass]="{'is-invalid':(location_person.invalid && location_person.touched)}"
-             [required]=" location.value != 'Bodega' || location.value != 'Local' || location.value != 'Reparación' " [disabled]="location.value != 'Prestado' && location.value != 'Querétaro'" />
+             [required]=" location.value != 'Bodega' || location.value != 'Local' || location.value != 'Reparación' "
+             [disabled]="location.value != 'Prestado' && location.value != 'Querétaro'" />
       <label for="location_person">Persona</label>
     </div>
   </div>
