@@ -4,87 +4,253 @@
       <h3>Reportes: Venta</h3>
     </div>
     <hr>
-</section>
-<section class="container-sm">
+  <div class="container-sm">
     <!-- Campos -->
      <div class="row mt-4">
+      <!-- Filtro de Vendedor -->
       <div class="col-md-3 mb-3">
-        <p class="mb-0">Fecha Inicial</p>
-        <input type="date" class="form-control">
+        <div class="form-floating">
+          <select class="form-select form-select-md mb-3" id="floatingSelect" aria-label=".form-select-lg example">
+            <option selected value="" >--Todo--</option>
+            <option value="model">Juan</option>
+          </select>
+          <label for="floatingSelect" class="form-label">Vendedor:</label>
+        </div> 
       </div>
+      <!-- Fin: Filtro de Vendedor -->
+      <!-- Filtro de Vendedor -->
       <div class="col-md-3 mb-3">
-        <p class="mb-0">Fecha Final</p>
-        <input type="date" class="form-control">
+        <div class="form-floating">
+          <select class="form-select form-select-md mb-3" id="floatingSelect" aria-label=".form-select-lg example">
+            <option selected value="" >--Todo--</option>
+            <option value="celular">Celular</option>
+            <option value="laptop">Laptop</option>
+            <option value="auriculares">Celular</option>
+          </select>
+          <label for="floatingSelect" class="form-label">Categoría:</label>
+        </div> 
       </div>
-      <div class="col-md-6 mb-3 d-flex justify-content-end align-items-end">
-        <div class="align-baseline me-3">
-          <button class="btn btn-primary" type="button">
-            <i class="fi fi-rr-eye"></i>
-          </button>
-        </div>
-        <div class="align-baseline">
-          <button class="btn btn-primary" type="button">
-            <i class="fi fi-rr-print"></i>
-          </button>
-        </div>
+      <!-- Fin: Filtro de Vendedor -->
       </div>
+      <div class="row mt-2">
+        <!-- Columnas Visibles -->
+        <div class="col-md-3 mb-3">
+          <button class="btn btn-outline-primary dropdown-toggle " type="button" id="columnVisibilityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Columnas Visibles
+          </button>
+          <div class="form-group">
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" (click)="toggleDropdown($event)">
+            <li class="m-2" *ngFor="let column of columnHead">
+              <div class="form-check" (click)="toggleCheckbox(column)">
+                <input class="form-check-input" type="checkbox" id="checkBox" [(ngModel)]="columnVisibilitySR[column]">
+                <label class="form-check-label" for="checkBox" (click)="toggleCheckbox(column)" >
+                  {{ column }}
+                </label>
+              </div>
+            </li>   
+          </ul>
+          </div>
+        </div>
+        <!-- Fin: Columnas Visibles -->
+        <div class="col-md-9 mb-3 d-flex justify-content-end align-items-end">
+          <div class="align-baseline me-3">
+            <button class="btn btn-primary" type="button">
+              <i class="fi fi-rr-eye"></i>
+            </button>
+          </div>
+          <div class="align-baseline">
+            <button class="btn btn-primary" type="button">
+              <i class="fi fi-rr-print"></i>
+            </button>
+          </div>
+        </div>
     </div>
     <div class="table-responsive">
       <table class="table table-bordered text-center">
           <!-- Encabezado de la tabla -->
           <thead>
               <tr>
-              <th scope="col">Fecha</th>
-              <th scope="col">IMEI</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Categoría
-                <div class="btn-group">
-                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">    
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li class="m-2">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                        <label class="form-check-label" for="flexCheckDefault1">
-                          Opción 1
-                        </label>
-                      </div>
-                    </li>
-                    <li class="m-2">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                        <label class="form-check-label" for="flexCheckDefault2">
-                          Opción 2
-                        </label>
-                      </div>
-                    </li>
-                    <li class="m-2">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                        <label class="form-check-label" for="flexCheckDefault3">
-                          Opción 3
-                        </label>
-                      </div>
-                    </li>
-                    <!-- Agrega más opciones según sea necesario -->
-                  </ul>
-                </div>
-              </th>
-              <th scope="col">Vendedor</th>
+              <th scope="col" *ngIf="columnVisibilitySR['ID Venta']">ID Venta</th>
+              <th scope="col" *ngIf="columnVisibilitySR.Fecha">Fecha</th>
+              <th scope="col" *ngIf="columnVisibilitySR.Producto">Prodcuto</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Categoría']">Categoría</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Cédula de Compra']">Cédula de Compra</th>
               </tr>
           </thead>
           <tbody class="align-middle">
               <tr>
+                  <td>01</td>
                   <td>dd/mm/aa</td>
-                  <td>000000000000000</td>
                   <td>Iphone 15</td>
                   <td>Teléfono celular</td>
-                  <td>Juan</td>
+                  <td><button class="btn btn-link align-baseline" data-bs-toggle="modal" data-bs-target="#detailsReport">Detalles</button></td>
               </tr>
           </tbody>
         </table>
     </div>
     <br>
-  </section>
-    
+  </div>
+
+  <!-- Pagination -->
+<div class="container-sm">
+  <div class="row">
+      <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
+        <nav  aria-label="...">
+          <ul class="pagination">
+            <li class="page-item disabled mb-2">
+              <span class="page-link"><i class="fi fi-rr-angle-left"></i></span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">2</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item mb-2">
+              <a class="page-link" href="#"><i class="fi fi-rr-angle-right"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>  
+    </div>
+  </div>
+</section>
+
+<!-- Modal Details-->
+<div class="modal fade" id="detailsReport" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header"> 
+        <div class="text-center d-flex justify-content-center align-items-center w-100">
+            <h1 class="modal-title fs-4" id="newModalLabel">Cédula de Compra</h1>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">         
+        <div class="text-center d-flex justify-content-center align-items-center">
+          <h1 class="fs-5" id="">Datos Generales del Cliente</h1>
+        </div>
+        <br>
+        <!-- Primera Tabla -->
+        <div class="table-responsive">
+          <table class="table table-bordered text-center">
+            <tbody >
+              <tr>
+                <th class="col-sm-3" scope="col">Nombre</th>
+                <td>Lorem</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">Clave de Elector</th>
+                <td>000000000000000000</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">Dirección</th>
+                <td>Nombre de la calle, Número, Comuna/Distrito/Región, Ciudad</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">Teléfono</th>
+                <td>000-000-0000</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">Correo Electrónico</th>
+                <td>ejemplo&#64;gmail.com</td>
+              </tr>    
+              <tr>
+                <th class="col-sm-3" scope="col">Facebook</th>
+                <td>JuanCampeche_12</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center d-flex justify-content-center align-items-center">
+          <h1 class="fs-5" id="">Artículo en Venta</h1>
+        </div>
+        <br>
+        <!-- Segunda Tabla -->
+        <div class="table-responsive">
+          <table class="table table-bordered text-center">
+            <tbody >
+              <tr>
+                <th class="col-sm-3" scope="col">Modelo</th>
+                <td>Lorem</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">Color</th>
+                <td>RGB</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">GB</th>
+                <td>8</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">IMEI</th>
+                <td>000000000000000</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">Estética</th>
+                <td>Bueno</td>
+              </tr>    
+              <tr>
+                <th class="col-sm-3" scope="col">Precio</th>
+                <td>$00.00</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3 align-middle" scope="col">Observaciones</th>
+                <td>Lorem</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center d-flex justify-content-center align-items-center mt-2">
+          <h1 class="fs-5" id="">Artículo Recibido</h1>
+        </div>
+        <div class="container mt-2">
+          <div class="row">
+              <div class="col-md-12 mx-auto d-flex justify-content-end align-items-center mb-2">
+                <div class="btn-group" role="group" aria-label="Botones de cambio de tabla">
+                  <button type="button" class="btn btn-outline-primary" [class.active]="tablaActual === 1" (click)="cambiarTabla(1)">1</button>
+                  <button type="button" class="btn btn-outline-primary" [class.active]="tablaActual === 2" (click)="cambiarTabla(2)">2</button>
+                  <button type="button" class="btn btn-outline-primary" [class.active]="tablaActual === 3" (click)="cambiarTabla(3)">3</button>
+                </div>
+              </div>  
+            </div>
+          </div>
+        <!-- Tercera Tabla -->
+        <div class="table-responsive" *ngIf="tablaActual === 1">
+          <table class="table table-bordered text-center">
+            <tbody >
+              <tr>
+                <th class="col-sm-3" scope="col">Modelo</th>
+                <td>Lorem</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">Color</th>
+                <td>RGB</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">GB</th>
+                <td>8</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">IMEI</th>
+                <td>000000000000000</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3" scope="col">Estética</th>
+                <td>Bueno</td>
+              </tr>    
+              <tr>
+                <th class="col-sm-3" scope="col">Precio</th>
+                <td>$00.00</td>
+              </tr>
+              <tr>
+                <th class="col-sm-3 align-middle" scope="col">Observaciones</th>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima dolorem dignissimos nisi, autem iure dolore, error fuga quis dolorum earum perferendis facilis, culpa animi numquam qui quia iste reiciendis aperiam!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
   

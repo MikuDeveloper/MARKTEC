@@ -60,7 +60,7 @@
       </div>  
     </div>
 </section>
-  <!-- Modal Details-->
+<!-- Modal Details-->
 <div class="modal fade" id="details" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -128,8 +128,8 @@
                           <tr>
                           <th scope="col">#</th>
                           <th scope="col">Monto</th>
-                          <th scope="col">Fecha límite</th>
-                          <th scope="col">Estatus</th>
+                          <th scope="col">Fecha</th>
+                          <th scope="col">Tipo de Pago</th>
                           </tr>
                       </thead>
                       <tbody class="align-middle">
@@ -137,19 +137,19 @@
                               <td>1</td>
                               <td>$00.00</td>
                               <td>dd/mm/aa</td>
-                              <td><button class="btn btn-outline-success disabled">Pagado</button></td>
+                              <td>Transferencia</td>
                           </tr>
                           <tr>
                               <td>2</td>
                               <td>$00.00</td>
                               <td>dd/mm/aa</td>
-                              <td><button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#pay">Atrasado</button></td>
+                              <td>Efectivo</td>
                           </tr>
                           <tr>
                               <td>3</td>
                               <td>$00.00</td>
                               <td>dd/mm/aa</td>
-                              <td><button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#pay">Pendiente</button></td>
+                              <td>--</td>
                           </tr>
                           <tr>
                               <td>4</td>
@@ -172,12 +172,18 @@
                       </tbody>
                   </table>
               </div>
+              <p>**Se aplica un interés del 5% pasado los 3 meses desde la adquisión del producto</p>
             </div>
           </div>
-          <div class="container">
-            <p>**Se aplica un interés del 3% en pagos tardíos, se verá reflejado en el próximo pago</p>
+          <div class="container mt-2 mb-3 me-3 d-flex justify-content-between align-items-end">
+            <div class="d-flex">
+                <!-- Botón de Imprimir -->
+                <button class="btn btn-outline-success">
+                  <i class="fi fi-rr-print"></i>
+                </button>
+            </div>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#pay">Abonar</button>
           </div>
-          <!-- <div class="container"><hr></div> -->
         </div>
       </div>
   </div>
@@ -192,8 +198,16 @@
         <div class="modal-body">
           <form>
             <!-- Amount -->
-            <label for="amount">Cantidad</label>
-            <input type="text" id="amount" class="form-control mb-3" name="amount" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
+            <select class="form-select" aria-label="Default select example">
+              <option disabled selected>Elige el método de pago</option>
+              <option value="1">Efectivo</option>
+              <option value="2">Tranferencia</option>
+            </select>
+            <label class="mt-2" for="amount">Cantidad</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <input type="text" id="amount" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="00.00" pattern="^[0-9]+$">
+            </div>
           </form>
         </div>
         <div class="modal-footer">

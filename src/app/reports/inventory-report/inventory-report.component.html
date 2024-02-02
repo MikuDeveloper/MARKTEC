@@ -4,28 +4,16 @@
       <h3>Reportes: Inventario</h3>
     </div>
     <hr>
-</section>
-<section class="container-sm">
+
+<div class="container-sm">
     <!-- Campos -->
      <div class="row mt-4">
-      <div class="col-md-3 mb-3">
-        <div class="form-floating">
-          <input type="date" id="startDate" class="form-control">
-          <label for="startDate" class="form-label">Fecha Inicial</label>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="form-floating">
-          <input type="date" id="endDate" class="form-control">
-          <label for="endDate" class="form-label">Fecha Final</label>
-        </div>
-      </div>
       <!-- Filtrado por: -->
       <div class="col-md-3 mb-3">
         <div class="form-floating">
           <select class="form-select form-select-md mb-3" id="floatingSelect" aria-label=".form-select-lg example" [(ngModel)]="selectedFilter">
           <option selected value="" >--Todo--</option>
-          <option value="model">Modelo</option>
+          <option value="brand">Marca</option>
           <option value="category">Categoría</option>
           <option value="color">Color</option>
           <option value="gb">GB</option>
@@ -69,7 +57,7 @@
         </div>
       </div>
       <!-- Fin: Columnas Visibles -->
-      <div class="col-md-6 mb-3 d-flex justify-content-end align-items-end">
+      <div class="col-md-9 mb-3 d-flex justify-content-end align-items-end">
         <div class="align-baseline me-3">
           <button class="btn btn-primary" type="button">
             <i class="fi fi-rr-filter"></i>
@@ -88,14 +76,15 @@
           <thead>
               <tr>
                 <th scope="col" *ngIf="columnVisibility.Fecha">Fecha de Entrada</th>
-                <th scope="col" *ngIf="columnVisibility.Modelo">Modelo</th>
                 <th scope="col" *ngIf="columnVisibility['IMEI']">IMEI</th>
-                <th scope="col" *ngIf="columnVisibility.Operador">Precio</th>
+
+                <th scope="col" *ngIf="columnVisibility.Marca">Marca</th>
+                <th scope="col" *ngIf="columnVisibility.Operador">Operador</th>
                 <th scope="col" *ngIf="columnVisibility['Categoría']">Categoría</th>
                 <th scope="col" *ngIf="columnVisibility.Precio">Precio</th>
                 <th scope="col" *ngIf="columnVisibility.Color">Color</th>
                 <th scope="col" *ngIf="columnVisibility['GB']">GB</th>
-                <th scope="col" *ngIf="columnVisibility.EstadoFisico">Estado Físico</th>
+                <th scope="col" *ngIf="columnVisibility['Estado Físico']">Estado Físico</th>
                 <th scope="col" *ngIf="columnVisibility['Estado de Batería']">Estado de Batería</th>
                 <th scope="col" *ngIf="columnVisibility.Hora">Hora</th>
                 <th scope="col" *ngIf="columnVisibility.Ubicacion">Ubicación</th>
@@ -104,13 +93,13 @@
           <tbody class="align-middle" *ngFor="let item of itemsReport | async">
               <tr>
                 <td *ngIf="columnVisibility.Fecha">{{item.color}}</td>
-                <td *ngIf="columnVisibility['IMEI']">{{item.imei}}</td>
-                <td *ngIf="columnVisibility.Modelo">{{item.model}}</td>
+                <td *ngIf="columnVisibility['IMEI']">{{item.IMEI}}</td>
                 <td *ngIf="columnVisibility['Categoría']">{{item.category}}</td>
+                <td *ngIf="columnVisibility.Marca">{{item.color}}</td>
                 <td *ngIf="columnVisibility.Operador">{{item.operator}}</td>
                 <td *ngIf="columnVisibility.Color">{{item.color}}</td>
                 <td *ngIf="columnVisibility['GB']">{{item.storage}}</td>
-                <td *ngIf="columnVisibility.EstadoFisico">{{item.physicalState}}</td>
+                <td *ngIf="columnVisibility'[Estado Físico]'">{{item.physicalState}}</td>
                 <td *ngIf="columnVisibility['Estado de Batería']">{{item.batteryState}}</td>
                 <td *ngIf="columnVisibility.Ubicacion">{{item.location}}</td>
               </tr>
@@ -118,10 +107,10 @@
         </table>
     </div>
     <br>
-  </section>
+  </div>
     
 <!-- Pagination -->
-<section class="container-sm">
+<div class="container-sm">
   <div class="row">
       <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
         <nav  aria-label="...">
@@ -141,5 +130,6 @@
         </nav>
       </div>  
     </div>
+  </div>
 </section>
   

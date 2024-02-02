@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class InventoryReportComponent {
   itemsReport: Promise<ProductModel[]> | undefined
   // Encabezado de la tabla
-  columnHead: string[] = ['Fecha', 'IMEI', 'Modelo', 'Categoría', 'Operador', 'Precio', 'Color','GB', 'Estado Fisico', 'Estado de Batería', 'Hora', 'Ubicación']
+  columnHead: string[] = ['Fecha', 'IMEI', 'Marca', 'Categoría', 'Operador', 'Precio', 'Color','GB', 'Estado Físico', 'Estado de Batería', 'Hora', 'Ubicación']
   // Propiedad para la opción seleccionada en el primer select
   selectedFilter: string ='' 
 
@@ -27,7 +27,7 @@ export class InventoryReportComponent {
   }  
   //contiene un mapeo de las opciones según la opción seleccionada en el primer select
   dataOptions: { [key: string]: string[] } = {
-    'model': ['G15', 'M24', 'TOYA32', 'M25'],
+    'brand': ['Samsung', 'Apple', 'Xiomi'],
     'category': ['Celular', 'Auriculares', 'Laptop', 'Bocina'],
     'color': ['Rojo', 'Azul', 'Verde', 'Negro'],
     'gb': ['8GB', '16GB', '32GB', '64GB'],
@@ -36,18 +36,17 @@ export class InventoryReportComponent {
     'estadoBateria': ['Buena', 'Regular', 'Mala']
   };
 
+  //funcion que devuelve las opciones del filtro seleccinado 
   getFilteredOptions(): string[] {
     return this.dataOptions[this.selectedFilter] || [];
   }
-
+  //Etiqueta del filtro seleccionado
   getFilterLabel(): string {
     switch (this.selectedFilter) {
-      case 'model':
-        return 'Modelo';
+      case 'brand':
+        return 'Marca';
       case 'category':
         return 'Categoría';
-      case 'color':
-        return 'Color';
       case 'color':
         return 'Color';
       case 'gb':
@@ -66,36 +65,37 @@ export class InventoryReportComponent {
   // Objeto para controlar la visibilidad de las columnas
   columnVisibility: {
     'IMEI': boolean,
-    Modelo: boolean,
+    Marca: boolean,
     'Categoría': boolean,
     Operador: boolean,
     Fecha: boolean,
     Precio: boolean,
     Color: boolean,
     'GB': boolean,
-    EstadoFisico: boolean,
+    'Estado Físico': boolean,
     'Estado de Batería': boolean,
     Hora: boolean,
     Ubicacion: boolean,
     [key: string]: boolean;  // Firma de índice
   } = {
     'IMEI': true,
-    Modelo: true,
+    Marca: true,
     'Categoría': true,
     Operador: true,
     Fecha: true,
     Precio: false,
     Color: false,
     'GB': false,
-    EstadoFisico: false,
+    'Estado Físico': false,
     'Estado de Batería': false,
     Hora: false,
     Ubicacion: false,
   };
-
+  //función que permite la visibilidad de la columna con valor boolean
   toggleCheckbox(column: string): void {
     this.columnVisibility[column] = !this.columnVisibility[column];
   }
+  //función que evita que el dropdown se cierre
   toggleDropdown(event: Event): void {
     event.stopPropagation()
   }
