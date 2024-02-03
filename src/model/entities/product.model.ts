@@ -1,3 +1,7 @@
+/**
+ * @property {string} productId ID for product.
+ * @property {Date} entryDate Date and hour the product was registered.
+ */
 export interface ProductModel {
   productId : string
   entryDate : Date
