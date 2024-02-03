@@ -78,10 +78,10 @@ removeAccents(str: string): string {
       });
     }
     updateDocument(form: CustomerModel){
-      form.email = this.infoCustomer.email
+      form.voterKey = this.infoCustomer.voterKey
       console.log(form)
       console.log(this.infoCustomer)
-      this.databaseService.updateDocument("customers",form.email,form)
+      this.databaseService.updateDocument("customers",form.voterKey,form)
     }
     //Método para filtrar sin deuda
     async filter(){

@@ -89,6 +89,7 @@ export class FirestoreService {
   }
   // Método para actualizar datos de un documento de la colección
   async updateDocumentC(collectionName: string, docId: string, data: any) {
+    console.log(collectionName,docId,data)
     const docRef = doc(database, collectionName, docId)
     await updateDoc(docRef, data)
   }

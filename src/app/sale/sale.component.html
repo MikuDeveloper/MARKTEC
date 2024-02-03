@@ -4,14 +4,24 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
+            <div class="col-md-6 mx-auto d-flex justify-content-center align-items-center">
                 <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping">
                         <i class="fi fi-rr-search"></i>
                     </span>
-                    <input type="text" class="form-control" placeholder="Buscar..." aria-describedby="addon-wrapping">
+                    <input type="text" class="form-control" placeholder="Buscar..."
+                    aria-describedby="addon-wrapping">
                 </div>
             </div>
+            <div class="col-md-6 mx-auto d-flex justify-content-center align-items-center">
+              <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping">
+                      <i class="fi fi-rr-search"></i>
+                  </span>
+                  <input type="text" class="form-control" placeholder="Buscar..."
+                  aria-describedby="addon-wrapping">
+              </div>
+          </div>
         </div>
     </div>
     <br>
@@ -20,10 +30,55 @@
     <div class="row">
         <!-- First card -->
       <div class="col-sm-6 mb-3 mb-sm-0 ">
-        <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newCustomer">
+        <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newCustomer" *ngIf="showBtn">
           <div class="card-body">
             <i class="fi fi-rr-add"></i>
             <h6 class="card-title">Nuevo Cliente</h6>
+          </div>
+        </div>
+        <!-- Tarjeta para mostrar -->
+        <div class="card" *ngIf="showCard">
+          <div class="card-body">
+            <h5 class="card-title">Cliente</h5>
+            <table>
+              <tbody class="text-center">
+                <tr>
+                  <td><h5>Nombre</h5></td>
+                  <td><h6>{{customers.name}}</h6></td>
+                </tr>
+                <tr>
+                  <td><h5>C.E.</h5></td>
+                  <td><h6>{{customers.voterKey}}</h6></td>
+                </tr>
+                <tr>
+                  <td><h5>Email</h5></td>
+                  <td><h6>{{customers.email}}</h6></td>
+                </tr>
+                <tr>
+                  <td><h5>Teléfono</h5></td>
+                  <td><h6>{{customers.phoneNumber}}</h6></td>
+                </tr>
+                <tr>
+                  <td><h5>Dirección</h5></td>
+                  <td><h6>{{customers.address}}</h6></td>
+                </tr>
+                <tr>
+                  <td><h5>Facebook</h5></td>
+                  <td><h6>{{customers.facebook}}</h6></td>
+                </tr>
+                <tr>
+                  <td><h5>Estado</h5></td>
+                  <td><h6>{{customers.status}}</h6></td>
+                </tr>
+                <tr>
+                  <td><h5>Deuda</h5></td>
+                  <td><h6>{{customers.debt}}</h6></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer text-body-secondary">
+            <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
@@ -146,7 +201,7 @@
                                 <button class="btn btn-outline-primary float-start" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
                                 <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
                             </div>
-                            
+
                         </div>
                 </div>
               </div>
@@ -168,9 +223,10 @@
       </div>
     </div>
   </div>
-  
+
 <!-- Modal  para Crear a un Nuevo Cliente-->
-<div class="modal fade" id="newCustomer" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">  
+<div class="modal fade" id="newCustomer" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
+  <form #newCustomerForm="ngForm" (ngSubmit)="addNewCustomer(newCustomerForm.value)">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -178,26 +234,32 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+
               <!-- Nombre -->
               <label for="fileName">Nombre Completo</label>
-              <input type="text" id="name" class="form-control mb-3" name="name" placeholder="Escribe aquí"required />
+              <input type="text" id="name" class="form-control mb-3" name="name"
+              [(ngModel)]="customers.name" #name="ngModel" placeholder="Escribe aquí"required />
               <!-- Voter key -->
               <label for="fileName">Clave del Elector</label>
-              <input type="text" id="voterKey" class="form-control mb-3" name="voterKey" placeholder="Escribe aquí" required/>
+              <input type="text" id="voterKey" class="form-control mb-3" name="voterKey"
+              [(ngModel)]="customers.voterKey" #voterKey="ngModel" placeholder="Escribe aquí" required/>
               <!-- Address -->
               <label for="fileName">Dirección</label>
-              <input type="text" id="address" class="form-control mb-3" name="address" placeholder="Escribe aquí" required/>
+              <input type="text" id="address" class="form-control mb-3" name="address"
+              [(ngModel)]="customers.address" #address="ngModel" placeholder="Escribe aquí" required/>
               <!-- Phone Number -->
               <label for="fileName">Número de Teléfono</label>
-              <input type="text" id="phoneNumber" class="form-control mb-3" name="phoneNumber" placeholder="Escribe aquí" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
+              <input type="text" id="phoneNumber" class="form-control mb-3" name="phoneNumber"
+              [(ngModel)]="customers.phoneNumber" #phoneNumber="ngModel" placeholder="Escribe aquí" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
               <!-- Email -->
               <label for="fileName">Correo Electrónico</label>
-              <input type="text" id="email" class="form-control mb-3" name="email" placeholder="Escribe aquí" required email/>
+              <input type="text" id="email" class="form-control mb-3" name="email"
+              [(ngModel)]="customers.email" #email="ngModel" placeholder="Escribe aquí" required email/>
               <!-- Facebook -->
               <label for="fileName">Facebook</label>
-              <input type="text" id="facebook" class="form-control mb-3" name="facebook" placeholder="Escribe aquí" required/>
-            </form>
+              <input type="text" id="facebook" class="form-control mb-3" name="facebook"
+              [(ngModel)]="customers.facebook" #facebook="ngModel" placeholder="Escribe aquí" required/>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -205,7 +267,9 @@
           </div>
         </div>
       </div>
+    </form>
   </div>
+
   <!-- Modal para agregar Artículo en venta-->
   <div class="modal fade" id="newItemforSale" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
@@ -249,7 +313,7 @@
               <!-- Observations -->
               <label for="fileName">Observaciones Adicionales</label>
               <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
-            </form>  
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -259,7 +323,7 @@
       </div>
   </div>
   <!-- Modal para agregar Artículo-->
-<div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">   
+<div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -329,7 +393,7 @@
   </div>
 </div>
 <!-- Modal para Editar la información del artículo-->
-<div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static"> 
+<div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -337,7 +401,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-         <form> 
+         <form>
          <!-- Model -->
          <label for="fileName">Modelo</label>
          <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
@@ -381,5 +445,5 @@
     </div>
 </div>
 
-  
-  
+
+
