@@ -2,96 +2,107 @@
     <h1 class="text-center">Ventas</h1>
     <hr>
     <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 mx-auto d-flex justify-content-center align-items-center">
-                <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">
-                        <i class="fi fi-rr-search"></i>
-                    </span>
-                    <input type="text" class="form-control" placeholder="Buscar..."
-                    aria-describedby="addon-wrapping">
-                </div>
-            </div>
-            <div class="col-md-6 mx-auto d-flex justify-content-center align-items-center">
-              <div class="input-group flex-nowrap">
-                  <span class="input-group-text" id="addon-wrapping">
-                      <i class="fi fi-rr-search"></i>
-                  </span>
-                  <input type="text" class="form-control" placeholder="Buscar..."
-                  aria-describedby="addon-wrapping">
-              </div>
-          </div>
-        </div>
-    </div>
     <br>
-   </div>
+</div>
   <div class="container">
     <div class="row">
         <!-- First card -->
       <div class="col-sm-6 mb-3 mb-sm-0 ">
-        <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newCustomer" *ngIf="showBtn">
-          <div class="card-body">
-            <i class="fi fi-rr-add"></i>
-            <h6 class="card-title">Nuevo Cliente</h6>
+        <!-- Barra de Búsqueda -->
+          <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="addon-wrapping">
+                  <i class="fi fi-rr-search"></i>
+              </span>
+              <input
+              id="typeahead-Customer"
+              type="text"
+              class="form-control"
+              [(ngModel)]="model"
+              [ngbTypeahead]="search"
+              (focus)="focus$.next($any($event).target.value)"
+              (click)="click$.next($any($event).target.value)"
+              (selectItem)="onSelect($event)"
+              #instance="ngbTypeahead">
           </div>
-        </div>
+        <!-- Botoón para agregar un nuevo cliente -->
+          <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newCustomer" *ngIf="showBtn">
+            <div class="card-body">
+              <i class="fi fi-rr-add"></i>
+              <h6 class="card-title">Nuevo Cliente</h6>
+            </div>
+          </div>
         <!-- Tarjeta para mostrar -->
-        <div class="card" *ngIf="showCard">
-          <div class="card-body">
-            <h5 class="card-title">Cliente</h5>
-            <table>
-              <tbody class="text-center">
-                <tr>
-                  <td><h5>Nombre</h5></td>
-                  <td><h6>{{customers.name}}</h6></td>
-                </tr>
-                <tr>
-                  <td><h5>C.E.</h5></td>
-                  <td><h6>{{customers.voterKey}}</h6></td>
-                </tr>
-                <tr>
-                  <td><h5>Email</h5></td>
-                  <td><h6>{{customers.email}}</h6></td>
-                </tr>
-                <tr>
-                  <td><h5>Teléfono</h5></td>
-                  <td><h6>{{customers.phoneNumber}}</h6></td>
-                </tr>
-                <tr>
-                  <td><h5>Dirección</h5></td>
-                  <td><h6>{{customers.address}}</h6></td>
-                </tr>
-                <tr>
-                  <td><h5>Facebook</h5></td>
-                  <td><h6>{{customers.facebook}}</h6></td>
-                </tr>
-                <tr>
-                  <td><h5>Estado</h5></td>
-                  <td><h6>{{customers.status}}</h6></td>
-                </tr>
-                <tr>
-                  <td><h5>Deuda</h5></td>
-                  <td><h6>{{customers.debt}}</h6></td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="card" *ngIf="showCard">
+            <div class="card-body">
+              <h5 class="card-title">Cliente</h5>
+              <table>
+                <tbody class="text-center">
+                  <tr>
+                    <td><h5>Nombre</h5></td>
+                    <td><h6>{{customers.name}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>C.E.</h5></td>
+                    <td><h6>{{customers.voterKey}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Email</h5></td>
+                    <td><h6>{{customers.email}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Teléfono</h5></td>
+                    <td><h6>{{customers.phoneNumber}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Dirección</h5></td>
+                    <td><h6>{{customers.address}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Facebook</h5></td>
+                    <td><h6>{{customers.facebook}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Estado</h5></td>
+                    <td><h6>{{customers.status}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Deuda</h5></td>
+                    <td><h6>{{customers.debt}}</h6></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer text-body-secondary">
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
           </div>
-          <div class="card-footer text-body-secondary">
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
       </div>
       <!-- Arrow icon -->
 
       <!-- Second card -->
       <div class="col-sm-6 mb-3 mb-sm-0 ">
-        <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newItemforSale">
-          <div class="card-body">
-            <i class="fi fi-rr-add"></i>
-            <h6 class="card-title">Artículo en venta</h6>
+        <!-- Barra de búsqueda -->
+          <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">
+                <i class="fi fi-rr-search"></i>
+            </span>
+            <input id="typeahead-Item"
+            type="text"
+            class="form-control"
+            [(ngModel)]="model"
+            [ngbTypeahead]="searchItem"
+            (focus)="focus$.next($any($event).target.value)"
+            (click)="click$.next($any($event).target.value)"
+            (selectItem)="onSelect($event)"
+            #instance="ngbTypeahead">
           </div>
-        </div>
+        <!-- Botón para escoger artículo de venta-->
+          <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newItemforSale">
+            <div class="card-body">
+              <i class="fi fi-rr-add"></i>
+              <h6 class="card-title">Artículo en venta</h6>
+            </div>
+          </div>
       </div>
     </div>
     <!-- Segunda Fila -->
