@@ -27,7 +27,7 @@ export class InventoryService {
   }
 
   /**
-   * @asyn
+   * @asycn
    * @param {ProductModel} product A product model containing at least the productId property.
    * @returns {Promise<void>} Don't return anything. Add a product to database, then to the list and finally update the observable.
    * @throws {Error} If an error occurs when adding the product to the inventory.
