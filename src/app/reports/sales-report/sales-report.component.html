@@ -12,7 +12,8 @@
         <div class="form-floating">
           <select class="form-select form-select-md mb-3" id="floatingSelect" aria-label=".form-select-lg example">
             <option selected value="" >--Todo--</option>
-            <option value="model">Juan</option>
+            <option value="category">Juan Gabriel</option>
+            <option value="saleState">Guadalupe Campa</option>
           </select>
           <label for="floatingSelect" class="form-label">Vendedor:</label>
         </div> 
@@ -25,7 +26,7 @@
             <option selected value="" >--Todo--</option>
             <option value="celular">Celular</option>
             <option value="laptop">Laptop</option>
-            <option value="auriculares">Celular</option>
+            <option value="auriculares">Consola</option>
           </select>
           <label for="floatingSelect" class="form-label">Categoría:</label>
         </div> 
@@ -55,7 +56,7 @@
         <div class="col-md-9 mb-3 d-flex justify-content-end align-items-end">
           <div class="align-baseline me-3">
             <button class="btn btn-primary" type="button">
-              <i class="fi fi-rr-eye"></i>
+              <i class="fi fi-rr-filter"></i>
             </button>
           </div>
           <div class="align-baseline">
@@ -71,10 +72,20 @@
           <thead>
               <tr>
               <th scope="col" *ngIf="columnVisibilitySR['ID Venta']">ID Venta</th>
-              <th scope="col" *ngIf="columnVisibilitySR.Fecha">Fecha</th>
-              <th scope="col" *ngIf="columnVisibilitySR.Producto">Prodcuto</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Fecha']">Fecha</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Producto']">Prodcuto</th>
               <th scope="col" *ngIf="columnVisibilitySR['Categoría']">Categoría</th>
               <th scope="col" *ngIf="columnVisibilitySR['Cédula de Compra']">Cédula de Compra</th>
+
+              <th scope="col" *ngIf="columnVisibilitySR['Artículos recibidos']">Artículos recibidos</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Valor de Producto']">Valor de Producto</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Valor de Artículos Recibidos']">Valor de Artículos Recibidos</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Margen de Ganancia']">Margen de Ganancia</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Estado de Venta']">Estado de Venta</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Método de Pago']">Método de Pago</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Clave de Elector']">Clave de Elector</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Cliente']">Cliente</th>
+              <th scope="col" *ngIf="columnVisibilitySR['Empleado']">Empleado</th>
               </tr>
           </thead>
           <tbody class="align-middle">
@@ -84,6 +95,16 @@
                   <td>Iphone 15</td>
                   <td>Teléfono celular</td>
                   <td><button class="btn btn-link align-baseline" data-bs-toggle="modal" data-bs-target="#detailsReport">Detalles</button></td>
+                  
+                  <td *ngIf="columnVisibilitySR['Artículos recibidos']">Artículo 1, Artícullo 2, Artículo 3</td>
+                  <td *ngIf="columnVisibilitySR['Valor de Producto']">$0.0</td>
+                  <td *ngIf="columnVisibilitySR['Valor de Artículos Recibidos']">$0.0</td>
+                  <td *ngIf="columnVisibilitySR['Margen de Ganancia']">$0.0</td>
+                  <td *ngIf="columnVisibilitySR['Estado de Venta']">Vendido o Deuda</td>
+                  <td *ngIf="columnVisibilitySR['Método de Pago']">Método de Pago</td>
+                  <td *ngIf="columnVisibilitySR['Clave de Elector']">123456789012345123</td>
+                  <td *ngIf="columnVisibilitySR['Cliente']">Nombre Cliente</td>
+                  <td *ngIf="columnVisibilitySR['Empleado']">Nombre Empleado</td>
               </tr>
           </tbody>
         </table>
@@ -248,7 +269,8 @@
               </tr>
             </tbody>
           </table>
-        </div>  
+        </div>
+        <p>*No hubo ningún intercambio*</p>  
       </div>
     </div>
   </div>

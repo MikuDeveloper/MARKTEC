@@ -1,37 +1,19 @@
 export interface ProductModel {
-  IMEI : string //IMEI
-  model : string
-  color  : string
-  storage : string
-  physicalState : string
-  batteryState : string
-  category : string
+  productId : string
   entryDate : Date
-  operator : string
-  hour: Date
-  location : string
+  category : string //Celular, smartwatch, tablet, consola, auriculares, otros.
+  brand : string
+  IMEI : string
+  model : string
+  color : string
+  storageCapacity? : number | string
+  storageUnit? : string
+  physicalState : number //1 - 10
+  batteryState? : number | string //%
+  comments? : string
+  location : string //Bodega, local, prestado (cliente y empleado), reparación, Querétaro(empleado), VENDIDO (EXCLUSIVO DE VENTA)
+  location_employee? : string
+  location_customer? : string
+  price? : number
+  employeeId : string
 }
-
-
-
-
-export interface ProductModell {
-imei: string
-batteryState: number
-brand: string
-category: string
-color: string
-comments: string
-employeeId: string
-entryDate : Date
-location: string
-locationCustomer: string
-locationEmployee: string
-model: string
-physicalState: number
-price: number
-productId: string
-storageCapacity: number
-storageUnit: string
-}
-

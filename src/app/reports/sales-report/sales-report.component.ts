@@ -17,7 +17,7 @@ export class SalesReportComponent {
   
   columnHead: string[] =[
     'ID Venta', 'Fecha', 'Producto', 'Categoría', 'Cédula de Compra', 
-    'Artículos recibidos', 'Valor de Producto', 'Valor de Artículos Recibidos', 'Margen de Ganancia', 'Estado de Venta', 'Clave de Elector']
+    'Artículos recibidos', 'Valor de Producto', 'Valor de Artículos Recibidos', 'Margen de Ganancia', 'Estado de Venta', 'Método de Pago','Clave de Elector', 'Cliente', 'Empleado']
 
   tablaActual: number = 1; // Inicializamos con la tabla 1
 
@@ -32,8 +32,8 @@ export class SalesReportComponent {
   // Objeto para controlar la visibilidad de las columnas
   columnVisibilitySR: {
     'ID Venta': boolean,
-    Producto: boolean,
-    Fecha: boolean,
+    'Producto': boolean,
+    'Fecha': boolean,
     'Categoría': boolean,
     'Cédula de Compra': boolean,
     'Artículos recibidos': boolean,
@@ -41,12 +41,15 @@ export class SalesReportComponent {
     'Valor de Artículos Recibidos': boolean,
     'Margen de Ganancia': boolean,
     'Estado de Venta': boolean,
+    'Método de Pago': boolean,
     'Clave de Elector': boolean,
+    'Cliente': boolean,
+    'Empleado': boolean,
     [key: string]: boolean;  // Firma de índice
   } = {
     'ID Venta': true,
-    Producto: true,
-    Fecha: true,
+    'Producto': true,
+    'Fecha': true,
     'Categoría': true,
     'Cédula de Compra': true,
     'Artículos recibidos': false,
@@ -54,7 +57,10 @@ export class SalesReportComponent {
     'Valor de Artículos Recibidos': false,
     'Margen de Ganancia': false,
     'Estado de Venta': false,
+    'Método de Pago': false,
     'Clave de Elector': false,
+    'Cliente': false,
+    'Empleado': false
   };
 
   //función que permite la visibilidad de la columna con valor boolean

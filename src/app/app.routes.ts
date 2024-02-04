@@ -22,6 +22,7 @@ export const routes: Routes = [
   { path: 'reports', component: ReportsComponent, canActivate: [RoutesGuard] },
   { path: 'employees', component: EmployeesComponent, canActivate: [RoutesGuard] },
   { path: 'reports-inventory', component: InventoryReportComponent, canActivate: [RoutesGuard] },
+  { path: 'reports-inventory/:page', component: InventoryReportComponent, canActivate: [RoutesGuard] },
   { path: 'reports-sales', component: SalesReportComponent, canActivate: [RoutesGuard] },
 
 ];
