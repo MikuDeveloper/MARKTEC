@@ -41,8 +41,7 @@ export class InventoryReportComponent{
   dataOptions: { [key: string]: string[] } = {
     'brand': ['Samsung', 'Apple', 'Xiomi'],
     'category': ['Celular', 'Auriculares', 'Laptop', 'Bocina'],
-    'color': ['Rojo', 'Azul', 'Verde', 'Negro'],
-    'gb': ['8GB', '16GB', '32GB', '64GB'],
+    'storage': ['8GB', '16GB', '32GB', '64GB'],
     'estadoFisico': ['Nuevo', 'Usado', 'Reacondicionado'],
     'operador': ['Movistar', 'Claro', 'Entel', 'Bitel'],
     'estadoBateria': ['Buena', 'Regular', 'Mala']
@@ -61,8 +60,8 @@ export class InventoryReportComponent{
         return 'Categoría';
       case 'color':
         return 'Color';
-      case 'gb':
-       return 'GB';
+      case 'storage':
+       return 'Almacenamiento';
       case 'estadoFisico':
        return 'Estado Físico';
       case 'operador':

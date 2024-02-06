@@ -11,28 +11,29 @@
       <!-- Filtrado por: -->
       <div class="col-md-3 mb-3">
         <div class="form-floating">
-          <select class="form-select form-select-md mb-3" id="floatingSelect" aria-label=".form-select-lg example" [(ngModel)]="selectedFilter">
+          <select class="form-select form-select-md mb-3" aria-label="Select" #filter="ngModel" ngModel id="filterSelect"
+            [required]="true" [ngClass]="{'is-invalid':(filter.invalid && filter.dirty)}" [(ngModel)]="selectedFilter">
           <option selected value="" >--Todo--</option>
           <option value="brand">Marca</option>
           <option value="category">Categoría</option>
-          <option value="color">Color</option>
-          <option value="gb">GB</option>
+          <option value="storage">Almacenamiento</option>
           <option value="estadoFisico">Estado Físico</option>
           <option value="operador">Operador</option>
           <option value="estadoBateria">Estado de Batería</option>
         </select>
-        <label for="floatingSelect" class="form-label">Filtrar por:</label>
+        <label for="filterSelect" class="form-label">Filtrar por:</label>
         </div> 
       </div>
       <!-- Fin: Filtrado por: -->
       <!-- Segundo Select: -->
       <div class="col-md-3 mb-3">
         <div class="form-floating" *ngIf="selectedFilter !== ''">
-          <select class="form-select form-select-md mb-3" id="floatingCategory" aria-label=".form-select-lg example">
-          <option selected value="all">--Todo--</option>
+          <select class="form-select form-select-md mb-3"  aria-label="Select" #filter="ngModel" ngModel id="filterCategory"
+            [required]="true" [ngClass]="{'is-invalid':(filter.invalid && filter.dirty)}">
+          <option selected value="">--Todo--</option>
           <option *ngFor="let option of getFilteredOptions()" [value]="option">{{option}}</option>
         </select>
-        <label for="floatingCategory" class="form-label">{{ getFilterLabel()}}</label>
+        <label for="filterCategory" class="form-label">{{ getFilterLabel()}}</label>
         </div>
       </div>
       <!-- Fin: Segundo select -->
