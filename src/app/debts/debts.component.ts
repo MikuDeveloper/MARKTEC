@@ -1,10 +1,12 @@
 import { Component, TemplateRef } from '@angular/core';
 import {NavService} from "../../model/utils/navbar.util";
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-debts',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './debts.component.html',
   styleUrl: './debts.component.scss'
 })

@@ -197,16 +197,30 @@
         </div>
         <div class="modal-body">
           <form>
+            <!-- methodPay -->
+            <div class="col-lg-12 col-md-12 mt-2">
+              <div class="form-floating">
+                <select class="form-select form-select-md mb-3" aria-label="Select method" #filter="ngModel" ngModel id="methodPay"
+                    [required]="true" [ngClass]="{'is-invalid':(filter.invalid && filter.dirty)}">
+                  <option selected value="">--Elige el método de pago--</option>
+                  <option value="1">Cajero</option>
+                  <option value="2">Efectivo</option>
+                  <option value="3">Tranferencia</option>
+                </select>
+                <label for="methodPay">Filtrar por:</label>
+              </div>
+            </div>
             <!-- Amount -->
-            <select class="form-select" aria-label="Default select example">
-              <option disabled selected>Elige el método de pago</option>
-              <option value="1">Efectivo</option>
-              <option value="2">Tranferencia</option>
-            </select>
-            <label class="mt-2" for="amount">Cantidad</label>
-            <div class="input-group mb-3">
-              <span class="input-group-text">$</span>
-              <input type="text" id="amount" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="00.00" pattern="^[0-9]+$">
+            <div class="col-lg-6 col-md-6 mt-2">
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <div class="form-floating">
+                  <input type="number" name="price" id="amount" class="form-control" aria-label="Precio" placeholder="00.00"
+                         ngModel #price="ngModel" [ngClass]="{'is-invalid':(price.invalid && price.touched)}"
+                         [required]="true" [min]="0" />
+                  <label for="amount">Cantidad</label>
+                </div>
+              </div>
             </div>
           </form>
         </div>
