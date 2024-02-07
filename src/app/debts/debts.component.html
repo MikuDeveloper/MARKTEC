@@ -215,6 +215,7 @@
             <div class="col-lg-12 col-md-12 mb-2">
               <div class="form-floating">
                 <input type="date" name="date" id="date" class="form-control"
+                       
                        ngModel #date="ngModel" [ngClass]="{'is-invalid':(date.invalid && date.dirty)}"
                        [disabled]="filter.value === 'cash' || !filter.value" [required]="true" />
                 <label for="date">Fecha</label>
@@ -223,6 +224,7 @@
             <div class="col-lg-12 col-md-12 mb-2">
               <div class="form-floating">
                 <input type="time" name="hour" id="hour" class="form-control" 
+                       
                        ngModel #hour="ngModel" [ngClass]="{'is-invalid':(hour.invalid && hour.dirty)}" 
                        [disabled]="filter.value === 'cash' || !filter.value" [required]="true"/>
                 <label for="hour">Hora</label>
