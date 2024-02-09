@@ -9,6 +9,8 @@ import { ReportsComponent } from './reports/reports.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { RoutesGuard } from "../model/utils/routes.guard";
 import {InventoryAddComponent} from "./inventory/inventory-add/inventory-add.component";
+import {InventorySearchComponent} from "./inventory/inventory-search/inventory-search.component";
+import {InventoryProductsComponent} from "./inventory/inventory-products/inventory-products.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -18,6 +20,8 @@ export const routes: Routes = [
     path: 'inventory', component: InventoryComponent, canActivate: [RoutesGuard],
     children: [
       { path: 'add', component:  InventoryAddComponent },
+      { path: 'search/:id', component: InventorySearchComponent },
+      { path: 'products/:page', component: InventoryProductsComponent },
       { path: '', redirectTo: 'inventory', pathMatch: 'full' }
     ]
   },
