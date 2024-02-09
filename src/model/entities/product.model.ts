@@ -20,4 +20,6 @@ export interface ProductModel {
   location_customer? : string
   price? : number
   employeeId : string
+  urlPhoto1 : string
+  urlPhoto2 : string
 }

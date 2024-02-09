@@ -7,7 +7,7 @@
 
 <form id="inventoryAddForm" class="row g-2 needs-validation" #inventoryAddForm="ngForm"
       (ngSubmit)="addToInventory(inventoryAddForm.value, inventoryAddForm)">
-  <legend>Información del nuevo producto</legend>
+  <legend>Formulario de nuevo producto</legend>
 
   <div class="col-lg-6 col-md-6">
     <div class="form-floating">
@@ -185,6 +185,24 @@
              ngModel #employeeId="ngModel" [ngClass]="{'is-invalid':(employeeId.invalid && employeeId.dirty)}"
              [required]="true" readonly [(ngModel)]="currentUser"/>
       <label for="employeeId">Usuario que registra</label>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-md-6 mb-4">
+    <label for="urlPhoto1" class="form-label">1. Foto de artículo:</label>
+    <input type="file" name="urlPhoto1" id="urlPhoto1" class="form-control" placeholder="Elegir foto"
+           ngModel #imgFile1="ngModel" (change)="editAndCompressImage($event, imgFile1, img1)" [required]="true" />
+    <div [ngClass]="{'visually-hidden':(imgFile1.value == '' || imgFile1.value == undefined)}">
+      <img src="assets/icons/img_placeholder.png" alt="Foto 1" title="Foto 1" #img1 class="img-fluid" />
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-md-6 mb-4">
+    <label for="urlPhoto2" class="form-label">2. Foto de artículo:</label>
+    <input type="file" name="urlPhoto2" id="urlPhoto2" class="form-control" placeholder="Elegir foto"
+           ngModel #imgFile2="ngModel" (change)="editAndCompressImage($event, imgFile2, img2)" [required]="true" />
+    <div [ngClass]="{'visually-hidden':(imgFile2.value == '' || imgFile2.value == undefined)}">
+      <img src="assets/icons/img_placeholder.png" alt="Foto 1" title="Foto 1" #img2 class="img-fluid" />
     </div>
   </div>
 
