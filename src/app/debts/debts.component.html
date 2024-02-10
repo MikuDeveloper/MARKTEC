@@ -3,8 +3,7 @@
     <h3>Adeudos</h3>
   </div>
   <hr><br>
-</section>
-<section class="container-sm">
+  <section class="container-sm" [ngClass]="{'visually-hidden' : route.isActive}">
   <div class="row">
     <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
         <div class="input-group flex-nowrap">
@@ -16,8 +15,6 @@
     </div>
   </div>
   <br>
-</section>
-<section class="container-sm">
   <div class="table-responsive">
         <table class="table table-bordered text-center">
             <!-- Encabezado de la tabla -->
@@ -32,15 +29,15 @@
                 <tr>
                     <td>Nombre_cliente</td>
                     <td>Nombre_producto</td>
-                    <td>$00.00 - <button class="btn btn-link align-baseline" data-bs-toggle="modal" data-bs-target="#details">Detalles</button></td>
+                    <td>$00.00 - <button class="btn btn-link align-baseline" 
+                      routerLink="details" routerLinkActive #route="routerLinkActive" [routerLinkActive]="['visually-hidden']">Detalles</button></td>
                 </tr>
             </tbody>
         </table>
     </div>
-</section>
-<!-- Pagination -->
-<section class="container-sm">
-  <div class="row">
+    <br>
+    <!-- Pagination -->
+    <div class="row">
       <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
         <nav  aria-label="...">
           <ul class="pagination">
@@ -59,7 +56,10 @@
         </nav>
       </div>  
     </div>
+  </section>
+  <router-outlet></router-outlet>
 </section>
+
 <!-- Modal Details-->
 <div class="modal fade" id="details" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">

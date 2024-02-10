@@ -2,23 +2,29 @@
     border-radius: 10pt;
     margin: 10pt;
     cursor: pointer;
-  
+    
     .card-body {
       color: rgb(100, 100, 100);
       background-color: rgb(238, 238, 238);
-      font-size: 64pt;
+      //font-size: 64pt;
       border-radius: 10pt;
     }
 
     .card-body2 {
         color: rgb(100, 100, 100);
         background-color: rgb(255, 255, 255);
-        font-size: 64pt;
+        //font-size: 64pt;
         border-radius: 10pt;
         margin: 10pt;
         border-right:1xp;
         border-color: black;
 
       }
+}
 
-  }
+.fi-rr-add{
+  font-size:  3em;
+}
+.fi-rr-exclamation{
+  font-size:  3em;
+}

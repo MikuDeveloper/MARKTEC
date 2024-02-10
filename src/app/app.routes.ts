@@ -22,10 +22,8 @@ export const routes: Routes = [
   { path: 'customers', component: CustomersComponent, canActivate: [RoutesGuard] },
   { path: 'debts', component: DebtsComponent, canActivate: [RoutesGuard],
     children:[
-      {
-        path: '',
-        component:DetailsDebstComponent
-      },
+      {path: 'details', component: DetailsDebstComponent},
+      {path: '',  redirectTo: 'debts', pathMatch: 'full'}
     ] 
   },
   { path: 'reports', component: ReportsComponent, canActivate: [RoutesGuard] },

@@ -44,117 +44,26 @@
     <h5 class="text">Artículos Recibidos</h5>
         <!-- First card -->
       <div class="col-sm-6 mb-3 mb-sm-0 ">
-        <div class="card">
-          <div class="card-body2">
-            <div class="row">
-                <!-- First column -->
-                <div class="col-md-4">
-                  <h1>Imagen</h1>
+        <div class="card mb-3" data-bs-toggle="modal" data-bs-target="#infoModal">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="..." class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body2">
+                <h5 class="card-title">Nombre del Producto</h5>
+                <div class="d-flex justify-content-center align-items-center">
+                  <i class="fi fi-rr-exclamation text-success" ></i>
                 </div>
-                <!-- Second column -->
-                <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Modelo:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">IMEI:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Precio:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Categoría:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Color:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Almacenamiento:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Fecha:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Operador:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Estado de batería:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Estado física:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Observaciones adicionales:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <button class="btn btn-outline-primary float-start" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
-                                <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
-                            </div>
-                            
-                        </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-outline-primary float-start" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fi fi-rr-edit"></i></button>
+                    <button class="btn btn-outline-danger float-end mb-0" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fi fi-rr-trash"></i></button>
+                  </div>    
                 </div>
               </div>
+            </div>
           </div>
-          <!-- <div class="card-footer">
-            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
-            <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
-          </div> -->
         </div>
       </div>
       <!-- Second card -->
@@ -311,7 +220,7 @@
       </div>
   </div>
   <!-- Modal para Eliminar articulo-->
-<div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
+<div class="modal fade" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -322,14 +231,14 @@
         <p>Se eliminará el Artículo: </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Eliminar</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modal para Editar la información del artículo-->
-<div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static"> 
+<div class="modal fade" id="editModal" tabindex="-1" data-bs-backdrop="static"> 
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -374,12 +283,112 @@
          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">Guardar Cambios</button>
         </div>
       </div>
     </div>
 </div>
-
-  
+<!-- Modal de información -->
+<div class="modal fade" id="infoModal" tabindex="-1" data-bs-backdrop="static"> 
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalles del Artículo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- Columna de la imagen (3 columnas en dispositivos grandes) -->
+          <div class="col-lg-3 order-lg-1 order-1 mb-3">
+              <img src="ruta-de-la-imagen.jpg" alt="Imagen" class="img-fluid">
+          </div>
+          <div class="col-lg-9 order-lg-2 order-2">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input1" placeholder="modelo" value="G35">
+                  <label for="Input1">Modelo:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input2" placeholder="Label 2" value="123456789012345123">
+                  <label for="Input2">IMEI:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input3" placeholder="Label 3" value="Celular">
+                  <label for="Input2">Categoría:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input4" placeholder="Label 4" value="rojo">
+                  <label for="Input2">Color:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input5" placeholder="Label 5" value="90">
+                  <label for="Input2">Estado de Batería:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input6" placeholder="Label 6" value="8">
+                  <label for="Input2">Capacidad de Almacenamiento:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input7" placeholder="Label 7" value="GB">
+                  <label for="Input2">Unidad de Almacenamiento</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input8" placeholder="Label 8" value="7">
+                  <label for="Input2">Estado Físico:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <textarea type="text" readonly class="form-control-plaintext" id="Input9" placeholder="Label 9" value="Lorem"></textarea>
+                  <label for="Input2">Comentarios:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input10" placeholder="Label 10" value="Juan">
+                  <label for="Input2">Empleado:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input11" placeholder="Label 11" value="$ 12.50">
+                  <label for="Input2">Precio:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input12" placeholder="Label 12" value="12/12/23">
+                  <label for="Input2">Fecha de Registro:</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="Input13" placeholder="Label 13" value="Local">
+                  <label for="Input2">Ubicación:</label>
+                </div>
+              </div>
+              <!--  -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
   

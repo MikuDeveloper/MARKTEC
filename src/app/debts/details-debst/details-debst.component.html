@@ -1,6 +1,107 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Adeudos</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Detalles</li>
-    </ol>
-  </nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/debts">Adeudos</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Detalles</li>
+  </ol>
+</nav>
+
+<legend>Cédula de Compra</legend>
+
+<div class="d-flex justify-content-center">
+  <div class="table-responsive mx-auto">
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <td class="fw-bold">Cliente:</td>
+          <td>Texto</td>
+        </tr>
+        <tr>
+          <td class="fw-bold">Producto:</td>
+          <td>Texto</td>
+        </tr>
+        <tr>
+          <td class="fw-bold">Total:</td>
+          <td>texto</td>
+        </tr>
+        <tr>
+          <td class="fw-bold">Fecha Inicial:</td>
+          <td>texto</td>
+        </tr>
+        <tr>
+          <td class="fw-bold">Fecha Final:</td>
+          <td>texto</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  <br>
+  <div class="modal-header text-center d-flex justify-content-center align-items-center">
+    <h1 class="fs-5" id="newModalLabel2">Fechas de Pago</h1>
+  </div>
+  <br>
+  <div class="container">
+    <div class="table-responsive">
+        <table class="table table-bordered text-center">
+            <!-- Encabezado de la tabla -->
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Monto</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Tipo de Pago</th>
+                </tr>
+            </thead>
+            <tbody class="align-middle">
+                <tr>
+                    <td>1</td>
+                    <td>$00.00</td>
+                    <td>dd/mm/aa</td>
+                    <td>Transferencia</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>$00.00</td>
+                    <td>dd/mm/aa</td>
+                    <td>Efectivo</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>$00.00</td>
+                    <td>dd/mm/aa</td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>$00.00</td>
+                    <td>dd/mm/aa</td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>$00.00</td>
+                    <td>dd/mm/aa</td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>$00.00</td>
+                    <td>dd/mm/aa</td>
+                    <td>--</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>**Se aplica un interés del 5% pasado los 3 meses desde la adquisión del producto</p>
+  </div>
+
+  <div class="container mt-2 mb-3 me-3 d-flex justify-content-between align-items-end">
+    <div class="d-flex">
+        <!-- Botón de Imprimir -->
+        <button class="btn btn-outline-success">
+          <i class="fi fi-rr-print"></i>
+        </button>
+    </div>
+    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#pay">Abonar</button>
+  </div>
