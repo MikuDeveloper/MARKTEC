@@ -5,12 +5,15 @@ export interface ProductModel {
   IMEI : string
   model : string
   color : string
-  storage : string
+  storageCapacity : string
+  storageUnit : string
   physicalState : string //Bueno, medio, malo
   batteryState : string //Bueno, medio, malo
   comments? : string
   location : string //Bodega, local, prestado (cliente y empleado), reparación, Querétaro(empleado)
-  //location_person? : string
+  location_customer? : string
+  location_employee : string
   price? : number
   employeeId : string
+  brand:string
 }

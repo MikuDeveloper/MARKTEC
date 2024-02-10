@@ -31,7 +31,7 @@ export class InventoryAddComponent {
     this.isLoading = true
     let docRef = doc(collection(database, "inventory"))
     product.productId = docRef.id
-    product.storage = product.storage + ' GB'
+    product.storageCapacity = product.storageCapacity + ' GB'
     await setDoc(docRef, product)
       .then(() => {
         document.getElementById('inventoryAddForm')

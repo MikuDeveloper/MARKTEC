@@ -31,7 +31,7 @@
               <h6 class="card-title">Nuevo Cliente</h6>
             </div>
           </div>
-        <!-- Tarjeta para mostrar -->
+        <!-- Tarjeta para mostrar datos del cliente -->
           <div class="card" *ngIf="showCard">
             <div class="card-body">
               <h5 class="card-title">Cliente</h5>
@@ -86,21 +86,67 @@
             <span class="input-group-text" id="addon-wrapping">
                 <i class="fi fi-rr-search"></i>
             </span>
-            <input id="typeahead-Item"
+            <input
+            id="typeahead-Item"
             type="text"
             class="form-control"
-            [(ngModel)]="model"
+            [(ngModel)]="modelItem"
             [ngbTypeahead]="searchItem"
-            (focus)="focus$.next($any($event).target.value)"
-            (click)="click$.next($any($event).target.value)"
-            (selectItem)="onSelect($event)"
-            #instance="ngbTypeahead">
+            (focus)="focusItem$.next($any($event).target.value)"
+            (click)="clickItem$.next($any($event).target.value)"
+            (selectItem)="onSelectItem($event)"
+            #instanceItem="ngbTypeahead">
           </div>
         <!-- Botón para escoger artículo de venta-->
-          <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newItemforSale">
+          <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newItemforSale" *ngIf="showBtnItem">
             <div class="card-body">
               <i class="fi fi-rr-add"></i>
               <h6 class="card-title">Artículo en venta</h6>
+            </div>
+          </div>
+          <!-- Tarjeta para mostrar  datos del artículo en venta-->
+          <div class="card" *ngIf="showCardItem">
+            <div class="card-body">
+              <h5 class="card-title">Artículo de Venta</h5>
+              <table>
+                <tbody class="text-center">
+                  <tr>
+                    <td><h5>Modelo</h5></td>
+                    <td><h6>{{items.model}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>IMEI</h5></td>
+                    <td><h6>{{items.IMEI}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Marca</h5></td>
+                    <td><h6>{{items.brand}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Estado de la Bateria</h5></td>
+                    <td><h6>{{items.batteryState}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Estado Físico</h5></td>
+                    <td><h6>{{items.physicalState}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Almacenamiento</h5></td>
+                    <td><h6>{{items.storageCapacity}} {{items.storageUnit}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Ubicación</h5></td>
+                    <td><h6>{{items.location}}</h6></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Precio</h5></td>
+                    <td><h6>$ {{items.price}}</h6></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer text-body-secondary">
+              <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
       </div>
@@ -110,7 +156,7 @@
     <h5 class="text">Artículos Recibidos</h5>
         <!-- First card -->
       <div class="col-sm-6 mb-3 mb-sm-0 ">
-        <div class="card">
+        <div class="card" *ngFor="let exchange of exchangeCard">
           <div class="card-body2">
             <div class="row">
                 <!-- First column -->
@@ -124,7 +170,7 @@
                                 <h6 class="text">Modelo:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.model}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -132,7 +178,7 @@
                                 <h6 class="text">IMEI:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.IMEI}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -140,7 +186,7 @@
                                 <h6 class="text">Precio:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.price}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -148,7 +194,7 @@
                                 <h6 class="text">Categoría:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.category}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -156,7 +202,7 @@
                                 <h6 class="text">Color:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.color}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -164,7 +210,7 @@
                                 <h6 class="text">Almacenamiento:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.storageCapacity}}{{exchange.storageUnit}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -172,7 +218,7 @@
                                 <h6 class="text">Fecha:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.entryDate}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -180,7 +226,7 @@
                                 <h6 class="text">Operador:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.employeeId}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -188,7 +234,7 @@
                                 <h6 class="text">Estado de batería:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.batteryState}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -196,7 +242,7 @@
                                 <h6 class="text">Estado física:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.physicalState}}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -204,13 +250,13 @@
                                 <h6 class="text">Observaciones adicionales:</h6>
                             </div>
                             <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
+                                <h6 class="text">{{exchange.comments}}</h6>
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <button class="btn btn-outline-primary float-start" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
-                                <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
+                                <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(exchange)">Eliminar</button>
                             </div>
 
                         </div>
@@ -224,7 +270,7 @@
         </div>
       </div>
       <!-- Second card -->
-      <div class="col-sm-6 mb-3 mb-sm-0 ">
+      <div class="col-sm-6 mb-3 mb-sm-0 " *ngIf="showBtnExch">
         <div class="card text-center" data-bs-toggle="modal" data-bs-target="#newItem">
           <div class="card-body">
             <i class="fi fi-rr-add"></i>
@@ -281,109 +327,69 @@
     </form>
   </div>
 
-  <!-- Modal para agregar Artículo en venta-->
-  <div class="modal fade" id="newItemforSale" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="newModalLabel">Agregar Artículo en Venta</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <!-- Model -->
-              <label for="fileName">Modelo</label>
-              <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
-              <!-- IMEI -->
-              <label for="fileName">IMEI</label>
-              <input type="text" id="imei" class="form-control mb-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
-              <!-- Price -->
-              <label for="fileName">Precio</label>
-              <input type="text" id="price" class="form-control mb-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
-              <!-- Topic -->
-              <label for="fileName">Categoría</label>
-              <input type="text" id="topic" class="form-control mb-3" name="topic" placeholder="Escribe aquí" required/>
-              <!-- Color -->
-              <label for="fileName">Color</label>
-              <input type="text" id="color" class="form-control mb-3" name="color" placeholder="Escribe aquí" required/>
-              <!-- Storage -->
-              <label for="fileName">Almacenamiento</label>
-              <input type="text" id="storage" class="form-control mb-3" name="storage" placeholder="Escribe aquí" required/>
-              <!-- Date -->
-              <label for="fileName">Fecha</label>
-              <input type="text" id="date" class="form-control mb-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
-              <!-- Operator -->
-              <label for="fileName">Operador</label>
-              <input type="text" id="operator" class="form-control mb-3" name="operator" placeholder="Escribe aquí" required/>
-              <!-- Battery state -->
-              <label for="fileName">Estado de la batería</label>
-              <input type="text" id="batteryState" class="form-control mb-3" name="batteryState" placeholder="Escribe aquí" required/>
-              <!-- PhysicalState -->
-              <label for="fileName">Estado Físico</label>
-              <input type="text" id="physicalState" class="form-control mb-3" name="physicalState" placeholder="Escribe aquí" required/>
-              <!-- Observations -->
-              <label for="fileName">Observaciones Adicionales</label>
-              <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ingresar</button>
-          </div>
-        </div>
-      </div>
-  </div>
+
   <!-- Modal para agregar Artículo-->
 <div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="newModalLabel">Agregar Artículo</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <!-- Model -->
-              <label for="fileName">Modelo</label>
-              <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
-              <!-- IMEI -->
-              <label for="fileName">IMEI</label>
-              <input type="text" id="imei" class="form-control mb-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
-              <!-- Price -->
-              <label for="fileName">Precio</label>
-              <input type="text" id="price" class="form-control mb-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
-              <!-- Topic -->
-              <label for="fileName">Categoría</label>
-              <input type="text" id="topic" class="form-control mb-3" name="topic" placeholder="Escribe aquí" required/>
-              <!-- Color -->
-              <label for="fileName">Color</label>
-              <input type="text" id="color" class="form-control mb-3" name="color" placeholder="Escribe aquí" required/>
-              <!-- Storage -->
-              <label for="fileName">Almacenamiento</label>
-              <input type="text" id="storage" class="form-control mb-3" name="storage" placeholder="Escribe aquí" required/>
-              <!-- Date -->
-              <label for="fileName">Fecha</label>
-              <input type="text" id="date" class="form-control mb-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
-              <!-- Operator -->
-              <label for="fileName">Operador</label>
-              <input type="text" id="operator" class="form-control mb-3" name="operator" placeholder="Escribe aquí" required/>
-              <!-- Battery state -->
-              <label for="fileName">Estado de la batería</label>
-              <input type="text" id="batteryState" class="form-control mb-3" name="batteryState" placeholder="Escribe aquí" required/>
-              <!-- PhysicalState -->
-              <label for="fileName">Estado Físico</label>
-              <input type="text" id="physicalState" class="form-control mb-3" name="physicalState" placeholder="Escribe aquí" required/>
-              <!-- Observations -->
-              <label for="fileName">Observaciones Adicionales</label>
-              <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ingresar</button>
+      <form #exchangeForm = "ngForm" (ngSubmit)="addExchange(exchangeForm.value)">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="newModalLabel">Agregar Artículo</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Model -->
+                <label for="fileName">Modelo</label>
+                <input type="text" id="model" class="form-control mb-3" name="model"
+                [(ngModel)]="exchange.model" #modelo="ngModel"placeholder="Escribe aquí"required/>
+                <!-- IMEI -->
+                <label for="fileName">IMEI</label>
+                <input type="text" id="imei" class="form-control mb-3" name="IMEI"
+                [(ngModel)]="exchange.IMEI" #IMEI="ngModel" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
+                <!-- Price -->
+                <label for="fileName">Precio</label>
+                <input type="text" id="price" class="form-control mb-3" name="price"
+                [(ngModel)]="exchange.price" #price="ngModel" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
+                <!-- Topic -->
+                <label for="fileName">Categoría</label>
+                <input type="text" id="category" class="form-control mb-3" name="category"
+                [(ngModel)]="exchange.category" #category="ngModel" placeholder="Escribe aquí" required/>
+                <!-- Color -->
+                <label for="fileName">Color</label>
+                <input type="text" id="color" class="form-control mb-3" name="color"
+                [(ngModel)]="exchange.color" #color="ngModel" placeholder="Escribe aquí" required/>
+                <!-- Storage -->
+                <label for="fileName">Almacenamiento</label>
+                <input type="text" id="storage" class="form-control mb-3" name="storageCapacity"
+                [(ngModel)]="exchange.storageCapacity" #storageCapacity="ngModel" placeholder="Escribe aquí" required/>
+                <!-- Date -->
+                <label for="fileName">Fecha</label>
+                <input type="date" id="date" class="form-control mb-3" name="entryDate"
+                [(ngModel)]="exchange.entryDate" #entryDate="ngModel" placeholder="Escribe aquí" pattern="\d+" required/>
+                <!-- Operator -->
+                <label for="fileName">Operador</label>
+                <input type="text" id="operator" class="form-control mb-3" name="employeeId"
+                [(ngModel)]="exchange.employeeId" #employeeId="ngModel" placeholder="Escribe aquí" required/>
+                <!-- Battery state -->
+                <label for="fileName">Estado de la batería</label>
+                <input type="text" id="batteryState" class="form-control mb-3" name="batteryState"
+                [(ngModel)]="exchange.batteryState" #batteryState="ngModel" placeholder="Escribe aquí" required/>
+                <!-- PhysicalState -->
+                <label for="fileName">Estado Físico</label>
+                <input type="text" id="physicalState" class="form-control mb-3" name="physicalState"
+                [(ngModel)]="exchange.physicalState" #physicalState="ngModel" placeholder="Escribe aquí" required/>
+                <!-- Observations -->
+                <label for="fileName">Observaciones</label>
+                <input type="text" id="comments" class="form-control mb-3" name="comments"
+                [(ngModel)]="exchange.comments" #comments="ngModel" placeholder="Escribe aquí" required/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ingresar</button>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
   </div>
   <!-- Modal para Eliminar articulo-->
 <div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
@@ -394,11 +400,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Se eliminará el Artículo: </p>
+        <p>Se eliminará el Artículo: {{infoExchange.brand}}{{infoExchange.model}}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Eliminar</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"(click)="deleteExchange()">Eliminar</button>
       </div>
     </div>
   </div>
