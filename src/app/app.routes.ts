@@ -10,7 +10,6 @@ import { EmployeesComponent } from './employees/employees.component';
 import { RoutesGuard } from "../model/utils/routes.guard";
 import { InventoryReportComponent } from './reports/inventory-report/inventory-report.component';
 import { SalesReportComponent } from './reports/sales-report/sales-report.component';
-import { Component } from '@angular/core';
 import { DetailsDebstComponent } from './debts/details-debst/details-debst.component';
 
 export const routes: Routes = [
