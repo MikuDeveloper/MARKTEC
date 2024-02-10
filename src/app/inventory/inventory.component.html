@@ -1,259 +1,44 @@
+<div id="addNewProduct" class="fab"
+     routerLink="add" routerLinkActive #route="routerLinkActive" [routerLinkActive]="['visually-hidden']">
+  <i class="fi fi-rr-add"></i>
+</div>
+
 <section class="container">
   <div class="row text-center title">
     <h3>Inventario</h3>
   </div>
-  <hr><br>
-</section>
-<section class="container-sm">
-  <div class="row">
-    <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
-        <div class="input-group flex-nowrap">
-            <span class="input-group-text" id="addon-wrapping">
-                <i class="fi fi-rr-search"></i>
-            </span>
-            <input type="text" class="form-control" id="search" name="search" placeholder="Buscar..." aria-describedby="addon-wrapping">
-        </div>
-    </div>
-</div>
-<br>
-</section>
-<section class="container-sm">
-    <!-- Primera Fila -->
-    <div class="row">
-        <!-- First card -->
-      <div class="col-sm-6 mb-3 mb-sm-0 ">
-        <div class="card">
-          <div class="card-body2">
-            <div class="row">
-                <!-- First column -->
-                <div class="col-md-4">
-                  <h1>Imagen</h1>
-                </div>
-                <!-- Second column -->
-                <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Modelo:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">IMEI:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Precio:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Categoría:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Color:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="text">Almacenamiento:</h6>
-                            </div>
-                            <div class="col-sm-8">
-                                <h6 class="text">texto</h6>
-                            </div>
-                        </div>
-                        <div class="row mt-2 mt-2">
-                            <div class="col-md-12">
-                                <a class="btn btn-link float-start" data-bs-toggle="tooltip" [attr.title]="getDetails()">Detalles de ingreso</a>
-                                <a class="btn btn-link float-end" data-bs-toggle="tooltip" [attr.title]="getOthers()">Otros detalles</a>
-                            </div>  
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <button class="btn btn-outline-primary float-start" data-bs-toggle="modal" data-bs-target="#editModal">
-                                  <i class="fi fi-rr-edit"></i>
-                                </button>
-                                <button class="btn btn-outline-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                  <i class="fi fi-rr-trash"></i>
-                                </button>
-                            </div>  
-                        </div>
-                </div>
-              </div>
-          </div>
-        </div>
+  <hr>
+  <form id="searchProduct" class="row" [ngClass]="{'visually-hidden' : route.isActive}"
+        #inventorySearchForm="ngForm" (ngSubmit)="searchProduct(inventorySearchForm.value)"
+        autocomplete="on">
+    <div class="col-lg-7 col-md-7 mt-1">
+      <div class="form-floating">
+        <input type="search" ngModel #search="ngModel" placeholder="Buscar producto..."
+               name="search_inventory"
+               id="search_inventory"
+               class="form-control form-control-sm"
+               [required]="true" [ngClass]="{'is-invalid':(search.invalid && search.dirty)}"/>
+        <label for="search_inventory">Buscar producto...</label>
       </div>
     </div>
-</section>
-<section class="container-sm">
-  <!-- Pagination -->
-    <div class="row">
-      <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
-        <nav  aria-label="...">
-          <ul class="pagination">
-            <li class="page-item disabled mb-2">
-              <span class="page-link"><i class="fi fi-rr-angle-left"></i></span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-              <span class="page-link">2</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item mb-2">
-              <a class="page-link" href="#"><i class="fi fi-rr-angle-right"></i></a>
-            </li>
-          </ul>
-        </nav>
-      </div>  
-    </div>
-</section>
-<div class="container-sm">
-  <div>
-    <button class="btn btn-outline-primary position-fixed bottom-0 end-0 translate-middle pb-0" data-bs-toggle="modal" data-bs-target="#newItem" title="Agregar Artículo">
-      <i class="fi fi-rr-apps-add"></i>
-    </button>
-  </div>
-</div>  
-  <!-- Modal para agregar Producto-->
-  <div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="newModalLabel">Agregar Artículo</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <!-- Model -->
-              <label for="model">Modelo</label>
-              <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
-              <!-- IMEI -->
-              <label for="imei">IMEI</label>
-              <input type="text" id="imei" class="form-control mb-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
-              <!-- Price -->
-              <label for="price">Precio</label>
-              <input type="text" id="price" class="form-control mb-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
-              <!-- Topic -->
-              <label for="topic">Categoría</label>
-              <input type="text" id="topic" class="form-control mb-3" name="topic" placeholder="Escribe aquí" required/>
-              <!-- Color -->
-              <label for="color">Color</label>
-              <input type="text" id="color" class="form-control mb-3" name="color" placeholder="Escribe aquí" required/>
-              <!-- Storage -->
-              <label for="storage">Almacenamiento</label>
-              <input type="text" id="storage" class="form-control mb-3" name="storage" placeholder="Escribe aquí" required/>
-              <!-- Date -->
-              <label for="date">Fecha</label>
-              <input type="text" id="date" class="form-control mb-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
-              <!-- Operator -->
-              <label for="operator">Operador</label>
-              <input type="text" id="operator" class="form-control mb-3" name="operator" placeholder="Escribe aquí" required/>
-              <!-- Battery state -->
-              <label for="batteryState">Estado de la batería</label>
-              <input type="text" id="batteryState" class="form-control mb-3" name="batteryState" placeholder="Escribe aquí" required/>
-              <!-- PhysicalState -->
-              <label for="physicalState">Estado Físico</label>
-              <input type="text" id="physicalState" class="form-control mb-3" name="physicalState" placeholder="Escribe aquí" required/>
-              <!-- Observations -->
-              <label for="observations">Observaciones Adicionales</label>
-              <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Agregar</button>
-          </div>
-        </div>
+    <div class="col-lg-3 col-md-3 mt-1">
+      <div class="form-floating">
+        <select class="form-select form-control-sm" #filter="ngModel" ngModel id="type_inventory"
+                name="filter_inventory" aria-label="Select type"
+                [required]="true" [ngClass]="{'is-invalid':(filter.invalid && filter.dirty)}">
+          <option value="">--Seleccionar--</option>
+          <option value="IMEI">IMEI/No. Serie</option>
+          <option value="Modelo">Modelo</option>
+          <option value="Tipo">Tipo</option>
+        </select>
+        <label for="type_inventory">Filtrar por:</label>
       </div>
-  </div>
+    </div>
+    <div class="col-lg-2 col-md-2 mt-1 text-center align-self-center">
+      <button type="submit" class="btn btn-primary btn-lg" [disabled]="inventorySearchForm.invalid">Buscar</button>
+    </div>
+  </form>
 
-  <!-- Modal para Eliminar un artículo-->
-<div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Eliminar</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Se eliminará el Artículo: </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Eliminar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Modal para Editar la información del artículo-->
-  <div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Editar Artículo</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-           <!-- Model -->
-           <label for="model">Modelo</label>
-           <input type="text" id="model" class="form-control mb-3" name="model" placeholder="Escribe aquí"required/>
-           <!-- IMEI -->
-           <label for="imei">IMEI</label>
-           <input type="text" id="imei" class="form-control mb-3" name="imei" placeholder="Escribe aquí" maxlength="15" minlength="15" pattern="^[0-9]+$" required/>
-           <!-- Price -->
-           <label for="price">Precio</label>
-           <input type="text" id="price" class="form-control mb-3" name="price" placeholder="Escribe aquí" pattern="^[0-9]+$" required/>
-           <!-- Topic -->
-           <label for="topic">Categoría</label>
-           <input type="text" id="topic" class="form-control mb-3" name="topic" placeholder="Escribe aquí" required/>
-           <!-- Color -->
-           <label for="color">Color</label>
-           <input type="text" id="color" class="form-control mb-3" name="color" placeholder="Escribe aquí" required/>
-           <!-- Storage -->
-           <label for="storage">Almacenamiento</label>
-           <input type="text" id="storage" class="form-control mb-3" name="storage" placeholder="Escribe aquí" required/>
-           <!-- Date -->
-           <label for="date">Fecha</label>
-           <input type="text" id="date" class="form-control mb-3" name="date" placeholder="Escribe aquí" pattern="\d+" required/>
-           <!-- Operator -->
-           <label for="operator">Operador</label>
-           <input type="text" id="operator" class="form-control mb-3" name="operator" placeholder="Escribe aquí" required/>
-           <!-- Battery state -->
-           <label for="batteryState">Estado de la batería</label>
-           <input type="text" id="batteryState" class="form-control mb-3" name="batteryState" placeholder="Escribe aquí" required/>
-           <!-- PhysicalState -->
-           <label for="physicalState">Estado Físico</label>
-           <input type="text" id="physicalState" class="form-control mb-3" name="physicalState" placeholder="Escribe aquí" required/>
-           <!-- Observations -->
-           <label for="observations">Observaciones Adicionales</label>
-           <input type="text" id="observations" class="form-control mb-3" name="observations" placeholder="Escribe aquí" required/>
-           </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">Guardar Cambios</button>
-          </div>
-        </div>
-      </div> 
-  </div>
+  <router-outlet></router-outlet>
+</section>
 
-  

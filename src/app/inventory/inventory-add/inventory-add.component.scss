@@ -1,0 +1,17 @@
+form {
+  padding: 0 10% 5% 10%;
+
+  legend {
+    color: var(--white);
+    background-color: var(--base-blue);
+    border-radius: 20pt;
+    width: 100%;
+    text-align: center;
+    margin: 10pt 0;
+    font-weight: 500;
+  }
+
+  textarea {
+    height: 100pt;
+  }
+}

@@ -1,23 +1,29 @@
 .card {
   border-radius: 15pt;
   margin: 10pt;
-  box-shadow: 3pt 3pt 0 rgb(134, 134, 134);
+  box-shadow: 3pt 3pt 0 var(--base-gray-1);
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 
   .card-body {
-    color: rgb(100, 100, 100);
-    background-color: rgb(238, 238, 238);
-    font-size: 64pt;
+    color: var(--base-gray-2);
+    background-color: var(--white-1);
+    font-size: 6rem;
     border-radius: 15pt 15pt 0 0;
   }
 
   .card-footer {
-    color: white;
-    background-color: rgb(44, 128, 255);
+    color: var(--white);
+    background-color: var(--base-blue);
     border-radius: 0 0 15pt 15pt;
+    font-size: 1.3rem;
   }
 }
 
 .card:hover {
-  box-shadow: 0 0 10pt 1pt rgba(44, 128, 255, 0.7);
+  box-shadow: 0 0 6pt 1pt var(--base-blue-shadow);
+  transform: scale(1.1);
+  .card-body {
+    color: var(--base-blue-2);
+  }
 }

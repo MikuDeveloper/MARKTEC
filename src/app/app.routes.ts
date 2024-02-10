@@ -11,12 +11,19 @@ import { RoutesGuard } from "../model/utils/routes.guard";
 import { InventoryReportComponent } from './reports/inventory-report/inventory-report.component';
 import { SalesReportComponent } from './reports/sales-report/sales-report.component';
 import { DetailsDebstComponent } from './debts/details-debst/details-debst.component';
+import { InventoryAddComponent } from './inventory/inventory-add/inventory-add.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [RoutesGuard] },
-  { path: 'inventory', component: InventoryComponent, canActivate: [RoutesGuard] },
+  {
+    path: 'inventory', component: InventoryComponent, canActivate: [RoutesGuard],
+    children: [
+      { path: 'add', component:  InventoryAddComponent },
+      { path: '', redirectTo: 'inventory', pathMatch: 'full' }
+    ]
+  },
   { path: 'sale', component: SaleComponent, canActivate: [RoutesGuard] },
   { path: 'customers', component: CustomersComponent, canActivate: [RoutesGuard] },
   { path: 'debts', component: DebtsComponent, canActivate: [RoutesGuard],

@@ -4,8 +4,8 @@ import { FirestoreService } from '../../model/api/firestore.service';
 import { auth } from '../../firebase';
 import { AuthenticationService } from '../../model/api/authentication.service';
 import { AsyncPipe,NgForOf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Objeto } from '../../model/entities/firestore-interface';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-employees',
@@ -49,5 +49,5 @@ export class EmployeesComponent {
       console.log(this.infoEmployee)
       this.databaseService.updateDocument("employees",form.email,form)
     }
-    
+
 }
