@@ -3,11 +3,11 @@ import { NavService } from "../../model/utils/navbar.util";
 import { CustomerModel } from '../../model/entities/customer.model';
 import { FirestoreService } from '../../model/api/firestore.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead.module';
 import { Observable, OperatorFunction, Subject, debounceTime, distinctUntilChanged, filter, map, merge, timestamp } from 'rxjs';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductModel } from '../../model/entities/product.model';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-sale',
   standalone: true,
