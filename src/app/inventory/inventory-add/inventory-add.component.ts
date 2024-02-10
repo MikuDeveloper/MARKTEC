@@ -54,6 +54,7 @@ export class InventoryAddComponent {
   editAndCompressImage($event: Event, inputFile: NgModel, imgElement: HTMLImageElement) {
     let imgFile : File = (<HTMLInputElement> $event.target).files![0]
     if (imgFile) {
+      imgElement.src = 'assets/icons/img_placeholder.png'
       this.photoEditorService.open($event, {
         autoCropArea: 1,
         viewMode: 1,
