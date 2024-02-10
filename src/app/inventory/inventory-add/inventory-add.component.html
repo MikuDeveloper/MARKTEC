@@ -191,23 +191,79 @@
   <div class="col-lg-6 col-md-6 mb-4">
     <label for="urlPhoto1" class="form-label">1. Foto de artículo:</label>
     <input type="file" name="urlPhoto1" id="urlPhoto1" class="form-control" placeholder="Elegir foto"
-           ngModel #imgFile1="ngModel" (change)="editAndCompressImage($event, imgFile1, img1)" [required]="true" />
+           ngModel #imgFile1="ngModel" (change)="editAndCompressImage($event, imgFile1, img1)" [required]="true"
+           [disabled]="!(imgFile1.value == '' || imgFile1.value == undefined)" />
     <div [ngClass]="{'visually-hidden':(imgFile1.value == '' || imgFile1.value == undefined)}">
-      <img src="" alt="Foto 1" title="Foto 1" #img1 class="img-fluid" />
+      <div class="row mt-3">
+        <div class="col-12 text-center">
+          <button class="btn btn-danger" type="button" title="Quitar imagen" data-bs-toggle="modal" data-bs-target="#deleteImg1">
+            <i class="fi fi-rr-trash-xmark"></i>
+          </button>
+
+          <div id="deleteImg1" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Quitar imagen</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  ¿Desea eliminar la imagen seleccionada?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteImage(img1, imgFile1)">Eliminar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <img src="" alt="Foto 1" title="Foto 1" #img1 class="img-fluid" />
+      </div>
     </div>
   </div>
 
   <div class="col-lg-6 col-md-6 mb-4">
     <label for="urlPhoto2" class="form-label">2. Foto de artículo:</label>
     <input type="file" name="urlPhoto2" id="urlPhoto2" class="form-control" placeholder="Elegir foto"
-           ngModel #imgFile2="ngModel" (change)="editAndCompressImage($event, imgFile2, img2)" [required]="true" />
+           ngModel #imgFile2="ngModel" (change)="editAndCompressImage($event, imgFile2, img2)" [required]="true"
+           [disabled]="!(imgFile2.value == '' || imgFile2.value == undefined)" />
     <div [ngClass]="{'visually-hidden':(imgFile2.value == '' || imgFile2.value == undefined)}">
-      <img src="" alt="Foto 2" title="Foto 2" #img2 class="img-fluid" />
+      <div class="row mt-3">
+        <div class="col-12 text-center">
+          <button class="btn btn-danger" type="button" title="Quitar imagen" data-bs-toggle="modal" data-bs-target="#deleteImg2">
+            <i class="fi fi-rr-trash-xmark"></i>
+          </button>
+
+          <div id="deleteImg2" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Quitar imagen</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  ¿Desea eliminar la imagen seleccionada?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteImage(img2, imgFile2)">Eliminar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <img src="" alt="Foto 2" title="Foto 2" #img2 class="img-fluid" />
+      </div>
     </div>
   </div>
 
   <div class="text-center">
-    <button type="submit" class="btn btn-primary btn-lg" [disabled]="inventoryAddForm.invalid || isLoading">
+    <button type="submit" class="btn btn-primary btn-lg" title="Agregar producto" [disabled]="inventoryAddForm.invalid || isLoading">
       <span [hidden]="isLoading">Agregar</span>
       <span class="spinner-border spinner-border-sm" aria-hidden="true" [hidden]="!isLoading"></span>
       <span class="m-3" role="status" [hidden]="!isLoading">Agregando producto...</span>

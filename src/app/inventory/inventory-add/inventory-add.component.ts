@@ -69,12 +69,15 @@ export class InventoryAddComponent {
       //Cancel button for photo editor
       let ngxBtn = <HTMLButtonElement> document.querySelector('.ngx-pe-btn')
       ngxBtn.onclick = () => {
-        inputFile.reset()
-        imgElement.src = ''
+        this.deleteImage(imgElement, inputFile)
       }
     } else {
-      inputFile.reset()
-      imgElement.src = ''
+      this.deleteImage(imgElement, inputFile)
     }
+  }
+
+  deleteImage(imgElement: HTMLImageElement, inputFile: NgModel) {
+    imgElement.src = ''
+    inputFile.reset()
   }
 }
