@@ -41,12 +41,14 @@ export class SaleComponent {
     color: '',
     storageCapacity: '',
     storageUnit: '',
-    physicalState: '',
+    physicalState: 0,
     batteryState: '',
     location: '',
     location_employee: '',
     employeeId: '',
-    brand: ''
+    brand: '',
+    urlPhoto1: '',
+    urlPhoto2: '',
   }
   model : string = ''
 
@@ -71,12 +73,14 @@ export class SaleComponent {
     color: '',
     storageCapacity: '',
     storageUnit: '',
-    physicalState: '',
+    physicalState: 0,
     batteryState: '',
     location: '',
     location_employee: '',
     employeeId: '',
-    brand: ''
+    brand: '',
+    urlPhoto1: '',
+    urlPhoto2: '',
   }
   infoExchange : ProductModel = {
     productId: '',
@@ -87,12 +91,14 @@ export class SaleComponent {
     color: '',
     storageCapacity: '',
     storageUnit: '',
-    physicalState: '',
+    physicalState: 0,
     batteryState: '',
     location: '',
     location_employee: '',
     employeeId: '',
-    brand: ''
+    brand: '',
+    urlPhoto1: '',
+    urlPhoto2: '',
   }
   showBtnExch : boolean = true
   constructor(private navService: NavService,private databaseService: FirestoreService) {
