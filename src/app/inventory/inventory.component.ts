@@ -4,8 +4,6 @@ import {FormsModule} from "@angular/forms";
 import {NgClass} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {InventoryService} from "../../model/utils/observables/inventory.service";
-import {Subscription} from "rxjs";
-import {ProductModel} from "../../model/entities/product.model";
 
 @Component({
   selector: 'app-inventory',
@@ -21,7 +19,7 @@ import {ProductModel} from "../../model/entities/product.model";
   styleUrl: './inventory.component.scss',
 })
 export class InventoryComponent implements OnDestroy {
-  constructor(private navService: NavService, private inventoryService: InventoryService, private router: Router) {
+  constructor(private navService: NavService) {
     this.navService.toggleNav(true)
   }
 
