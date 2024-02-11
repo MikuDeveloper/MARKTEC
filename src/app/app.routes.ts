@@ -12,6 +12,8 @@ import { InventoryReportComponent } from './reports/inventory-report/inventory-r
 import { SalesReportComponent } from './reports/sales-report/sales-report.component';
 import { DetailsDebstComponent } from './debts/details-debst/details-debst.component';
 import { InventoryAddComponent } from './inventory/inventory-add/inventory-add.component';
+import {InventorySearchComponent} from "./inventory/inventory-search/inventory-search.component";
+import {InventoryProductsComponent} from "./inventory/inventory-products/inventory-products.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,6 +23,9 @@ export const routes: Routes = [
     path: 'inventory', component: InventoryComponent, canActivate: [RoutesGuard],
     children: [
       { path: 'add', component:  InventoryAddComponent },
+      { path: 'search/:id', component: InventorySearchComponent },
+      { path: 'products', redirectTo: 'products/1' },
+      { path: 'products/:page', component: InventoryProductsComponent },
       { path: '', redirectTo: 'inventory', pathMatch: 'full' }
     ]
   },
@@ -38,4 +43,5 @@ export const routes: Routes = [
   { path: 'reports-inventory/:page', component: InventoryReportComponent, canActivate: [RoutesGuard] },
   { path: 'reports-sales', component: SalesReportComponent, canActivate: [RoutesGuard] },
 
+  { path:'**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
