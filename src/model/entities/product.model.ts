@@ -8,7 +8,7 @@ export interface ProductModel {
   color : string
   storageCapacity? : number | string
   storageUnit? : string
-  physicalState : number //1 - 10
+  physicalState : number | string //1 - 10 hice un cambio
   batteryState? : number | string //%
   comments? : string
   location : string //Bodega, local, prestado (cliente y empleado), reparación, Querétaro(empleado), VENDIDO (EXCLUSIVO DE VENTA)

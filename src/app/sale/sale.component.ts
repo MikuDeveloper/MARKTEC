@@ -175,6 +175,16 @@ export class SaleComponent {
   }
   deleteExchange(){
     this.exchangeCard = this.exchangeCard.filter(it => it != this.infoExchange)
+    if(this.exchangeCard.length <3)
+    this.showBtnExch = true
+  }
+  deleteCustomer(){
+    this.showBtn = true
+    this.showCard = false
+  }
+  deleteItem(){
+    this.showBtnItem = true
+    this.showCardItem = false
   }
   // Método para recolectar los datos del modal de Customer y mostrarlos en una tarjeta
   addNewCustomer(form:CustomerModel){

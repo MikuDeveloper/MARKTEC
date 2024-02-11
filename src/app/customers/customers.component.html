@@ -18,12 +18,12 @@
   <br>
   <div class="container">
     <div class="row">
-      <div class="col-6 mb-3 mb-sm-1 "*ngFor="let customer of customers">
-        <div class="card my-custom-card">
+      <div class="col-6 mb-3 mb-sm-1 " *ngFor="let customer of customers">
+        <div class="card my-custom-card" data-bs-toggle="modal" [attr.data-bs-target]="'#customerModal' + customer.voterKey" >
           <div class="card-body">
             <h5 class="card-title text-center">Fotos de Credencial</h5>
               <div>
-                <table class="table">
+                <table class="table table-responsive">
                   <tbody>
                     <tr class="col">
                       <td><h6>Nombre</h6></td>
@@ -51,7 +51,7 @@
           </div>
           <div class="card-footer d-flex justify-content-between">
             <button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)"><i class="fi fi-rr-pencil"></i></button>
-            <button class="btn btn-outline-success position-relative" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="clickInfo(customer)"><i class="fi fi-rr-info"></i></button>
+            <button class="btn btn-outline-success position-relative" data-bs-toggle="modal" [attr.data-bs-target]="'#customerModal' + customer.voterKey" (click)="clickInfo(customer)"><i class="fi fi-rr-info"></i></button>
             <button class="btn btn-outline-danger position-relative" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(customer)"><i class="fi fi-rr-trash"></i></button>
           </div>
         </div>
@@ -67,7 +67,7 @@
 
   <!-- Modal  para Crear a un Nuevo Usuario-->
   <div class="modal fade" id="newModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-    <form #addForm="ngForm" (ngSubmit)="addNewDocument(addForm.value)">
+    
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -75,43 +75,74 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-
-              <!-- Nombre -->
-              <label for="fileName">Nombre</label>
-              <input type="text" id="name" class="form-control mt-3" name="name" placeholder="Escribe aquí"
-              ngModel #name="ngModel" required />
-              <!-- Address -->
-              <label for="fileName">Direción</label>
-              <input type="text" id="address" class="form-control mt-3" name="address" placeholder="Escribe aquí"
-              ngModel #address="ngModel" required/>
-              <!-- Email -->
-              <label for="fileName">E-mail</label>
-              <input type="text" id="email" class="form-control mt-3" name="email" placeholder="Escribe aquí"
-              ngModel #email="ngModel" required email/>
-              <!-- voterKey -->
-              <label for="fileName">Clave de elector</label>
-              <input type="text" id="voterKey" class="form-control mt-3" name="voterKey" placeholder="Escribe aquí"
-              ngModel #voterKey="ngModel"required />
-              <!-- Phone Number -->
-              <label for="fileName">Número de Teléfono</label>
-              <input type="text" id="phoneNumber" class="form-control mt-3" name="phoneNumber" placeholder="Escribe aquí"
-              ngModel #phoneNumber="ngModel" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
-              <!-- facebook -->
-              <label for="fileName">Facebook</label>
-              <input type="text" id="facebook" class="form-control mt-3" name="facebook" placeholder="Escribe aquí"
-              ngModel #facebook="ngModel"required />
-              <!-- status -->
-              <label for="fileName">Status</label>
-              <input type="text" id="status" class="form-control mt-3" name="status" placeholder="Escribe aquí"
-              ngModel #status="ngModel"required />
-              <!-- debt -->
-              <label for="fileName">Deuda</label>
-              <input type="debt" id="facebook" class="form-control mt-3" name="debt" placeholder="Escribe aquí"
-              ngModel #debt="ngModel"required />
+            <form #addForm="ngForm" (ngSubmit)="addNewDocument(addForm.value)" id="addForm">
+              <div class="col-sm-12 mb-3">
+                <div class="form-floating">
+                  <input type="text" id="name" class="form-control" name="name"
+                    ngModel #name="ngModel"
+                    [ngClass]="{'is-invalid':(name.invalid && name.dirty)}" [required]="true"/>
+                  <label for="name">Nombre</label>  
+                </div>
+              </div>
+              <div class="col-sm-12 mb-3">
+                <div class="form-floating">
+                  <input type="text" id="address" class="form-control" name="address"
+                    ngModel #address="ngModel" 
+                    [ngClass]="{'is-invalid':(address.invalid && address.dirty)}" [required]="true"/> 
+                  <label for="address">Direción</label>     
+                </div>
+              </div>
+              <div class="col-sm-12 mb-3">
+                <div class="form-floating">
+                  <input type="text" id="email" class="form-control" name="email"
+                    ngModel #email="ngModel"
+                    [ngClass]="{'is-invalid':(address.invalid && address.dirty)}" [required]="true" email/> 
+                  <label for="email">E-mail</label> 
+                </div>
+              </div>
+              <div class="col-sm-12 mb-3">
+                <div class="form-floating">
+                  <input type="text" id="voterKey" class="form-control" name="voterKey"
+                    ngModel #voterKey="ngModel"
+                    [ngClass]="{'is-invalid':(voterKey.invalid && voterKey.dirty)}" [required]="true" /> 
+                  <label for="voterKey">Clave de elector</label>     
+                </div>
+              </div>
+              <div class="col-sm-12 mb-3">
+                <div class="form-floating">
+                  <input type="text" id="phoneNumber" class="form-control" name="phoneNumber"
+                    ngModel #phoneNumber="ngModel" 
+                    [ngClass]="{'is-invalid':(phoneNumber.invalid && phoneNumber.dirty)}" [required]="true" maxlength="10" minlength="10" pattern="^[0-9]+$"/>
+                  <label for="phoneNumber">Número de Teléfono</label>      
+                </div>
+              </div>
+              <div class="col-sm-12 mb-3">
+                <div class="form-floating">
+                  <input type="text" id="facebook" class="form-control" name="facebook"
+                    ngModel #facebook="ngModel"
+                    [ngClass]="{'is-invalid':(facebook.invalid && facebook.dirty)}" [required]="true"/>  
+                  <label for="facebook">Facebook</label>  
+                </div>
+              </div>
+              <div class="col-sm-12 mb-3">
+                <div class="form-floating">
+                  <input type="text" id="status" class="form-control" name="status"
+                    ngModel #status="ngModel"
+                    [ngClass]="{'is-invalid':(status.invalid && status.dirty)}" [required]="true" />
+                  <label for="status">Status</label>  
+                </div>
+              </div>
+              <div class="col-sm-12 mb-3">
+                <div class="form-floating">
+                  <input type="debt" id="facebook" class="form-control" name="debt"
+                    ngModel #debt="ngModel"
+                    [ngClass]="{'is-invalid':(debt.invalid && debt.dirty)}" [required]="true" />
+                  <label for="debt">Deuda</label>  
+                </div>
+              </div> 
+            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"[disabled]="addForm.form.invalid">Ingresar</button>
             @if (addForm.form.invalid && addForm.form.touched) {
               @if(phoneNumber.invalid){
                 <p class="text-danger">*Revisa el número de Teléfono*</p>
@@ -122,10 +153,12 @@
                 <p class="text-danger">*Completa los campos para poder ingresar.*</p>
               }
             }
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" form="addForm" data-bs-dismiss="modal"[disabled]="addForm.form.invalid">Ingresar</button>
           </div>
         </div>
       </div>
-    </form>
+    
   </div>
   <!-- Modal para Eliminar un Usuario-->
   <div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
@@ -184,186 +217,65 @@
       </div>
     </form>
   </div>
-  <!-- Info Modal  (se colocara una visualización para pantallas md,xl y otra para sm) -->
-  <div class="modal" id="infoModal" tabindex="-1" data-bs-backdrop="static">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+  <!-- Info Modal -->
+  <div class="modal fade" tabindex="-1" data-bs-backdrop="static" [id]="'customerModal' + customer.voterKey" *ngFor="let customer of customers">
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h4>Detalles de Usuario</h4>
+          <h4>Información del Cliente</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-title">
-                    <h3 class="text-center">Información del Cliente</h3>
-                  </div>
-                  <div class="card-body">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col"><h6>Nombre</h6></th>
-                          <th scope="col"><h6>Clave de Elector</h6></th>
-                          <th scope="col"><h6>Email</h6></th>
-                          <th scope="col"><h6>Dirección</h6></th>
-                          <th scope="col"><h6>Teléfono</h6></th>
-                          <th scope="col"><h6>Facebook</h6></th>
-                          <th scope="col"><h6>Estatus</h6></th>
-                          <th scope="col"><h6>Deuda</h6></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>texto</td>
-                          <td>texto</td>
-                          <td>texto</td>
-                          <td>texto</td>
-                          <td>texto</td>
-                          <td>texto</td>
-                          <td>texto</td>
-                          <td>texto</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.name">
+                <label for="Input1">Nombre:</label>
               </div>
-              <div class="row d-md-none">
-                <div class="card">
-                  <div class="card-title">
-                    <h3 class="text-center">Información del Cliente</h3>
-                    <hr>
-                  </div>
-                  <div class="card-body">
-                    <table class="table">
-                      <tbody>
-                        <tr class="col">
-                          <td><h6>Nombre</h6></td>
-                          <td><h5 class="text-center">{{infoCustomer.name}}</h5></td>
-                        </tr>
-                        <tr>
-                          <td><h6>Clave de Elector</h6></td>
-                          <td><h5 class="text-center">{{infoCustomer.voterKey}}</h5></td>
-                        </tr>
-                        <tr>
-                          <td><h6>Email</h6></td>
-                          <td><h5 class="text-center">{{infoCustomer.email}}</h5></td>
-                        </tr>
-                        <tr>
-                          <td><h6>Dirección</h6></td>
-                          <td><h5 class="text-center">{{infoCustomer.address}}</h5></td>
-                        </tr>
-                        <tr>
-                          <td><h6>Teléfono</h6></td>
-                          <td><h5 class="text-center">{{infoCustomer.phoneNumber}}</h5></td>
-                        </tr>
-                        <tr>
-                          <td><h6>Facebook</h6></td>
-                          <td><h5 class="text-center">{{infoCustomer.facebook}}</h5></td>
-                        </tr>
-                        <tr>
-                          <td><h6>Estatus</h6></td>
-                          <td><h5 class="text-center">{{infoCustomer.status}}</h5></td>
-                        </tr>
-                        <tr>
-                          <td><h6>Deuda</h6></td>
-                          <td><h5 class="text-center">{{infoCustomer.debt}}</h5></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              <div class="col-md-4">
-                <div class="card">
-                  <div class="card-title">
-                    <h3 class="text-center">Compras</h3>
-                    <hr>
-                  </div>
-                  <div class="card-body">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">No.</th>
-                          <th scope="col">Datos</th>
-                          <th scope="col">Información</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td><h6>Nombre</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Precio</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Usado/Nuevo</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Usado/Nuevo</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>IMEI</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>IMEI</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Color</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Operador</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Condicion Bateria</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Almacenamiento</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Color</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Fecha de Compra</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><h6>Status</h6></td>
-                          <td><h5>texto</h5></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.voterKey">
+                <label for="Input1">Clave de Elector:</label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.address">
+                <label for="Input1">Email:</label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.phoneNumber">
+                <label for="Input1">Dirección:</label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.phoneNumber">
+                <label for="Input1">Telefono:</label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.facebook">
+                <label for="Input1">Facebook:</label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.status">
+                <label for="Input1">Estatus:</label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.debt">
+                <label for="Input1">Deuda:</label>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from "../../model/utils/navbar.util";
 import { FirestoreService } from '../../model/api/firestore.service';
-import { AsyncPipe,NgForOf } from '@angular/common';
+import { AsyncPipe,CommonModule,NgForOf } from '@angular/common';
 import { CustomerModel } from '../../model/entities/customer.model';
 import { Observable, Observer, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [AsyncPipe,NgForOf,FormsModule,ReactiveFormsModule],
+  imports: [AsyncPipe,NgForOf,FormsModule,ReactiveFormsModule, CommonModule],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss'
 })
