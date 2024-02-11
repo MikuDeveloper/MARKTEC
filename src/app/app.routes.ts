@@ -21,6 +21,7 @@ export const routes: Routes = [
     children: [
       { path: 'add', component:  InventoryAddComponent },
       { path: 'search/:id', component: InventorySearchComponent },
+      { path: 'products', redirectTo: 'products/1' },
       { path: 'products/:page', component: InventoryProductsComponent },
       { path: '', redirectTo: 'inventory', pathMatch: 'full' }
     ]

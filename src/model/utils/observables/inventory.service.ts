@@ -3,14 +3,26 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { ProductModel } from "../../entities/product.model";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { database } from "../../../firebase";
+import firebase from "firebase/compat";
+import Timestamp = firebase.firestore.Timestamp;
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventoryService {
+  private static instance: InventoryService;
   private _inventoryProducts : ProductModel[] = []
   private _inventory$ = new BehaviorSubject<ProductModel[]>(this._inventoryProducts)
-  constructor() { }
+  private constructor() {
+    this.loadInventoryProducts().then().catch()
+  }
+
+  public static getInstance(): InventoryService {
+    if (!InventoryService.instance) {
+      InventoryService.instance = new InventoryService();
+    }
+    return InventoryService.instance;
+  }
 
   getProductsObservable$(): Observable<ProductModel[]> {
     return this._inventory$.asObservable()
@@ -20,7 +32,9 @@ export class InventoryService {
     this._inventoryProducts = []
     const querySnapshot = await getDocs(collection(database, "inventory"));
     querySnapshot.forEach((doc) => {
-      this._inventoryProducts.push(<ProductModel> doc.data())
+      let product = <ProductModel> doc.data();
+      product.entryDate = (<Timestamp><unknown>product.entryDate).toDate();
+      this._inventoryProducts.push(product)
     });
 
     this._inventory$.next(this._inventoryProducts)
@@ -40,6 +54,20 @@ export class InventoryService {
         this._inventoryProducts.push(product)
         this._inventory$.next(this._inventoryProducts)
       })
+  }
+
+  getLength(): number {
+    return this._inventoryProducts.length
+  }
+
+  getTotalPages(pageSize: number): number {
+    return Math.ceil(this.getLength() / pageSize);
+  }
+
+  getProducts(pageSize: number, pageNumber: number): ProductModel[] {
+    const start = (pageNumber - 1) * pageSize;
+    const end = start + pageSize;
+    return this._inventoryProducts.slice(start, end);
   }
 
 }

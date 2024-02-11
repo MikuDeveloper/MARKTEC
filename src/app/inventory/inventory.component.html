@@ -1,14 +1,14 @@
 <div id="addNewProduct" class="fab"
-     routerLink="add" routerLinkActive #route="routerLinkActive" [routerLinkActive]="['visually-hidden']">
+     routerLink="add" routerLinkActive #add="routerLinkActive" [routerLinkActive]="['visually-hidden']">
   <i class="fi fi-rr-add"></i>
 </div>
 
-<section class="container" [ngClass]="{'visually-hidden' : route.isActive}">
+<section class="container">
   <div class="row text-center title">
     <h3>Inventario</h3>
   </div>
   <hr>
-  <form id="searchProduct" class="row"
+  <form id="searchProduct" class="row" [ngClass]="{'visually-hidden' : add.isActive}"
         #inventorySearchForm="ngForm" (ngSubmit)="searchProduct(inventorySearchForm.value)"
         autocomplete="on">
     <div class="col-lg-7 col-md-7 mt-1">
@@ -39,19 +39,21 @@
     </div>
   </form>
 
-  <div class="row text-center mt-3 mb-5">
-    <i class="fi fi-rr-up"></i>
-    <h6>Busca productos</h6>
-  </div>
+  <div id="infoInventory">
+    <div class="row text-center mt-3 mb-5">
+      <i class="fi fi-rr-up"></i>
+      <h6>Busca productos</h6>
+    </div>
 
-  <div class="row mt-3">
-    <div class="col-12 text-center">
-      <p>O también puedes...</p>
-      <button type="button" class="btn btn-primary btn-lg" (click)="goToProducts(1)">Obtener todos los productos</button>
+    <div class="row mt-3">
+      <div class="col-12 text-center">
+        <p>O también puedes...</p>
+        <button type="button" class="btn btn-primary btn-lg" [routerLink]="['products/', 1]">
+          Ver todos los productos
+        </button>
+      </div>
     </div>
   </div>
-</section>
 
-<section class="container">
   <router-outlet></router-outlet>
 </section>
