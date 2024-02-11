@@ -1,11 +1,12 @@
 // firestore.service.ts
 import { Injectable } from '@angular/core';
-import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where } from 'firebase/firestore';
+import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where, addDoc } from 'firebase/firestore';
 import { Objeto } from '../entities/firestore-interface';
 import { database } from '../../firebase';
 import { CustomerModel } from '../entities/customer.model';
 import { Observable, of } from 'rxjs';
 import { ProductModel } from '../entities/product.model';
+import { SaleModel } from '../entities/sale.model';
 
 
 @Injectable({
@@ -16,12 +17,12 @@ export class FirestoreService {
 // Método para obtener datos, pide como paraetro el nombre de la colección de Employees
   async getCollectionData(collectionName: string) {
     const querySnapshot = await getDocs(collection(database, collectionName));
-    return querySnapshot.docs.map(doc => doc.data() as Objeto );
+    return querySnapshot.docs.map(doc => doc.data() as Objeto )
   }
   async getCollectionDataTest(collectionName: string) {
     const querySnapshot = await getDocs(collection(database, collectionName));
-    return querySnapshot.docs.map(doc => doc.data() as ProductModel);
-  }
+    return querySnapshot.docs.map(doc =>  doc.data() as ProductModel)
+}
 
     /*
     const temporaryPassword = this.generateTemporaryPassword();
@@ -98,5 +99,22 @@ export class FirestoreService {
     const docRef = doc(database, collectionName, docId);
     await deleteDoc(docRef);
   }
-
+  //Método para extraer el id de un docuemnto conociendo el vlaor de un campo específico
+  async getDocIdByField(collectionName: string, field: string, value: any) {
+    const querySnapshot = await getDocs(query(collection(database, collectionName), where(field, '==', value)));
+    return querySnapshot.docs[0].id;
+}
+  // Método para actualizar un elemento de la colección inventory
+  async updateInventory(collectionName: string, docId: string, data: any) {
+    console.log(collectionName,docId,data)
+    const docRef = doc(database, collectionName, docId)
+    await updateDoc(docRef, data)
+  }
+  // Método para agregar elementos a la coleccion exchanges
+  async addExchange(collectionName:string,data:ProductModel){
+    await addDoc(collection(database,collectionName),data)
+  }
+  async addSale(collectionName:string,data:SaleModel){
+    await addDoc(collection(database,collectionName),data)
+  }
 }

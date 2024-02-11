@@ -8,6 +8,9 @@ import { Observable, OperatorFunction, Subject, debounceTime, distinctUntilChang
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductModel } from '../../model/entities/product.model';
 import { FormsModule } from '@angular/forms';
+import { SessionService } from '../../model/utils/session.service';
+import { User } from 'firebase/auth';
+import { Exchanges, Payment, SaleModel } from '../../model/entities/sale.model';
 @Component({
   selector: 'app-sale',
   standalone: true,
@@ -48,6 +51,7 @@ export class SaleComponent {
     employeeId: '',
     brand: ''
   }
+  itemId : string = ''
   model : string = ''
 
   @ViewChild('instance', { static: true })
@@ -95,7 +99,44 @@ export class SaleComponent {
     brand: ''
   }
   showBtnExch : boolean = true
-  constructor(private navService: NavService,private databaseService: FirestoreService) {
+  date : Date =  new Date()
+  user : string | undefined | null
+  initialPay : string =''
+  paymentMethod : string = ''
+  subtotal : string = ''
+  sale: SaleModel = {
+    saleId: 'sale1',
+    payment: {
+      productPrice: '',
+      subtotal: '',
+      initialPay: '',
+      paymentMethod: '',
+      total: '',
+    },
+    exchanges: {
+      idOne: '',
+      idTwo: '',
+      idThree: '',
+    },
+    productId: '',
+    voterKey: '',
+    employeeId: '',
+    saleDate: new Date(),
+    debtId: '',
+    status: '',
+  }
+  paymentModel: Payment ={
+    productPrice: ''+this.items.price,
+    subtotal: ''+this.subtotal,
+    initialPay: this.initialPay,
+    paymentMethod: this.paymentMethod='',
+    total: String (this.getTotalPrice())
+  }
+
+
+  constructor(private navService: NavService,
+    private databaseService: FirestoreService,
+    private sessionService:SessionService) {
     this.navService.toggleNav(true);
   }
   async ngOnInit(){
@@ -105,6 +146,7 @@ export class SaleComponent {
     // Estás haciendo una copia de los datos originales de los clientes para poder manipularlos sin alterar los datos originales.
     this.customer = [...this.originalCustomers]
     this.originalItem = await this.databaseService.getCollectionDataTest("inventory")
+    this.originalItem = this.originalItem.filter(item => item.location != 'vendido')
     this.item = [...this.originalItem]
     console.log(this.item)
     console.log(this.customer)
@@ -173,6 +215,7 @@ export class SaleComponent {
   clickInfo(exchange:ProductModel){
     this.infoExchange = exchange
   }
+  // Método para eliminar tarjetas
   deleteExchange(){
     this.exchangeCard = this.exchangeCard.filter(it => it != this.infoExchange)
     if(this.exchangeCard.length <3)
@@ -186,11 +229,55 @@ export class SaleComponent {
     this.showBtnItem = true
     this.showCardItem = false
   }
+  getTotalPrice() {
+    let itemPrice = Number(this.items.price)
+    let initialPay = Number (this.initialPay)
+    // Suma los precios de todos los artículos de intercambio
+    const exchangeTotal = this.exchangeCard.reduce((total, exchange) => total + Number(exchange.price), 0)
+    itemPrice = itemPrice-exchangeTotal
+    this.subtotal = String (itemPrice)
+    return itemPrice - initialPay
+  }
   // Método para recolectar los datos del modal de Customer y mostrarlos en una tarjeta
   addNewCustomer(form:CustomerModel){
     console.log(form)
     this.showCard = true
     this.showBtn = false
     form.status = 'sin deuda'
+  }
+//Método que se ejecutara al finalizar una compra
+  async saleEnd(){
+    if(!(this.customer.find(customer => customer.voterKey == this.customers.voterKey))){
+    this.databaseService.addDocumentC("customers",this.customers,this.customers.email)
+    }
+    console.log("customer")
+    this.itemId = await this.databaseService.getDocIdByField("inventory","IMEI",this.items.IMEI)
+    this.databaseService.updateInventory("inventory",this.itemId,{location : 'vendido'})
+    for (let i = 0; i < this.exchangeCard.length; i++) {
+      //this.databaseService.addExchange("exchanges",this.exchangeCard[i])
+      switch (i) {
+      case 0:
+        this.sale.exchanges!.idOne = this.exchangeCard[i].IMEI
+        console.log(this.sale.exchanges!.idOne)
+      break;
+      case 1:
+        this.sale.exchanges!.idTwo = this.exchangeCard[i].IMEI
+        console.log(this.sale.exchanges!.idTwo)
+      break;
+      case 2:
+        this.sale.exchanges!.idThree = this.exchangeCard[i].IMEI
+        console.log(this.sale.exchanges!.idThree)
+      break;
+    }
+      console.log("item")
+    }
+    this.user = this.sessionService.getUserValue$()?.email!!
+    this.sale.employeeId = this.user
+    this.sale.productId = this.itemId // Guarda id del doc
+    this.sale.saleDate = this.date
+    this.sale.debtId = "0"
+    this.sale.voterKey = this.customers.voterKey
+    this.sale.payment = this.paymentModel
+    this.databaseService.addSale("sales",this.sale)
   }
 }
