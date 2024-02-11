@@ -33,7 +33,6 @@ export class InventoryProductsComponent implements OnDestroy {
           this.pages = Array.from({length: this.inventoryService.getTotalPages(this.pageSize)}, (_, i) => i + 1)
         })
     })
-    this.hiddenItems()
   }
 
   ngOnDestroy(): void {
@@ -52,9 +51,4 @@ export class InventoryProductsComponent implements OnDestroy {
     }
   }
 
-  hiddenItems () {
-    let infoInventory = <HTMLDivElement> document.querySelector('#infoInventory')
-    infoInventory.classList.remove('visually-hidden')
-    infoInventory.classList.add('visually-hidden')
-  }
 }
