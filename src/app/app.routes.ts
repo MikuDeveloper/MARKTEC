@@ -31,5 +31,5 @@ export const routes: Routes = [
   { path: 'reports', component: ReportsComponent, canActivate: [RoutesGuard] },
   { path: 'employees', component: EmployeesComponent, canActivate: [RoutesGuard] },
 
-  { path:'**', redirectTo: 'login', pathMatch: 'full' }
+  { path:'**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
