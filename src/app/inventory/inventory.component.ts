@@ -2,8 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {NavService} from "../../model/utils/navbar.util";
 import {FormsModule} from "@angular/forms";
 import {NgClass} from "@angular/common";
-import {Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
-import {InventoryService} from "../../model/utils/observables/inventory.service";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-inventory',
