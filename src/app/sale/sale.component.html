@@ -280,6 +280,26 @@
       </div>
     </div>
   </div>
+<!-- área y boton para finalizar la compra-->
+<div class="card">
+  <div class="card-body">
+    <h6>{{items.brand}} {{items.model}}</h6> <h5>{{items.price}}</h5>
+    <div *ngFor="let exchange of exchangeCard">
+      <h6>{{exchange.brand}} {{exchange.model}}</h6> <h5> - {{exchange.price}}</h5>
+    </div>
+    <h6>Pago Inicial</h6> <input type="text" [(ngModel)] = "initialPay">
+    <h6>Forma de Pago</h6>
+    <select class="form-select" [(ngModel)] = "paymentMethod">
+      <option [value]="null" disabled selected>Selecciona una opción</option>
+      <option value="efectivo"> En efectivo</option>
+      <option value="transferencia">Transferencia</option>
+    </select>
+    <h5>Total a pagar: {{getTotalPrice()}}</h5>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-outline-primary"(click)="saleEnd()"> Finalizar Compra</button>
+  </div>
+</div>
 
 <!-- Modal  para Crear a un Nuevo Cliente-->
 <div class="modal fade" id="newCustomer" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
@@ -327,8 +347,7 @@
     </form>
   </div>
 
-
-  <!-- Modal para agregar Artículo-->
+  <!-- Modal para agregar Artículo de intercambio-->
 <div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
       <form #exchangeForm = "ngForm" (ngSubmit)="addExchange(exchangeForm.value)">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -391,7 +410,7 @@
         </div>
       </form>
   </div>
-  <!-- Modal para Eliminar articulo-->
+  <!-- Modal para Eliminar articulo de intercambio-->
 <div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -409,7 +428,7 @@
     </div>
   </div>
 </div>
-<!-- Modal para Editar la información del artículo-->
+<!-- Modal para Editar la información del artículo de intercambio-->
 <div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
