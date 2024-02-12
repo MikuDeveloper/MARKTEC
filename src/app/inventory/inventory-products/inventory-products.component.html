@@ -1,0 +1,52 @@
+<section class="container-fluid mt-3 ">
+  <div class="row mt-5 mb-3 text-center">
+    <h6>Productos en inventario</h6>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-2">
+
+    @for (product of products; track $index) {
+      <div class="col">
+        <div class="card border-light h-100">
+          <div class="card-header d-flex align-items-center justify-content-between">
+            <div class="p-1">
+              <p class="card-text"><small class="text-muted">IMEI/No.Serie: {{ product.IMEI }}</small></p>
+            </div>
+            <div class="btn-group p-1">
+              <i class="fi fi-rr-menu-dots btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></i>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Ver detalles</a></li>
+                <li><a class="dropdown-item" href="#">Editar</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ product.model }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  <nav class="row mt-5 mb-5" aria-label="Page navigation">
+    <div class="col-12 d-flex justify-content-center align-items-center">
+      <ul class="pagination overflow-auto">
+        <li class="page-item">
+          <a class="page-link" (click)="previousPage()" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        @for (page of pages; track $index) {
+          <li class="page-item">
+            <a class="page-link" [routerLink]="['../', page]" routerLinkActive [routerLinkActive]="['active']">
+              {{ page }}
+            </a>
+          </li>
+        }
+        <li class="page-item">
+          <a class="page-link" (click)="nextPage()" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</section>

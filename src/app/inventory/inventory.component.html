@@ -1,5 +1,5 @@
 <div id="addNewProduct" class="fab"
-     routerLink="add" routerLinkActive #route="routerLinkActive" [routerLinkActive]="['visually-hidden']">
+     routerLink="add" routerLinkActive #add="routerLinkActive" [routerLinkActive]="['visually-hidden']">
   <i class="fi fi-rr-add"></i>
 </div>
 
@@ -8,7 +8,7 @@
     <h3>Inventario</h3>
   </div>
   <hr>
-  <form id="searchProduct" class="row" [ngClass]="{'visually-hidden' : route.isActive}"
+  <form id="searchProduct" class="row" [ngClass]="{'visually-hidden' : add.isActive}"
         #inventorySearchForm="ngForm" (ngSubmit)="searchProduct(inventorySearchForm.value)"
         autocomplete="on">
     <div class="col-lg-7 col-md-7 mt-1">
@@ -38,6 +38,23 @@
       <button type="submit" class="btn btn-primary btn-lg" [disabled]="inventorySearchForm.invalid">Buscar</button>
     </div>
   </form>
+
+  <div id="infoInventory" [ngClass]="{'visually-hidden' : (add.isActive || products.isActive)}">
+    <div class="row text-center mt-3 mb-5">
+      <i class="fi fi-rr-up"></i>
+      <h6>Busca productos</h6>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12 text-center">
+        <p>O también puedes...</p>
+        <button type="button" class="btn btn-primary btn-lg" routerLink="products"
+                routerLinkActive #products="routerLinkActive">
+          Ver todos los productos
+        </button>
+      </div>
+    </div>
+  </div>
 
   <router-outlet></router-outlet>
 </section>

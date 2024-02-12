@@ -1,3 +1,7 @@
+/**
+ * @property {string} productId ID for product.
+ * @property {Date} entryDate Date and hour the product was registered.
+ */
 export interface ProductModel {
   productId : string
   entryDate : Date
@@ -8,7 +12,7 @@ export interface ProductModel {
   color : string
   storageCapacity? : number | string
   storageUnit? : string
-  physicalState : number | string //1 - 10 hice un cambio
+  physicalState : number //1 - 10
   batteryState? : number | string //%
   comments? : string
   location : string //Bodega, local, prestado (cliente y empleado), reparación, Querétaro(empleado), VENDIDO (EXCLUSIVO DE VENTA)
@@ -16,20 +20,6 @@ export interface ProductModel {
   location_customer? : string
   price? : number
   employeeId : string
-  /*
-  IMEI : string
-  model : string
-  color : string
-  storageCapacity : string
-  storageUnit : string
-  physicalState : string //Bueno, medio, malo
-  batteryState : string //Bueno, medio, malo
-  comments? : string
-  location : string //Bodega, local, prestado (cliente y empleado), reparación, Querétaro(empleado)
-  location_customer? : string
-  location_employee : string
-  price? : number
-  employeeId : string
-  brand:string
-  */
+  urlPhoto1 : string
+  urlPhoto2 : string
 }
