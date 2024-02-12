@@ -44,12 +44,14 @@ export class SaleComponent {
     color: '',
     storageCapacity: '',
     storageUnit: '',
-    physicalState: '',
+    physicalState: 0,
     batteryState: '',
     location: '',
     location_employee: '',
     employeeId: '',
-    brand: ''
+    brand: '',
+    urlPhoto1: '',
+    urlPhoto2: ''
   }
   itemId : string = ''
   model : string = ''
@@ -75,12 +77,14 @@ export class SaleComponent {
     color: '',
     storageCapacity: '',
     storageUnit: '',
-    physicalState: '',
+    physicalState: 0,
     batteryState: '',
     location: '',
     location_employee: '',
     employeeId: '',
-    brand: ''
+    brand: '',
+    urlPhoto1: '',
+    urlPhoto2: ''
   }
   infoExchange : ProductModel = {
     productId: '',
@@ -91,12 +95,14 @@ export class SaleComponent {
     color: '',
     storageCapacity: '',
     storageUnit: '',
-    physicalState: '',
+    physicalState: 0,
     batteryState: '',
     location: '',
     location_employee: '',
     employeeId: '',
-    brand: ''
+    brand: '',
+    urlPhoto1: '',
+    urlPhoto2: ''
   }
   showBtnExch : boolean = true
   date : Date =  new Date()
