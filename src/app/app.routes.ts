@@ -35,7 +35,7 @@ export const routes: Routes = [
     children:[
       {path: 'details', component: DetailsDebstComponent},
       {path: '',  redirectTo: 'debts', pathMatch: 'full'}
-    ] 
+    ]
   },
   { path: 'reports', component: ReportsComponent, canActivate: [RoutesGuard] },
   { path: 'employees', component: EmployeesComponent, canActivate: [RoutesGuard] },

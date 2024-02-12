@@ -1,8 +1,9 @@
-import {Component, OnDestroy, AfterViewInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {NavService} from "../../model/utils/navbar.util";
 import {FormsModule} from "@angular/forms";
 import {NgClass} from "@angular/common";
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
+import { AfterViewInit } from '@angular/core';
 import { ElementsService } from '../../model/utils/elements.service';
 import { BehaviorSubject } from 'rxjs';
 

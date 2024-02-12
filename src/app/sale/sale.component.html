@@ -196,7 +196,7 @@
                   <div class="col-md-12">
                     <button class="btn btn-outline-primary float-end" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fi fi-rr-edit"></i></button>
                     <button class="btn btn-outline-danger float-end mx-2 mb-0" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(exchange)"><i class="fi fi-rr-trash"></i></button>
-                  </div>    
+                  </div>
                 </div>
               </div>
             </div>
@@ -214,6 +214,26 @@
       </div>
     </div>
   </div>
+<!-- área y boton para finalizar la compra-->
+<div class="card">
+  <div class="card-body">
+    <h6>{{items.brand}} {{items.model}}</h6> <h5>{{items.price}}</h5>
+    <div *ngFor="let exchange of exchangeCard">
+      <h6>{{exchange.brand}} {{exchange.model}}</h6> <h5> - {{exchange.price}}</h5>
+    </div>
+    <h6>Pago Inicial</h6> <input type="text" [(ngModel)] = "initialPay">
+    <h6>Forma de Pago</h6>
+    <select class="form-select" [(ngModel)] = "paymentMethod">
+      <option [value]="null" disabled selected>Selecciona una opción</option>
+      <option value="efectivo"> En efectivo</option>
+      <option value="transferencia">Transferencia</option>
+    </select>
+    <h5>Total a pagar: {{getTotalPrice()}}</h5>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-outline-primary"(click)="saleEnd()"> Finalizar Compra</button>
+  </div>
+</div>
 
 <!-- Modal  para Crear a un Nuevo Cliente-->
 <div class="modal fade" id="newCustomer" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
@@ -282,16 +302,16 @@
                     <div class="form-floating">
                       <input type="text" id="model" class="form-control" name="model"
                         [(ngModel)]="exchange.model" #modelo="ngModel"
-                        [ngClass]="{'is-invalid':(modelo.invalid && modelo.dirty)}" [required]="true"/>  
-                      <label for="fileName">Modelo</label>  
-                    </div> 
+                        [ngClass]="{'is-invalid':(modelo.invalid && modelo.dirty)}" [required]="true"/>
+                      <label for="fileName">Modelo</label>
+                    </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
                       <input type="text" id="imei" class="form-control" name="IMEI"
-                        [(ngModel)]="exchange.IMEI" #IMEI="ngModel" 
+                        [(ngModel)]="exchange.IMEI" #IMEI="ngModel"
                         [ngClass]="{'is-invalid':(IMEI.invalid && IMEI.dirty)}" [required]="true" maxlength="15" minlength="15" pattern="^[0-9]+$"/>
-                      <label for="fileName">IMEI</label>  
+                      <label for="fileName">IMEI</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
@@ -299,10 +319,10 @@
                       <span class="input-group-text">$</span>
                       <div class="form-floating">
                         <input type="number" id="price" class="form-control" name="price"
-                          ngModel [(ngModel)]="exchange.price" #price="ngModel" 
-                          [ngClass]="{'is-invalid':(price.invalid && price.dirty)}"  [required]="true" [min]="0" pattern="^[0-9]+$"/> 
-                        <label for="fileName">Precio</label>       
-                      </div>  
+                          ngModel [(ngModel)]="exchange.price" #price="ngModel"
+                          [ngClass]="{'is-invalid':(price.invalid && price.dirty)}"  [required]="true" [min]="0" pattern="^[0-9]+$"/>
+                        <label for="fileName">Precio</label>
+                      </div>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
@@ -315,15 +335,15 @@
                         <option value="2">Laptop</option>
                         <option value="3">Consola</option>
                       </select>
-                      <label for="category">Categoría</label>      
+                      <label for="category">Categoría</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
                       <input type="text" id="color" class="form-control" name="color"
-                        [(ngModel)]="exchange.color" #color="ngModel" 
+                        [(ngModel)]="exchange.color" #color="ngModel"
                         [ngClass]="{'is-invalid':(color.invalid && color.dirty)}" [required]="true"/>
-                      <label for="fileName">Color</label>        
+                      <label for="fileName">Color</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
@@ -331,7 +351,7 @@
                       <input type="number" id="storageCapacity" class="form-control" name="storageCapacity"
                         [(ngModel)]="exchange.storageCapacity" #storageCapacity="ngModel"
                         [ngClass]="{'is-invalid':(storageCapacity.invalid && storageCapacity.dirty)}" [required]="true"/>
-                       <label for="fileName">Capacidad de Almacenamiento</label>       
+                       <label for="fileName">Capacidad de Almacenamiento</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
@@ -344,15 +364,15 @@
                         <option value="2">GB</option>
                         <option value="3">TB</option>
                       </select>
-                       <label for="storageUnit">Unidad</label> 
+                       <label for="storageUnit">Unidad</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
                       <input type="date" id="date" class="form-control" name="entryDate"
-                        [(ngModel)]="exchange.entryDate" #entryDate="ngModel" 
-                        [ngClass]="{'is-invalid':(entryDate.invalid && entryDate.dirty)}" [required]="true"/>  
-                      <label for="fileName">Fecha</label>      
+                        [(ngModel)]="exchange.entryDate" #entryDate="ngModel"
+                        [ngClass]="{'is-invalid':(entryDate.invalid && entryDate.dirty)}" [required]="true"/>
+                      <label for="fileName">Fecha</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
@@ -360,7 +380,7 @@
                       <input type="text" id="operator" class="form-control" name="employeeId"
                         [(ngModel)]="exchange.employeeId" #employeeId="ngModel"
                         [ngClass]="{'is-invalid':(employeeId.invalid && employeeId.dirty)}" [required]="true"/>
-                      <label for="fileName">Operador</label>        
+                      <label for="fileName">Operador</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
@@ -368,15 +388,15 @@
                       <input type="text" id="batteryState" class="form-control" name="batteryState"
                         [(ngModel)]="exchange.batteryState" #batteryState="ngModel"
                         [ngClass]="{'is-invalid':(batteryState.invalid && batteryState.dirty)}" [required]="true"/>
-                      <label for="fileName">Estado de la batería</label>        
+                      <label for="fileName">Estado de la batería</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
                       <input type="number" id="physicalState" class="form-control" name="physicalState"
-                        [(ngModel)]="exchange.physicalState" #physicalState="ngModel" 
+                        [(ngModel)]="exchange.physicalState" #physicalState="ngModel"
                         [ngClass]="{'is-invalid':(physicalState.invalid && physicalState.dirty)}" [required]="true"/>
-                      <label for="fileName">Estado Físico</label>        
+                      <label for="fileName">Estado Físico</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
@@ -384,7 +404,7 @@
                       <input type="text" id="comments" class="form-control" name="comments"
                         [(ngModel)]="exchange.comments" #comments="ngModel"
                         [ngClass]="{'is-invalid':(comments.invalid && comments.dirty)}" [required]="true"/>
-                      <label for="fileName">Observaciones</label>        
+                      <label for="fileName">Observaciones</label>
                     </div>
                   </div>
                 </div>
@@ -392,7 +412,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal" form="exchangeForm" [disabled]="!exchangeForm.valid">Ingresar</button><!----> 
+              <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal" form="exchangeForm" [disabled]="!exchangeForm.valid">Ingresar</button><!---->
             </div>
           </div>
         </div>
@@ -452,7 +472,7 @@
   </div>
 </div>
 <!-- Modal para Editar la información del artículo-->
-<div class="modal fade" id="editModal" tabindex="-1" data-bs-backdrop="static"> 
+<div class="modal fade" id="editModal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -505,7 +525,7 @@
 </div>
 
 <!-- Modal de información -->
-<div class="modal fade" tabindex="-1" data-bs-backdrop="static" [id]="'infoModal' + exchange.model" *ngFor="let exchange of exchangeCard"> 
+<div class="modal fade" tabindex="-1" data-bs-backdrop="static" [id]="'infoModal' + exchange.model" *ngFor="let exchange of exchangeCard">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -605,4 +625,4 @@
       </div>
     </div>
   </div>
-</div>  
+</div>
