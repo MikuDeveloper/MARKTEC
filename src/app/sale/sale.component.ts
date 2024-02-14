@@ -19,6 +19,7 @@ import { Exchanges, Payment, SaleModel } from '../../model/entities/sale.model';
   styleUrl: './sale.component.scss'
 })
 export class SaleComponent {
+  currentUser: string = 'Sin usuario'
   customers : CustomerModel = {
     voterKey : '',
     name : '',
@@ -138,12 +139,13 @@ export class SaleComponent {
     paymentMethod: this.paymentMethod='',
     total: String (this.getTotalPrice())
   }
-
-
-  constructor(private navService: NavService,
+  constructor(
+    private session: SessionService,
+    private navService: NavService,
     private databaseService: FirestoreService,
     private sessionService:SessionService) {
     this.navService.toggleNav(true);
+    this.currentUser = this.session.getUserValue$()?.email!!
   }
   async ngOnInit(){
     // Aquí, estás obteniendo datos de la colección "customers" de tu base de datos.
