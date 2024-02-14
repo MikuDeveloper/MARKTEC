@@ -7,10 +7,12 @@ import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-boot
 import { Observable, OperatorFunction, Subject, debounceTime, distinctUntilChanged, filter, map, merge, timestamp } from 'rxjs';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductModel } from '../../model/entities/product.model';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { SessionService } from '../../model/utils/session.service';
 import { User } from 'firebase/auth';
 import { Exchanges, Payment, SaleModel } from '../../model/entities/sale.model';
+import { NgxCroppedEvent, NgxPhotoEditorService } from 'ngx-photo-editor';
+import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 @Component({
   selector: 'app-sale',
   standalone: true,
@@ -143,7 +145,9 @@ export class SaleComponent {
     private session: SessionService,
     private navService: NavService,
     private databaseService: FirestoreService,
-    private sessionService:SessionService) {
+    private sessionService:SessionService,
+    private photoEditorService: NgxPhotoEditorService,
+    private compressService: NgxImageCompressService) {
     this.navService.toggleNav(true);
     this.currentUser = this.session.getUserValue$()?.email!!
   }
@@ -232,10 +236,39 @@ export class SaleComponent {
   deleteCustomer(){
     this.showBtn = true
     this.showCard = false
+    //restablece los valores 
+    this.customers = {
+      voterKey : '',
+      name : '',
+      address : '',
+      phoneNumber : '',
+      email : '',
+      facebook : '',
+      status:'',
+      debt: 0
+    }
   }
   deleteItem(){
     this.showBtnItem = true
     this.showCardItem = false
+    this.items = {
+      productId: '',
+      entryDate: new Date(),
+      category: '',
+      IMEI: '',
+      model: '',
+      color: '',
+      storageCapacity: '',
+      storageUnit: '',
+      physicalState: 0,
+      batteryState: '',
+      location: '',
+      location_employee: '',
+      employeeId: '',
+      brand: '',
+      urlPhoto1: '',
+      urlPhoto2: ''
+    };
   }
   getTotalPrice() {
     let itemPrice = Number(this.items.price)
@@ -287,5 +320,35 @@ export class SaleComponent {
     this.sale.voterKey = this.customers.voterKey
     this.sale.payment = this.paymentModel
     this.databaseService.addSale("sales",this.sale)
+  }
+
+  editAndCompressImage($event: Event, inputFile: NgModel, imgElement: HTMLImageElement) {
+    let imgFile : File = (<HTMLInputElement> $event.target).files![0]
+    if (imgFile) {
+      imgElement.src = 'assets/icons/img_placeholder.png'
+      this.photoEditorService.open($event, {
+        autoCropArea: 1,
+        viewMode: 1,
+        applyBtnText: 'Guardar',
+        closeBtnText: 'Cancelar'
+      }).subscribe((data: NgxCroppedEvent) => {
+        this.compressService.compressFile(<string> data.base64, DOC_ORIENTATION.Default, 50, 50)
+          .then((dataUrl: string) => {
+            imgElement.src = dataUrl
+          })
+      })
+      //Cancel button for photo editor
+      let ngxBtn = <HTMLButtonElement> document.querySelector('.ngx-pe-btn')
+      ngxBtn.onclick = () => {
+        this.deleteImage(imgElement, inputFile)
+      }
+    } else {
+      this.deleteImage(imgElement, inputFile)
+    }
+  }
+
+  deleteImage(imgElement: HTMLImageElement, inputFile: NgModel) {
+    imgElement.src = ''
+    inputFile.reset()
   }
 }
