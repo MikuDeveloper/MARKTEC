@@ -7,14 +7,13 @@ export interface DebtModel {
   finalDate:Date,
   status:string,
   idVenta:string,
-  total:string
+  total:string,
   pays : Pays
 }
 export interface Pays {
   datePay:Date,
-  idPago:string,
   payAmount:string,
   paymentMethod: string,
-  folio?:string
+  folio?:string,
   concept?:string
 }

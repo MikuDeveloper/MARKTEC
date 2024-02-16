@@ -7,6 +7,7 @@ import { CustomerModel } from '../entities/customer.model';
 import { Observable, of } from 'rxjs';
 import { ProductModel } from '../entities/product.model';
 import { SaleModel } from '../entities/sale.model';
+import { DebtModel } from '../entities/debt.model';
 
 
 @Injectable({
@@ -106,7 +107,7 @@ export class FirestoreService {
 }
   // Método para actualizar un elemento de la colección inventory
   async updateInventory(collectionName: string, docId: string, data: any) {
-    console.log(collectionName,docId,data)
+    //console.log(collectionName,docId,data)
     const docRef = doc(database, collectionName, docId)
     await updateDoc(docRef, data)
   }
@@ -114,7 +115,18 @@ export class FirestoreService {
   async addExchange(collectionName:string,data:ProductModel){
     await addDoc(collection(database,collectionName),data)
   }
+  // Método para agregar un documento a sales
   async addSale(collectionName:string,data:SaleModel){
-    await addDoc(collection(database,collectionName),data)
+    const docRef = await addDoc(collection(database,collectionName) ,data)
+    return docRef.id
+  }
+  async updateSale(collectionName: string, docId: string, data: any) {
+    //console.log(collectionName,docId,data)
+    const docRef = doc(database, collectionName, docId)
+    await updateDoc(docRef, data)
+  }
+  async addDebt(collectionName:string,data:DebtModel){
+    const docRef = await addDoc(collection(database,collectionName) ,data)
+    return docRef.id
   }
 }

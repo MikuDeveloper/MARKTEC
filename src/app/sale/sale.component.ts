@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { SessionService } from '../../model/utils/session.service';
 import { User } from 'firebase/auth';
 import { Exchanges, Payment, SaleModel } from '../../model/entities/sale.model';
+import { DebtModel } from '../../model/entities/debt.model';
 @Component({
   selector: 'app-sale',
   standalone: true,
@@ -129,7 +130,7 @@ export class SaleComponent {
       productPrice: '',
       subtotal: '',
       initialPay: '',
-      paymentMethod: '',
+      paymentMethod: this.paymentMethod,
       total: '',
     },
     exchanges: {
@@ -152,7 +153,26 @@ export class SaleComponent {
     paymentMethod: this.paymentMethod='',
     total: String (this.getTotalPrice())
   }
+  idVenta : string = ''
 
+  // Onjeto de tipo DebtModel para crear la deuda
+  debt : DebtModel={
+    debtAmount: String(this.getTotalPrice()),
+    employeeId: '',
+    voterKey: this.customers.voterKey,
+    initialDate: new Date(),
+    finalDate: new Date(),
+    status: 'Pendiente',
+    idVenta: '',
+    total: String(this.getTotalPrice()),
+    pays: {
+      datePay: new Date(),
+      payAmount:this.initialPay,
+      paymentMethod: this.paymentMethod,
+      folio:'',
+      concept:''
+    }
+  }
 
   constructor(private navService: NavService,
     private databaseService: FirestoreService,
@@ -281,6 +301,7 @@ export class SaleComponent {
     } // agrega a un nuevo customer si no existe en la base de datos
     console.log("customer")
     this.itemId = await this.databaseService.getDocIdByField("inventory","IMEI",this.items.IMEI)
+
     this.databaseService.updateInventory("inventory",this.itemId,{location : 'vendido'})
     for (let i = 0; i < this.exchangeCard.length; i++) {
       this.databaseService.addExchange("exchanges",this.exchangeCard[i])
@@ -300,6 +321,7 @@ export class SaleComponent {
     }
       console.log("item")
     }
+
     this.user = this.sessionService.getUserValue$()?.email!! //Servicio para a recibir el usuario loggeado
     this.sale.employeeId = this.user // alamacena el id del usuario
     this.sale.productId = this.itemId // Guarda id del doc
@@ -307,6 +329,27 @@ export class SaleComponent {
     this.sale.debtId = "0" // almacena el id que se genera para una posible deuda
     this.sale.voterKey = this.customers.voterKey // se almacena el voterKey del customer
     this.sale.payment = this.paymentModel // se almacenan todos los datos del payment
-    this.databaseService.addSale("sales",this.sale)// Agregamos un doc nuevo a la colección sales
+    this.debt.employeeId = this.user
+    // Agregamos un doc nuevo a la colección sales y guardamos el Id del doc en debt
+    this.databaseService.addSale("sales",this.sale).then(docId => {
+      this.idVenta = docId
+      console.log(docId)
+      if(this.getTotalPrice() > 0){
+        this.debt.debtAmount =  String(this.getTotalPrice())
+        this.debt.voterKey = this.customers.voterKey
+        this.debt.idVenta = this.idVenta
+        this.debt.total = String(this.getTotalPrice())
+        this.debt.pays.payAmount = this.initialPay
+        this.debt.pays.paymentMethod =  this.paymentMethod
+        //this.debt.pays.folio:'',
+        //this.debt.pays.concept:''
+
+        this.databaseService.addDebt("debts",this.debt).then(docId => {
+          this.databaseService.updateSale("sales",this.idVenta,{debtId : docId}).then(it =>{
+            console.log(this.debt)
+          })
+        })
+      }
+    })
   }
 }
