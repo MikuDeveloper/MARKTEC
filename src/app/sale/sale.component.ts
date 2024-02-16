@@ -29,10 +29,13 @@ export class SaleComponent {
     status:'',
     debt: 0
   }
+  // Objetos y variables para manipular los customers, la visibilidad de la tarjeta y el botón de agregar
   originalCustomers:CustomerModel[] =[] // arreglo para almacenar los customers y filtrarlos
   customer:CustomerModel[] =[] // arreglo para mostrar el customer filtrado o el customer creado
   showCard : boolean = false // variable para mostrar u ocultar tarjeta de datos de customer
   showBtn : boolean = true // variable para mostrar u ocultar boton para nuevo customer
+
+  // Objetos y variables para manipular los artículos de venta, la visibilidad de la tarjeta y el botón de agregar
   originalItem : ProductModel [] = [] // arreglo para alamacenar los Productos
   item : ProductModel [] = [] //arreglo para mostrar el producto escogido
   items : ProductModel = {
@@ -53,21 +56,27 @@ export class SaleComponent {
     urlPhoto1: '',
     urlPhoto2: ''
   }
+ // variable que se usa para almacenar el id del Documento del artículo vendido y poder así modificar su location a vendido
   itemId : string = ''
-  model : string = ''
-
-  @ViewChild('instance', { static: true })
-  instance!: NgbTypeahead;
-  @ViewChild('instanceItem', { static: true })
-  instanceItem!: NgbTypeahead;
-  focus$ = new Subject<string>();
-  click$ = new Subject<string>();
-  focusItem$ = new Subject<string>();
-  clickItem$ = new Subject<string>();
   showCardItem: boolean = false; //variable para mostrar o no la tarjeta de artículo de venta
   showBtnItem: boolean = true; //variable para mostrar o no la boton de artículo de venta
-  modelItem: string = ''
-  exchangeCard: ProductModel [] = []
+
+  // Funciones para las dos barras de búsqueda y sus instancias correpsondientes y variables bidireccionales
+  @ViewChild('instance', { static: true })
+  instance!: NgbTypeahead; // varibale de instancia
+  model : string = '' // [(ngModel)] variable
+  focus$ = new Subject<string>(); // variable para el focus que permite mostrar 10 opciones sin haber escrito aún.
+  click$ = new Subject<string>(); // variable para detectar cuando el usuario da click en la barra de búsqueda.
+  @ViewChild('instanceItem', { static: true })
+  instanceItem!: NgbTypeahead; // varibale de instancia
+  modelItem: string = '' // [(ngModel)] variable
+  focusItem$ = new Subject<string>(); // variable para el focus que permite mostrar 10 opciones sin haber escrito aún.
+  clickItem$ = new Subject<string>(); // variable para detectar cuando el usuario da click en la barra de búsqueda.
+
+
+  // Objetos y variables para manipular los customers, la visibilidad de la tarjeta y el botón de agregar
+  exchangeCard: ProductModel [] = [] // arreglo para almacenar los objetos tipo ProductModel de exchange
+  // Objeto que se llenara en el modal de agregar producto y luego se agregara al arreglo exchangeCard
   exchange : ProductModel = {
     productId: '',
     entryDate: new Date,
@@ -86,6 +95,7 @@ export class SaleComponent {
     urlPhoto1: '',
     urlPhoto2: ''
   }
+  // Objeto que guardara momentaneamente los datos del objeto a eliminar o editar.
   infoExchange : ProductModel = {
     productId: '',
     entryDate: new Date,
@@ -104,12 +114,15 @@ export class SaleComponent {
     urlPhoto1: '',
     urlPhoto2: ''
   }
-  showBtnExch : boolean = true
-  date : Date =  new Date()
-  user : string | undefined | null
-  initialPay : string =''
-  paymentMethod : string = ''
-  subtotal : string = ''
+  showBtnExch : boolean = true  // Botón que desplegara un modal para agregar un artículo de intercambio
+
+  date : Date =  new Date() //variable para almacenar la fecha y agregarla a sale y a debt
+  user : string | undefined | null // variable para almacenar el usuario loggeado
+  initialPay : string ='' // variable para recibir el pago inicial
+  paymentMethod : string = '' // variable para recibir el Método de Pago
+  subtotal : string = '' // variable para mostrar el subtotal calcualdo en un método
+
+  // Objetos para almacenar los datos necesarios del pago inicial y demás inforamción de la venta
   sale: SaleModel = {
     saleId: 'sale1',
     payment: {
@@ -130,6 +143,7 @@ export class SaleComponent {
     saleDate: new Date(),
     debtId: '',
     status: '',
+
   }
   paymentModel: Payment ={
     productPrice: ''+this.items.price,
@@ -151,8 +165,11 @@ export class SaleComponent {
     this.originalCustomers = await this.databaseService.getCollectionDataC("customers");
     // Estás haciendo una copia de los datos originales de los clientes para poder manipularlos sin alterar los datos originales.
     this.customer = [...this.originalCustomers]
+    // Método para recibir los datos de los artículos del inventario
     this.originalItem = await this.databaseService.getCollectionDataTest("inventory")
+    // Método para filtrar los artículos de venta y eliminar los que tenga la location igual a vendido
     this.originalItem = this.originalItem.filter(item => item.location != 'vendido')
+    // Se copian los datos a otro arreglo que nos servira al momento de usar el NgbTypeahead
     this.item = [...this.originalItem]
     console.log(this.item)
     console.log(this.customer)
@@ -221,28 +238,34 @@ export class SaleComponent {
   clickInfo(exchange:ProductModel){
     this.infoExchange = exchange
   }
-  // Método para eliminar tarjetas
+  // Método para eliminar tarjetas de exchange
   deleteExchange(){
     this.exchangeCard = this.exchangeCard.filter(it => it != this.infoExchange)
     if(this.exchangeCard.length <3)
     this.showBtnExch = true
   }
+  // Método para eliminar tarjetas de customer
   deleteCustomer(){
     this.showBtn = true
     this.showCard = false
   }
+  // Método para eliminar tarjetas de artículo de venta
   deleteItem(){
     this.showBtnItem = true
     this.showCardItem = false
   }
-  getTotalPrice() {
+  getSubtotal() {
     let itemPrice = Number(this.items.price)
-    let initialPay = Number (this.initialPay)
     // Suma los precios de todos los artículos de intercambio
     const exchangeTotal = this.exchangeCard.reduce((total, exchange) => total + Number(exchange.price), 0)
     itemPrice = itemPrice-exchangeTotal
     this.subtotal = String (itemPrice)
-    return itemPrice - initialPay
+    return this.subtotal
+  }
+  //Mpetodo para obtener total a pagar
+  getTotalPrice() {
+    let initialPay = Number (this.initialPay)
+    return Number (this.getSubtotal()) - initialPay
   }
   // Método para recolectar los datos del modal de Customer y mostrarlos en una tarjeta
   addNewCustomer(form:CustomerModel){
@@ -255,12 +278,12 @@ export class SaleComponent {
   async saleEnd(){
     if(!(this.customer.find(customer => customer.voterKey == this.customers.voterKey))){
     this.databaseService.addDocumentC("customers",this.customers,this.customers.email)
-    }
+    } // agrega a un nuevo customer si no existe en la base de datos
     console.log("customer")
     this.itemId = await this.databaseService.getDocIdByField("inventory","IMEI",this.items.IMEI)
     this.databaseService.updateInventory("inventory",this.itemId,{location : 'vendido'})
     for (let i = 0; i < this.exchangeCard.length; i++) {
-      //this.databaseService.addExchange("exchanges",this.exchangeCard[i])
+      this.databaseService.addExchange("exchanges",this.exchangeCard[i])
       switch (i) {
       case 0:
         this.sale.exchanges!.idOne = this.exchangeCard[i].IMEI
@@ -277,13 +300,13 @@ export class SaleComponent {
     }
       console.log("item")
     }
-    this.user = this.sessionService.getUserValue$()?.email!!
-    this.sale.employeeId = this.user
+    this.user = this.sessionService.getUserValue$()?.email!! //Servicio para a recibir el usuario loggeado
+    this.sale.employeeId = this.user // alamacena el id del usuario
     this.sale.productId = this.itemId // Guarda id del doc
-    this.sale.saleDate = this.date
-    this.sale.debtId = "0"
-    this.sale.voterKey = this.customers.voterKey
-    this.sale.payment = this.paymentModel
-    this.databaseService.addSale("sales",this.sale)
+    this.sale.saleDate = this.date // almacena la fecha del momento de la venta
+    this.sale.debtId = "0" // almacena el id que se genera para una posible deuda
+    this.sale.voterKey = this.customers.voterKey // se almacena el voterKey del customer
+    this.sale.payment = this.paymentModel // se almacenan todos los datos del payment
+    this.databaseService.addSale("sales",this.sale)// Agregamos un doc nuevo a la colección sales
   }
 }
