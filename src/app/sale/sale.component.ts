@@ -7,7 +7,7 @@ import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-boot
 import { Observable, OperatorFunction, Subject, debounceTime, distinctUntilChanged, filter, map, merge, timestamp } from 'rxjs';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductModel } from '../../model/entities/product.model';
-import { FormsModule, NgModel } from '@angular/forms';
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { SessionService } from '../../model/utils/session.service';
 import { User } from 'firebase/auth';
 import { Exchanges, Payment, SaleModel } from '../../model/entities/sale.model';
@@ -21,7 +21,7 @@ import { DebtModel } from '../../model/entities/debt.model';
   templateUrl: './sale.component.html',
   styleUrl: './sale.component.scss'
 })
-export class SaleComponent {
+export class SaleComponent { 
   currentUser: string = 'Sin usuario'
   customers : CustomerModel = {
     voterKey : '',
@@ -257,11 +257,23 @@ export class SaleComponent {
     }
   }
   // Método para agregar un artículo en el arreglo de tarjetas de exchanges
-  addExchange(form : ProductModel){
+  addExchange(form : NgForm){
     console.log(form)
-    this.exchangeCard.push(form)
+    this.exchangeCard.push(<ProductModel> form.value)
     if(this.exchangeCard.length == 3)
     this.showBtnExch = false
+    form.resetForm()
+  }
+   // Método para recolectar los datos del modal de Customer y mostrarlos en una tarjeta
+   addNewCustomer(form:NgForm){
+    console.log(form)
+    this.customer.push(<CustomerModel> form.value)// <- creo que no funciona jaja
+    // Asignar los datos del formulario al objeto customers
+    Object.assign(this.customers, form.value)
+    this.showCard = true
+    this.showBtn = false
+    form.value.status = 'sin deuda'
+    form.resetForm()
   }
   clickInfo(exchange:ProductModel){
     this.infoExchange = exchange
@@ -276,40 +288,11 @@ export class SaleComponent {
   deleteCustomer(){
     this.showBtn = true
     this.showCard = false
-    //restablece los valores 
-    this.customers = {
-      voterKey : '',
-      name : '',
-      address : '',
-      phoneNumber : '',
-      email : '',
-      facebook : '',
-      status:'',
-      debt: 0
-    }
   }
   // Método para eliminar tarjetas de artículo de venta
   deleteItem(){
     this.showBtnItem = true
     this.showCardItem = false
-    this.items = {
-      productId: '',
-      entryDate: new Date(),
-      category: '',
-      IMEI: '',
-      model: '',
-      color: '',
-      storageCapacity: '',
-      storageUnit: '',
-      physicalState: 0,
-      batteryState: '',
-      location: '',
-      location_employee: '',
-      employeeId: '',
-      brand: '',
-      urlPhoto1: '',
-      urlPhoto2: ''
-    };
   }
   getSubtotal() {
     let itemPrice = Number(this.items.price)
@@ -324,13 +307,7 @@ export class SaleComponent {
     let initialPay = Number (this.initialPay)
     return Number (this.getSubtotal()) - initialPay
   }
-  // Método para recolectar los datos del modal de Customer y mostrarlos en una tarjeta
-  addNewCustomer(form:CustomerModel){
-    console.log(form)
-    this.showCard = true
-    this.showBtn = false
-    form.status = 'sin deuda'
-  }
+ 
 //Método que se ejecutara al finalizar una compra
   async saleEnd(){
     if(!(this.customer.find(customer => customer.voterKey == this.customers.voterKey))){
