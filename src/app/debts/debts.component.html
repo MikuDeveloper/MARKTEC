@@ -3,15 +3,23 @@
     <h3>Adeudos</h3>
   </div>
   <hr><br>
-  <section class="container-sm" [ngClass]="{'visually-hidden' : route.isActive}">
+  <section class="container-sm" [ngClass]="{'visually-hidden' : isDetailRouteActive()}">
   <div class="row">
     <div class="col-md-8 mx-auto d-flex justify-content-center align-items-center">
         <div class="input-group flex-nowrap">
             <span class="input-group-text" id="addon-wrapping">
                 <i class="fi fi-rr-search"></i>
             </span>
-            <input type="text" class="form-control" id="search" name="search" placeholder="Buscar..." aria-describedby="addon-wrapping">
-        </div>
+            <input
+            id="typeahead-Customer"
+            type="text"
+            class="form-control"
+            [(ngModel)]="model"
+            [ngbTypeahead]="search"
+            (focus)="focus$.next($any($event).target.value)"
+            (click)="click$.next($any($event).target.value)"
+            (selectItem)="onSelect($event)"
+            #instance="ngbTypeahead"></div>
     </div>
   </div>
   <br>
@@ -25,11 +33,11 @@
                 <th scope="col">Cantidad</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let debt of debts">
                 <tr>
-                    <td>Nombre_cliente</td>
-                    <td>Nombre_producto</td>
-                    <td>$00.00 - <button class="btn btn-link align-baseline" 
+                    <td>{{debt.voterKey}}</td>
+                    <td>{{debt.idVenta}}</td>
+                    <td>$ {{debt.total}} - <button class="btn btn-link align-baseline"
                       routerLink="details" routerLinkActive #route="routerLinkActive" [routerLinkActive]="['visually-hidden']">Detalles</button></td>
                 </tr>
             </tbody>
@@ -54,7 +62,7 @@
             </li>
           </ul>
         </nav>
-      </div>  
+      </div>
     </div>
   </section>
   <router-outlet></router-outlet>
@@ -86,7 +94,7 @@
             <div class="col-lg-12 col-md-12 mb-2">
               <div class="form-floating">
                 <input type="date" name="date" id="date" class="form-control"
-                       
+
                        ngModel #date="ngModel" [ngClass]="{'is-invalid':(date.invalid && date.dirty)}"
                        [disabled]="filter.value === 'cash' || !filter.value" [required]="true" min="2024-02-01"/>
                 <label for="date">Fecha</label>
@@ -94,8 +102,8 @@
             </div>
             <div class="col-lg-12 col-md-12 mb-2">
               <div class="form-floating">
-                <input type="time" name="hour" id="hour" class="form-control"                    
-                       ngModel #hour="ngModel" [ngClass]="{'is-invalid':(hour.invalid && hour.dirty)}" 
+                <input type="time" name="hour" id="hour" class="form-control"
+                       ngModel #hour="ngModel" [ngClass]="{'is-invalid':(hour.invalid && hour.dirty)}"
                        [disabled]="filter.value === 'cash' || !filter.value" [required]="true"/>
                 <label for="hour">Hora</label>
               </div>
@@ -103,7 +111,7 @@
             <div class="col-lg-12 col-md-12 mb-2">
               <div class="form-floating">
                 <input type="number" name="folio" id="folio" class="form-control"
-                       ngModel #folio="ngModel" [ngClass]="{'is-invalid':(folio.invalid && folio.dirty)}" 
+                       ngModel #folio="ngModel" [ngClass]="{'is-invalid':(folio.invalid && folio.dirty)}"
                        [disabled]="filter.value === 'cash' || !filter.value" [required]="true" [min]="0" maxlength="4" minlength="4"/>
                 <label for="folio">Folio</label>
               </div>

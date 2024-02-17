@@ -129,4 +129,8 @@ export class FirestoreService {
     const docRef = await addDoc(collection(database,collectionName) ,data)
     return docRef.id
   }
+  async getCollectionDebt(collectionName:string){
+    const querySnapshot = await getDocs(collection(database, collectionName));
+    return querySnapshot.docs.map(doc => doc.data() as DebtModel);
+  }
 }

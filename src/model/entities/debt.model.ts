@@ -8,7 +8,7 @@ export interface DebtModel {
   status:string,
   idVenta:string,
   total:string,
-  pays : Pays
+  pays : Pays []
 }
 export interface Pays {
   datePay:Date,
