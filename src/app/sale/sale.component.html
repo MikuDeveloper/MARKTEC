@@ -2,7 +2,6 @@
     <h1 class="text-center">Ventas</h1>
     <hr>
     <br>
-
 </div>
   <div class="container">
     <div class="row">
@@ -79,11 +78,11 @@
                 </div>
                 </div>
                 <div class="col-sm-6">
-                <div class="form-floating">
-                  <input type="text" readonly class="form-control-plaintext" id="Input7" [value]="customers.debt">
-                  <label for="Input2">Deuda</label>
+                  <div class="form-floating">
+                    <input type="text" readonly class="form-control-plaintext" id="Input7" [value]="customers.debt">
+                    <label for="Input2">Deuda</label>
+                  </div>
                 </div>
-              </div>
               </div>
             </div>
             <div class="card-footer">
@@ -172,14 +171,14 @@
               </div>
             </div>
             <div class="card-footer text-body-secondary">
-              <button class="btn btn-outline-danger float-end mx-2 mb-0" (click)="deleteItem()"><i class="fi fi-rr-trash"></i></button><!-- data-bs-toggle="modal" data-bs-target="#deleteItem" -->
+              <button class="btn btn-outline-danger float-end mx-2 mb-0" data-bs-toggle="modal" data-bs-target="#deleteItem"><i class="fi fi-rr-trash"></i></button><!--  -->
             </div>
           </div>
       </div>
     </div>
     <h5 class="text">Artículos Recibidos</h5>
     <div class="row">
-        <!-- First card -->
+        <!--ROW 2 First card -->
       <div class="col-sm-4 mb-3 mb-sm-0 " *ngFor="let exchange of exchangeCard">
         <div class="card mb-3" data-bs-toggle="modal" [attr.data-bs-target]="'#infoModal' + exchange.model" >
           <div class="row g-0">
@@ -214,31 +213,109 @@
       </div>
     </div>
   </div>
-<!-- área y boton para finalizar la compra-->
-<div class="card">
-  <div class="card-body">
-    <h6>{{items.brand}} {{items.model}}</h6> <h5>{{items.price}}</h5>
-    <div *ngFor="let exchange of exchangeCard">
-      <h6>{{exchange.brand}} {{exchange.model}}</h6> <h5> - {{exchange.price}}</h5>
+<div class="container">
+  <h3 class="text-center">Venta en Proceso</h3>
+  <hr>
+</div>
+<div class="container mb-3">
+  <div class="card">
+    <div class="card-body2">
+      <form #paymentForm="ngForm" id="paymentForm">
+      <h6>Producto</h6>
+      <div class="row mb-2">
+        <div class="col-sm-6 mb-2">
+          <div class="form-floating">
+            <input type="text" id="product" class="form-control" name="product" readonly value="{{items.brand}} {{items.model}}"/>
+            <label for="product">Producto en venta</label>
+          </div>
+        </div>
+
+        <div class="col-sm-6 mb-2">
+          <div class="form-floating">
+            <input type="text" id="price" class="form-control" name="price" readonly value="{{items.price}}"/>
+            <label for="product">Precio</label>
+          </div>
+        </div>
+      </div>
+
+      <h6>Forma de Pago</h6>
+      <div class="col-sm-6 mb-4">
+        <div class="form-floating">
+          <select class="form-select" id="paymentMethod" name="paymentMethod" [(ngModel)]="paymentMethod" aria-label="Floating label select"
+          ngModel #paymentControl="ngModel" [ngClass]="{'is-invalid':(paymentControl.invalid && paymentControl.dirty)}" [required]="true">
+            <option [value]="''" disabled selected>Selecciona una opción</option>
+            <option value="efectivo"> Efectivo</option>
+            <option value="transferencia">Transferencia</option>
+          </select>
+          <label for="paymentMethod">Método de Pago</label>
+        </div>
+      </div>
+      
+      <h6>Pago Inicial</h6>
+      <div class="row mb-2 mb-2">
+        <div class="col-sm-6 mb-2">
+          <div class="form-floating">
+            <input type="number" id="amount" class="form-control" name="amount" ngModel #amount="ngModel" [(ngModel)]="initialPay"
+            [ngClass]="{'is-invalid':(amount.invalid && amount.dirty)}" [disabled]="paymentControl.value === ''"
+             [min]="0" [max]="getSubtotal()" pattern="^[0-9]+$" [required]="true"/>
+            <label for="amount">Monto</label>
+          </div>
+        </div>
+        <div class="col-sm-6 mb-2">
+          <div class="form-floating">
+            <input type="number" id="folio" class="form-control" name="folio"
+              ngModel #folio="ngModel" [ngClass]="{'is-invalid':(folio.invalid && folio.dirty)}"
+              [disabled]="paymentControl.value === 'efectivo' || paymentControl.value === ''" [min]="0" pattern="^[0-9]+$" [required]="true" />
+            <label for="folio">Folio</label>
+          </div>
+        </div>
+        <div class="col-sm-6 mb-2">
+          <div class="form-floating">
+            <input type="text" id="concept" class="form-control" name="concept"
+              ngModel #concept="ngModel" [ngClass]="{'is-invalid':(concept.invalid && concept.dirty)}" 
+              [disabled]="paymentControl.value === 'efectivo' || paymentControl.value === ''" [required]="true" />
+            <label for="concept">Concepto</label>
+          </div>
+        </div>
+        <div class="col-sm-6 mb-2">
+          <div class="form-floating">
+            <input type="datetime-local" id="datetime" class="form-control" name="datetime"
+              ngModel #datetime="ngModel" [ngClass]="{'is-invalid':(datetime.invalid && datetime.dirty)}" 
+              [disabled]="paymentControl.value === 'efectivo' || paymentControl.value === ''" [required]="true" />
+            <label for="datetime">Fecha y Hora</label>
+          </div>
+        </div>
+      </div>
+
+      <h5>Subtotal:</h5>
+      <div class="col-sm-6 mb-2">
+        <div class="form-floating">
+          <input type="text" id="subtotal" class="form-control" name="subtotal" readonly value="{{getSubtotal()}}" />
+          <label for="subtotal">Subtotal</label>
+        </div>
+      </div>
+
+      <h5>Total a pagar:</h5>
+      <div class="col-sm-6 mb-2">
+        <div class="form-floating">
+          <input type="text" id="paymentTotal" class="form-control" name="paymentTotal" readonly value="{{getTotalPrice()}}" />
+          <label for="paymentTotal">Total</label>
+        </div>
+      </div>
+    </form>  
     </div>
-    <h6>Pago Inicial</h6> <input type="text" [(ngModel)] = "initialPay">
-    <h6>Forma de Pago</h6>
-    <select class="form-select" [(ngModel)] = "paymentMethod">
-      <option [value]="null" disabled selected>Selecciona una opción</option>
-      <option value="efectivo"> En efectivo</option>
-      <option value="transferencia">Transferencia</option>
-    </select>
-    <h5>Subtotal: {{getSubtotal()}}</h5>
-    <h5>Total a pagar: {{getTotalPrice()}}</h5>
-  </div>
-  <div class="card-footer">
-    <button class="btn btn-outline-primary"(click)="saleEnd()"> Finalizar Compra</button>
+    
+    <div class="card-footer">
+      <button class="btn btn-outline-primary float-end"(click)="saleEnd()" form="paymentForm" > Finalizar Compra</button><!-- [disabled]="paymentForm.invalid"  -->
+    </div>
   </div>
 </div>
+<br><br> 
+<!-- área y boton para finalizar la compra-->
+
 
 <!-- Modal  para Crear a un Nuevo Cliente-->
 <div class="modal fade" id="newCustomer" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-  <form #newCustomerForm="ngForm" (ngSubmit)="addNewCustomer(newCustomerForm.value)">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -246,81 +323,83 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              <!-- Nombre -->
-              <label for="fileName">Nombre Completo</label>
-              <input type="text" id="name" class="form-control mb-3" name="name"
-              [(ngModel)]="customers.name" #name="ngModel" placeholder="Escribe aquí"required />
-              <!-- Voter key -->
-              <label for="fileName">Clave del Elector</label>
-              <input type="text" id="voterKey" class="form-control mb-3" name="voterKey"
-              [(ngModel)]="customers.voterKey" #voterKey="ngModel" placeholder="Escribe aquí" required/>
-              <!-- Address -->
-              <label for="fileName">Dirección</label>
-              <input type="text" id="address" class="form-control mb-3" name="address"
-              [(ngModel)]="customers.address" #address="ngModel" placeholder="Escribe aquí" required/>
-              <!-- Phone Number -->
-              <label for="fileName">Número de Teléfono</label>
-              <input type="text" id="phoneNumber" class="form-control mb-3" name="phoneNumber"
-              [(ngModel)]="customers.phoneNumber" #phoneNumber="ngModel" placeholder="Escribe aquí" required maxlength="10" minlength="10" pattern="^[0-9]+$"/>
-              <!-- Email -->
-              <label for="fileName">Correo Electrónico</label>
-              <input type="text" id="email" class="form-control mb-3" name="email"
-              [(ngModel)]="customers.email" #email="ngModel" placeholder="Escribe aquí" required email/>
-              <!-- Facebook -->
-              <label for="fileName">Facebook</label>
-              <input type="text" id="facebook" class="form-control mb-3" name="facebook"
-              [(ngModel)]="customers.facebook" #facebook="ngModel" placeholder="Escribe aquí" required/>
-
+            <form #newCustomerForm="ngForm" (ngSubmit)="addNewCustomer(newCustomerForm)" id="newCustomerForm">
+              <div class="form-floating">
+                <input type="text" class="form-control mb-3" id="name" name="name" ngModel #name="ngModel"
+                [ngClass]="{'is-invalid':(name.invalid && name.dirty)}" [required]="true" />
+                <label for="fileName">Nombre Completo</label>
+              </div>
+              <div class="form-floating">
+                <input type="text" class="form-control mb-3" id="voterKey" name="voterKey" ngModel #voterKey="ngModel"
+                 [required]="true"/>
+                <label for="fileName">Clave del Elector</label>
+              </div>
+              <div class="form-floating">
+                <input type="text" class="form-control mb-3" id="address" name="address" ngModel #address="ngModel"
+                [ngClass]="{'is-invalid':(address.invalid && address.dirty)}" [required]="true"/>
+                <label for="fileName">Dirección</label>
+              </div>
+              <div class="form-floating">
+                <input type="text" class="form-control mb-3" id="phoneNumber" name="phoneNumber" ngModel #phoneNumber="ngModel"
+                [ngClass]="{'is-invalid':(phoneNumber.invalid && phoneNumber.dirty)}" [required]="true" maxlength="10" minlength="10" pattern="^[0-9]+$"/>
+                <label for="fileName">Número de Teléfono</label>  
+              </div>
+              <div class="form-floating">
+                <input type="text" class="form-control mb-3" id="email" name="email" ngModel #email="ngModel"
+                [ngClass]="{'is-invalid':(email.invalid && email.dirty)}" [required]="true" email/>
+                <label for="fileName">Correo Electrónico</label>  
+              </div>
+              <div class="form-floating">
+                <input type="text" class="form-control mb-3" id="facebook" name="facebook" ngModel #facebook="ngModel"
+                [ngClass]="{'is-invalid':(facebook.invalid && facebook.dirty)}" [required]="true"/>
+                <label for="fileName">Facebook</label>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">Ingresar</button>
+            <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal" form="newCustomerForm">Ingresar</button>
           </div>
         </div>
       </div>
-    </form>
   </div>
-  <!-- Modal para agregar Artículo-->
+<!-- Modal para agregar Artículo-->
 <div class="modal fade" id="newItem" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="newModalLabel">Agregar Artículo</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form #exchangeForm="ngForm" (ngSubmit)="addExchange(exchangeForm.value)" id="exchangeForm">
+              <form #exchangeForm="ngForm" (ngSubmit)="addExchange(exchangeForm)" id="exchangeForm">
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <div class="form-floating">
-                      <input type="text" id="brand" class="form-control" name="brand"
-                        [(ngModel)]="exchange.brand" #brand="ngModel"
+                      <input type="text"  class="form-control" id="brand" name="brand" ngModel #brand="ngModel"
                         [ngClass]="{'is-invalid':(brand.invalid && brand.dirty)}" [required]="true"/>
                       <label for="fileName">Marca</label>
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <div class="form-floating">
-                      <input type="text" id="model" class="form-control" name="model"
-                        [(ngModel)]="exchange.model" #modelo="ngModel"
+                      <input type="text" class="form-control" id="model" name="model" ngModel #modelo="ngModel"
                         [ngClass]="{'is-invalid':(modelo.invalid && modelo.dirty)}" [required]="true"/>
                       <label for="fileName">Modelo</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <input type="text" id="imei" class="form-control" name="IMEI"
-                        [(ngModel)]="exchange.IMEI" #IMEI="ngModel"
-                        [ngClass]="{'is-invalid':(IMEI.invalid && IMEI.dirty)}" [required]="true" maxlength="15" minlength="15" pattern="^[0-9]+$"/>
-                      <label for="fileName">IMEI</label>
+                      <input type="text" class="form-control" id="imei" name="IMEI" ngModel #IMEI="ngModel"
+                        [ngClass]="{'is-invalid':(IMEI.invalid && IMEI.dirty)}" [required]="true"/>
+                      <label for="fileName">IMEI/No. de Serie</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="input-group">
                       <span class="input-group-text">$</span>
                       <div class="form-floating">
-                        <input type="number" id="price" class="form-control" name="price"
-                          ngModel [(ngModel)]="exchange.price" #price="ngModel"
+                        <input type="number" class="form-control" id="price" name="price" ngModel #price="ngModel"
                           [ngClass]="{'is-invalid':(price.invalid && price.dirty)}"  [required]="true" [min]="0" pattern="^[0-9]+$"/>
                         <label for="fileName">Precio</label>
                       </div>
@@ -328,10 +407,9 @@
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <select class="form-select" id="category" name="category"
-                        [(ngModel)]="exchange.category" #category="ngModel"
+                      <select class="form-select" id="category" name="category" ngModel #category="ngModel"
                         [ngClass]="{'is-invalid': (category.invalid && category.dirty)}" [required]="true">
-                        <option selected>--Seleccionar--</option>
+                        <option [value]="''" disabled selected>--Seleccionar--</option>
                         <option value="1">Celular</option>
                         <option value="2">Laptop</option>
                         <option value="3">Consola</option>
@@ -341,26 +419,36 @@
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <input type="text" id="color" class="form-control" name="color"
-                        [(ngModel)]="exchange.color" #color="ngModel"
+                      <input type="text" id="color" class="form-control" name="color" ngModel #color="ngModel"
                         [ngClass]="{'is-invalid':(color.invalid && color.dirty)}" [required]="true"/>
                       <label for="fileName">Color</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <input type="number" id="storageCapacity" class="form-control" name="storageCapacity"
-                        [(ngModel)]="exchange.storageCapacity" #storageCapacity="ngModel"
-                        [ngClass]="{'is-invalid':(storageCapacity.invalid && storageCapacity.dirty)}" [required]="true"/>
-                       <label for="fileName">Capacidad de Almacenamiento</label>
+                      <select class="form-select" id="storageCapacity" name="storageCapacity" ngModel #storageCapacity="ngModel"
+                        [ngClass]="{'is-invalid': (storageCapacity.invalid && storageCapacity.dirty)}" [required]="true">
+                        <option [value]="''" disabled selected>--Seleccionar--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">4</option>
+                        <option value="4">6</option>
+                        <option value="5">8</option>
+                        <option value="6">16</option>
+                        <option value="7">32</option>
+                        <option value="8">64</option>
+                        <option value="9">128</option>
+                        <option value="10">256</option>
+                        <option value="11">512</option>
+                      </select>
+                       <label for="storageCapacity">Capacidad de Almacenamiento</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <select class="form-select" id="storageUnit" name="storageUnit"
-                        [(ngModel)]="exchange.storageUnit" #storageUnit="ngModel"
+                      <select class="form-select" id="storageUnit" name="storageUnit" ngModel #storageUnit="ngModel"
                         [ngClass]="{'is-invalid': (storageUnit.invalid && storageUnit.dirty)}" [required]="true">
-                        <option selected>--Seleccionar--</option>
+                        <option [value]="''" disabled selected>--Seleccionar--</option>
                         <option value="1">MB</option>
                         <option value="2">GB</option>
                         <option value="3">TB</option>
@@ -370,55 +458,90 @@
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <input type="date" id="date" class="form-control" name="entryDate"
-                        [(ngModel)]="exchange.entryDate" #entryDate="ngModel"
+                      <input type="date" id="date" class="form-control" name="entryDate" ngModel #entryDate="ngModel"
                         [ngClass]="{'is-invalid':(entryDate.invalid && entryDate.dirty)}" [required]="true"/>
                       <label for="fileName">Fecha</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <input type="text" id="operator" class="form-control" name="employeeId"
-                        [(ngModel)]="exchange.employeeId" #employeeId="ngModel"
-                        [ngClass]="{'is-invalid':(employeeId.invalid && employeeId.dirty)}" [required]="true"/>
+                      <input type="text" class="form-control" id="operator" name="employeeId" readonly ngModel #employeeId="ngModel"
+                        [ngClass]="{'is-invalid':(employeeId.invalid && employeeId.dirty)}" [required]="true"
+                        [(ngModel)]="currentUser"/>
                       <label for="fileName">Operador</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <input type="text" id="batteryState" class="form-control" name="batteryState"
-                        [(ngModel)]="exchange.batteryState" #batteryState="ngModel"
-                        [ngClass]="{'is-invalid':(batteryState.invalid && batteryState.dirty)}" [required]="true"/>
-                      <label for="fileName">Estado de la batería</label>
+                      <input type="number" class="form-control" id="batteryState" name="batteryState" ngModel #batteryState="ngModel"
+                        [ngClass]="{'is-invalid':(batteryState.invalid && batteryState.dirty)}"  [min]="1" [max]="100" [required]="true"/>
+                      <label for="batteryState">Estado de la batería</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <input type="number" id="physicalState" class="form-control" name="physicalState"
-                        [(ngModel)]="exchange.physicalState" #physicalState="ngModel"
-                        [ngClass]="{'is-invalid':(physicalState.invalid && physicalState.dirty)}" [required]="true"/>
-                      <label for="fileName">Estado Físico</label>
+                      <input type="number" class="form-control" id="physicalState" name="physicalState" ngModel #physicalState="ngModel"
+                        [ngClass]="{'is-invalid':(physicalState.invalid && physicalState.dirty)}" [required]="true"  [min]="1" [max]="10"/>
+                      <label for="fileName">Estética</label>
                     </div>
                   </div>
-                  <div class="col-sm-6 mb-3">
+                  <div class="col-sm-12 mb-3">
                     <div class="form-floating">
-                      <input type="text" id="comments" class="form-control" name="comments"
-                        [(ngModel)]="exchange.comments" #comments="ngModel"
-                        [ngClass]="{'is-invalid':(comments.invalid && comments.dirty)}" [required]="true"/>
+                      <textarea type="text" id="comments" class="form-control" name="comments" ngModel #comments="ngModel"
+                        [ngClass]="{'is-invalid':(comments.invalid && comments.dirty)}" [required]="true"></textarea>
                       <label for="fileName">Observaciones</label>
                     </div>
                   </div>
+
+                  <div class="col-lg-6 col-md-6 mb-4">
+                    <label for="urlPhoto1" class="form-label">1. Foto de artículo:</label>
+                    <input type="file" name="urlPhoto1" id="urlPhoto1" class="form-control" placeholder="Elegir foto"
+                           ngModel #imgFile1="ngModel" (change)="editAndCompressImage($event, imgFile1, img1)" [required]="true"
+                           [disabled]="!(imgFile1.value == '' || imgFile1.value == undefined)" />
+                    <div [ngClass]="{'visually-hidden':(imgFile1.value == '' || imgFile1.value == undefined)}">
+                      <div class="row mt-3">
+                        <div class="col-12 text-center">
+                          <button class="btn btn-danger" type="button" title="Quitar imagen" (click)="deleteImage(img1, imgFile1)">
+                            <i class="fi fi-rr-trash-xmark"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row mt-1">
+                        <img src="" alt="Foto 1" title="Foto 1" #img1 class="img-fluid" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 mb-4">
+                    <label for="urlPhoto2" class="form-label">2. Foto de artículo:</label>
+                    <input type="file" name="urlPhoto2" id="urlPhoto2" class="form-control" placeholder="Elegir foto"
+                           ngModel #imgFile2="ngModel" (change)="editAndCompressImage($event, imgFile2, img2)" [required]="true"
+                           [disabled]="!(imgFile2.value == '' || imgFile2.value == undefined)" />
+                    <div [ngClass]="{'visually-hidden':(imgFile2.value == '' || imgFile2.value == undefined)}">
+                      <div class="row mt-3">
+                        <div class="col-12 text-center">
+                          <button class="btn btn-danger" type="button" title="Quitar imagen" (click)="deleteImage(img2, imgFile2)">
+                            <i class="fi fi-rr-trash-xmark"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row mt-1">
+                        <img src="" alt="Foto 2" title="Foto 2" #img2 class="img-fluid" />
+                      </div>
+                    </div>
+                  </div>
+                  
                 </div>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal" form="exchangeForm" [disabled]="!exchangeForm.valid">Ingresar</button><!---->
+              <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal" form="exchangeForm" >Ingresar</button><!--[disabled]="!exchangeForm.valid"-->
             </div>
           </div>
         </div>
   </div>
-  <!-- Modal para Eliminar articulo-->
+<!-- Modal para Eliminar articulo-->
 <div class="modal fade" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -467,7 +590,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" >Eliminar</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" (click)="deleteItem()">Eliminar</button>
       </div>
     </div>
   </div>

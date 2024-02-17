@@ -6,8 +6,9 @@ import {SessionService} from "../../../model/utils/session.service";
 import {RouterLink} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {InventoryService} from "../../../model/utils/observables/inventory.service";
-import {NgxCroppedEvent, NgxPhotoEditorService} from "ngx-photo-editor";
+
 import {DOC_ORIENTATION, NgxImageCompressService} from "ngx-image-compress";
+import { NgxCroppedEvent, NgxPhotoEditorService } from 'ngx-photo-editor';
 
 @Component({
   selector: 'app-inventory-add',

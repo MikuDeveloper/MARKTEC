@@ -1,6 +1,6 @@
 <section class="container">
   <div class="row text-center title">
-    <h3>Empleados</h3>
+    <h3>Clientes</h3>
   </div>
   <hr>
   <div class="container">
@@ -20,34 +20,36 @@
     <div class="row">
       <div class="col-6 mb-3 mb-sm-1 " *ngFor="let customer of customers">
         <div class="card my-custom-card" data-bs-toggle="modal" [attr.data-bs-target]="'#customerModal' + customer.voterKey" >
+          <div class="card-header">
+            <div class="card-title text-center">Foto de la Credencial</div>
+          </div>
           <div class="card-body">
-            <h5 class="card-title text-center">Fotos de Credencial</h5>
-              <div>
-                <table class="table table-responsive">
-                  <tbody>
-                    <tr class="col">
-                      <td><h6>Nombre</h6></td>
-                      <td><h5 class="text-center">{{customer.name}}</h5></td>
-                    </tr>
-                    <tr>
-                      <td><h6>Clave de Elector</h6></td>
-                      <td><h5 class="text-center">{{customer.voterKey}}</h5></td>
-                    </tr>
-                    <tr>
-                      <td><h6>Email</h6></td>
-                      <td><h5 class="text-center">{{customer.email}}</h5></td>
-                    </tr>
-                    <tr>
-                      <td><h6>Estatus</h6></td>
-                      <td><h5 class="text-center">{{customer.status}}</h5></td>
-                    </tr>
-                    <tr>
-                      <td><h6>Deuda</h6></td>
-                      <td><h5 class="text-center">{{customer.debt}}</h5></td>
-                    </tr>
-                  </tbody>
-                </table>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="name" name="name" [value]="customer.name">
+                  <label for="name">Nombre:</label>
+                </div>
               </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="voterKey" name="voterKey" [value]="customer.voterKey">
+                  <label for="voterKey">Clave de Elector:</label>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="status" name="status" [value]="customer.status">
+                  <label for="status">Estatus:</label>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-floating">
+                  <input type="text" readonly class="form-control-plaintext" id="email" name="email" [value]="customer.debt">
+                  <label for="email">Deuda:</label>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="card-footer d-flex justify-content-between">
             <button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)"><i class="fi fi-rr-pencil"></i></button>
@@ -247,7 +249,7 @@
             </div>
             <div class="col-sm-6">
               <div class="form-floating">
-                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.phoneNumber">
+                <input type="text" readonly class="form-control-plaintext" id="Input1" [value]="customer.address">
                 <label for="Input1">Dirección:</label>
               </div>
             </div>
