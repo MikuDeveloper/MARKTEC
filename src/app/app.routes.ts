@@ -11,6 +11,7 @@ import { RoutesGuard } from "../model/utils/routes.guard";
 import {InventoryAddComponent} from "./inventory/inventory-add/inventory-add.component";
 import {InventorySearchComponent} from "./inventory/inventory-search/inventory-search.component";
 import {InventoryProductsComponent} from "./inventory/inventory-products/inventory-products.component";
+import {InventoryDetailsComponent} from "./inventory/inventory-details/inventory-details.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,7 +23,9 @@ export const routes: Routes = [
       { path: 'add', component:  InventoryAddComponent },
       { path: 'search/:id', component: InventorySearchComponent },
       { path: 'products', redirectTo: 'products/1' },
+      { path: 'products/details', redirectTo: 'products/1' },
       { path: 'products/:page', component: InventoryProductsComponent },
+      { path: 'products/details/:imei', component: InventoryDetailsComponent },
       { path: '', redirectTo: 'inventory', pathMatch: 'full' }
     ]
   },

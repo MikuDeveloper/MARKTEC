@@ -12,6 +12,7 @@ import Timestamp = firebase.firestore.Timestamp;
 export class InventoryService {
   private static instance: InventoryService;
   private _inventoryProducts : ProductModel[] = []
+  private _inventoryMap : Map<string, ProductModel> = new Map()
   private _inventory$ = new BehaviorSubject<ProductModel[]>(this._inventoryProducts)
   private constructor() {
     this.loadInventoryProducts().then().catch()
@@ -30,11 +31,13 @@ export class InventoryService {
 
   async loadInventoryProducts() {
     this._inventoryProducts = []
+    this._inventoryMap.clear()
     const querySnapshot = await getDocs(collection(database, "inventory"));
     querySnapshot.forEach((doc) => {
       let product = <ProductModel> doc.data();
       product.entryDate = (<Timestamp><unknown>product.entryDate).toDate();
       this._inventoryProducts.push(product)
+      this._inventoryMap.set(product.IMEI, product)
     });
 
     this._inventory$.next(this._inventoryProducts)
@@ -68,6 +71,10 @@ export class InventoryService {
     const start = (pageNumber - 1) * pageSize;
     const end = start + pageSize;
     return this._inventoryProducts.slice(start, end);
+  }
+
+  getProductByIMEI(imei: string): ProductModel | undefined {
+    return this._inventoryMap.get(imei);
   }
 
 }
