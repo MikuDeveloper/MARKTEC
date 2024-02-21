@@ -13,7 +13,7 @@ import { User } from 'firebase/auth';
 import { Exchanges, Payment, SaleModel } from '../../model/entities/sale.model';
 import { NgxCroppedEvent, NgxPhotoEditorService } from 'ngx-photo-editor';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
-import { DebtModel } from '../../model/entities/debt.model';
+import { DebtModel, Pays } from '../../model/entities/debt.model';
 @Component({
   selector: 'app-sale',
   standalone: true,
@@ -100,6 +100,8 @@ export class SaleComponent {
     urlPhoto1: '',
     urlPhoto2: ''
   }
+  originalExchangeItems : ProductModel [] = []
+  exchangeItems : ProductModel [] = []
   // Objeto que guardara momentaneamente los datos del objeto a eliminar o editar.
   infoExchange : ProductModel = {
     productId: '',
@@ -160,7 +162,7 @@ export class SaleComponent {
 
   idVenta : string = ''
 
-  // Onjeto de tipo DebtModel para crear la deuda
+  // Objeto de tipo DebtModel para crear la deuda
   debt : DebtModel={
     debtAmount: String(this.getTotalPrice()),
     employeeId: '',
@@ -170,13 +172,14 @@ export class SaleComponent {
     status: 'Pendiente',
     idVenta: '',
     total: String(this.getTotalPrice()),
-    pays: {
+    pays: []
+  }
+  debtPay : Pays = {
       datePay: new Date(),
       payAmount:this.initialPay,
       paymentMethod: this.paymentMethod,
       folio:'',
-      concept:''
-    }
+      concept:'Primer Pago'
   }
   constructor(
     private navService: NavService,
@@ -198,7 +201,9 @@ export class SaleComponent {
     // Método para filtrar los artículos de venta y eliminar los que tenga la location igual a vendido
     this.originalItem = this.originalItem.filter(item => item.location != 'vendido')
     // Se copian los datos a otro arreglo que nos servira al momento de usar el NgbTypeahead
-    this.item = [...this.originalItem]
+    this.exchangeItems = await this.databaseService.getCollectionDataTest('exchanges')
+    this.exchangeItems = this.exchangeItems.filter(item => item.location != 'vendido')
+    this.item = [...this.originalItem,...this.exchangeItems]
     console.log(this.item)
     console.log(this.customer)
   }
@@ -359,16 +364,16 @@ export class SaleComponent {
     // Agregamos un doc nuevo a la colección sales y guardamos el Id del doc en debt
     this.databaseService.addSale("sales",this.sale).then(docId => {
       this.idVenta = docId
-      console.log(docId)
+      this.debtPay.payAmount = this.initialPay
+      this.debtPay.paymentMethod = this.paymentMethod
+       //this.debt.pays.folio:'',
+      //this.debt.pays.concept:''
       if(this.getTotalPrice() > 0){
         this.debt.debtAmount =  String(this.getTotalPrice())
         this.debt.voterKey = this.customers.voterKey
         this.debt.idVenta = this.idVenta
         this.debt.total = String(this.getTotalPrice())
-        this.debt.pays.payAmount = this.initialPay
-        this.debt.pays.paymentMethod =  this.paymentMethod
-        //this.debt.pays.folio:'',
-        //this.debt.pays.concept:''
+        this.debt.pays.push(this.debtPay)
 
         this.databaseService.addDebt("debts",this.debt).then(docId => {
           this.databaseService.updateSale("sales",this.idVenta,{debtId : docId}).then(it =>{
