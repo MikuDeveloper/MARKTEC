@@ -58,6 +58,7 @@ export class InventoryService {
     await setDoc(docRef, product)
       .then(() => {
         this._inventoryProducts.push(product)
+        this._inventoryMap.set(product.IMEI, product)
         this._inventory$.next(this._inventoryProducts)
       })
     return product;
