@@ -6,6 +6,34 @@
   </ol>
 </nav>
 
+@if (img1 && img2) {
+  <section id="product-images" class="row">
+    <div id="carousel-product" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="w-100 d-flex justify-content-center">
+            <img [src]="img1" class="d-block" alt="Foto 1" title="Foto 1" />
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="w-100 d-flex justify-content-center">
+            <img [src]="img2" class="d-block" alt="Foto 2" title="Foto 2" />
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-product" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel-product" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+}
+
+
 @if (product) {
   <section class="row mb-5">
     <table class="table table-hover">
