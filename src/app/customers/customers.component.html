@@ -1,24 +1,34 @@
+
+<div id="addNewProduct" class="fab" data-bs-toggle="modal" data-bs-target="#newModal" [ngClass]="{'visually-hidden' : archived.isActive}">
+  <i class="fi fi-rr-user-add"></i>
+</div>
+
+<!-- Botón archivar Cliente-->
+<div class="fabTwo"
+  routerLink="archived" routerLinkActive #archived="routerLinkActive" [routerLinkActive]="['visually-hidden']"> 
+  <i class="fi fi-rr-move-to-folder-2"></i>
+</div>
+
 <section class="container">
   <div class="row text-center title">
     <h3>Clientes</h3>
   </div>
   <hr>
-  <div class="container">
+  <div class="container" [ngClass]="{'visually-hidden' : archived.isActive}">
+
     <input class="form-control w-50 mx-auto mt-3" [(ngModel)]="searchValue"
     (ngModelChange)="onSearchChange()" type="search" placeholder="Buscar...">
-   </div>
+   
    <!-- Filtro por deuda -->
-   <div class="container">
     <select class="form-select w-50 mx-auto mt-3"  [(ngModel)]="selectedFilter" (change)="filter()">
       <option value="" disabled selected>Elige un Filtro:</option>
       <option value="sin deuda">Sin Deuda</option>
       <option value="adeuda">Con Deuda</option>
     </select>
-  </div>
-  <br>
-  <div class="container">
+    <br>
+  
     <div class="row">
-      <div class="col-6 mb-3 mb-sm-1 " *ngFor="let customer of customers">
+      <div class="col-sm-6 mb-3 mb-sm-0 " *ngFor="let customer of customers">
         <div class="card my-custom-card" data-bs-toggle="modal" [attr.data-bs-target]="'#customerModal' + customer.voterKey" >
           <div class="card-header">
             <div class="card-title text-center">Foto de la Credencial</div>
@@ -52,24 +62,19 @@
             </div>
           </div>
           <div class="card-footer d-flex justify-content-between">
-            <button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#editModal" (click)="clickInfo(customer)"><i class="fi fi-rr-pencil"></i></button>
+            <button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" [attr.data-bs-target]="'#editModal' + customer.voterKey"><i class="fi fi-rr-pencil"></i></button>
             <button class="btn btn-outline-success position-relative" data-bs-toggle="modal" [attr.data-bs-target]="'#customerModal' + customer.voterKey" (click)="clickInfo(customer)"><i class="fi fi-rr-info"></i></button>
-            <button class="btn btn-outline-danger position-relative" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="clickInfo(customer)"><i class="fi fi-rr-trash"></i></button>
+            <button class="btn btn-outline-danger position-relative" data-bs-toggle="modal" data-bs-target="#archivedModal"><i class="fi fi-rr-clip"></i></button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Botón para agregar a un Nuevo Cliente-->
-  <div>
-    <button class="btn btn-outline-primary position-fixed bottom-0 end-0 translate-middle"
-    data-bs-toggle="modal" data-bs-target="#newModal"><i class="fi fi-rr-add"></i></button>
-  </div>
+  <router-outlet></router-outlet>
 
   <!-- Modal  para Crear a un Nuevo Usuario-->
   <div class="modal fade" id="newModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newModalLabel" aria-hidden="true">
-    
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -77,147 +82,155 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form #addForm="ngForm" (ngSubmit)="addNewDocument(addForm.value)" id="addForm">
-              <div class="col-sm-12 mb-3">
-                <div class="form-floating">
+            <form #addForm="ngForm" (ngSubmit)="addNewDocument(addForm)" id="addForm">
+                <div class="form-floating mb-2">
                   <input type="text" id="name" class="form-control" name="name"
                     ngModel #name="ngModel"
                     [ngClass]="{'is-invalid':(name.invalid && name.dirty)}" [required]="true"/>
                   <label for="name">Nombre</label>  
                 </div>
-              </div>
-              <div class="col-sm-12 mb-3">
-                <div class="form-floating">
+                <div class="form-floating mb-2">
                   <input type="text" id="address" class="form-control" name="address"
                     ngModel #address="ngModel" 
                     [ngClass]="{'is-invalid':(address.invalid && address.dirty)}" [required]="true"/> 
                   <label for="address">Direción</label>     
                 </div>
-              </div>
-              <div class="col-sm-12 mb-3">
-                <div class="form-floating">
+                <div class="form-floating mb-2">
                   <input type="text" id="email" class="form-control" name="email"
                     ngModel #email="ngModel"
                     [ngClass]="{'is-invalid':(address.invalid && address.dirty)}" [required]="true" email/> 
                   <label for="email">E-mail</label> 
                 </div>
-              </div>
-              <div class="col-sm-12 mb-3">
-                <div class="form-floating">
+                <div class="form-floating mb-2">
                   <input type="text" id="voterKey" class="form-control" name="voterKey"
                     ngModel #voterKey="ngModel"
                     [ngClass]="{'is-invalid':(voterKey.invalid && voterKey.dirty)}" [required]="true" /> 
                   <label for="voterKey">Clave de elector</label>     
                 </div>
-              </div>
-              <div class="col-sm-12 mb-3">
-                <div class="form-floating">
+                <div class="form-floating mb-2">
                   <input type="text" id="phoneNumber" class="form-control" name="phoneNumber"
                     ngModel #phoneNumber="ngModel" 
                     [ngClass]="{'is-invalid':(phoneNumber.invalid && phoneNumber.dirty)}" [required]="true" maxlength="10" minlength="10" pattern="^[0-9]+$"/>
                   <label for="phoneNumber">Número de Teléfono</label>      
                 </div>
-              </div>
-              <div class="col-sm-12 mb-3">
-                <div class="form-floating">
+                <div class="form-floating mb-2">
                   <input type="text" id="facebook" class="form-control" name="facebook"
                     ngModel #facebook="ngModel"
                     [ngClass]="{'is-invalid':(facebook.invalid && facebook.dirty)}" [required]="true"/>  
                   <label for="facebook">Facebook</label>  
                 </div>
-              </div>
-              <div class="col-sm-12 mb-3">
-                <div class="form-floating">
+                <div class="form-floating mb-2">
                   <input type="text" id="status" class="form-control" name="status"
                     ngModel #status="ngModel"
                     [ngClass]="{'is-invalid':(status.invalid && status.dirty)}" [required]="true" />
                   <label for="status">Status</label>  
                 </div>
+              <div class="form-floating mb-2">
+                <select class="form-select" id="status" name="status" ngModel #status="ngModel"
+                  [ngClass]="{'is-invalid': (status.invalid && status.dirty)}" [required]="true">
+                  <option [value]="''" disabled selected>--Seleccionar--</option>
+                  <option value="con deuda">Adeuda</option>
+                  <option value="Sin deuda">Sin deuda</option>
+                </select>
+                 <label for="status">Estado</label>
               </div>
-              <div class="col-sm-12 mb-3">
-                <div class="form-floating">
-                  <input type="debt" id="facebook" class="form-control" name="debt"
-                    ngModel #debt="ngModel"
-                    [ngClass]="{'is-invalid':(debt.invalid && debt.dirty)}" [required]="true" />
+                <div class="form-floating mb-2">
+                  <input type="number" id="facebook" class="form-control" name="debt"
+                    ngModel #debt="ngModel" 
+                    [ngClass]="{'is-invalid':(debt.invalid && debt.dirty)}" [required]="true" [min]="0" pattern="^[0-9]+$"/>
                   <label for="debt">Deuda</label>  
                 </div>
-              </div> 
             </form>
           </div>
           <div class="modal-footer">
-            @if (addForm.form.invalid && addForm.form.touched) {
-              @if(phoneNumber.invalid){
-                <p class="text-danger">*Revisa el número de Teléfono*</p>
-              }
-              @else if(email.invalid){
-                <p class="text-danger">*Revisa el correo electrónico*</p>
-              }@else {
-                <p class="text-danger">*Completa los campos para poder ingresar.*</p>
-              }
-            }
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary" form="addForm" data-bs-dismiss="modal"[disabled]="addForm.form.invalid">Ingresar</button>
+            <button type="submit" class="btn btn-outline-primary" form="addForm" data-bs-dismiss="modal" >Ingresar</button> <!-- [disabled]="addForm.form.invalid" -->
           </div>
         </div>
       </div>
     
   </div>
-  <!-- Modal para Eliminar un Usuario-->
-  <div class="modal" id="deleteModal" tabindex="-1" data-bs-backdrop="static">
+  <!-- Modal para Archivar un Usuario-->
+  <div class="modal" id="archivedModal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Eliminar</h5>
+          <h5 class="modal-title">Archivar</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Se eliminará el usuario: {{infoCustomer.name}}</p>
+          <p>Archivar el usuario: {{infoCustomer.name}}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"(click)="deleteDocument(infoCustomer.voterKey)">Eliminar</button>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Archivar</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal para Editar la información un Usuario-->
-  <div class="modal" id="editModal" tabindex="-1" data-bs-backdrop="static">
-    <form #editForm="ngForm" (ngSubmit)="updateDocument(editForm.value)">
-      <div class="modal-dialog">
+  <!-- Modal para Editar la información un Cliente: inforCustomer-->
+  <div class="modal fade" tabindex="-1" data-bs-backdrop="static" [id]="'editModal' + customer.voterKey" *ngFor="let customer of customers">
+      <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Editar Usuario</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <label for="fileName">Nombre</label>
-            <input type="text" class="form-control"  name="name"
-            ngModel #name="ngModel" [(ngModel)]="infoCustomer.name" required>
-            <label for="fileName">Dirección</label>
-            <input type="text" class="form-control"  name="address"
-            ngModel #address="ngModel" [(ngModel)]="infoCustomer.address" required>
-            <label for="fileName">Número de Teléfono</label>
-            <input type="text" class="form-control" name="phoneNumber" ngModel #phoneNumber="ngModel"
-            [(ngModel)]="infoCustomer.phoneNumber" required maxlength="10" minlength="10" pattern="^[0-9]+$">
+          <div class="modal-body">            
+            <form #editForm="ngForm" (ngSubmit)="updateDocument(editForm)" id="editForm">
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="name" name="name" ngModel #name="ngModel"  [(ngModel)]="customer.name"
+                  [ngClass]="{'is-invalid':(name.invalid && name.dirty)}" [required]="true" />
+                <label for="name">Nombre</label>
+              </div>
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="voterKey" name="voterKey" ngModel #voterKey="ngModel"  [(ngModel)]="customer.voterKey"
+                  [ngClass]="{'is-invalid':(voterKey.invalid && voterKey.dirty)}" [required]="true" />
+                <label for="voterKey">Clave de Elector</label>
+              </div>
+              <div class="form-floating mb-2">
+                <input type="email" class="form-control" id="email" name="email" ngModel #email="ngModel"  [(ngModel)]="customer.email"
+                  [ngClass]="{'is-invalid':(email.invalid && email.dirty)}" [required]="true" />
+                <label for="email">Correo Electrónico</label>
+              </div>
+              <div class="form-floating mb-2">
+                <textarea type="text" id="address" class="form-control" name="address" ngModel #address="ngModel" [(ngModel)]="customer.address"
+                  [ngClass]="{'is-invalid':(address.invalid && address.dirty)}" [required]="true"></textarea>
+                <label for="address">Dirección</label>
+              </div>
+              <div class="form-floating mb-2">
+                <input type="number" id="phoneNumber" class="form-control" name="phoneNumber" ngModel #phoneNumber="ngModel" [(ngModel)]="customer.phoneNumber"
+                  [ngClass]="{'is-invalid':(phoneNumber.invalid && phoneNumber.dirty)}" [required]="true" maxlength="10" minlength="10" pattern="^[0-9]+$"/>
+                <label for="phoneNumber">Teléfono</label>
+              </div>
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="facebook" name="facebook" ngModel #facebook="ngModel" [(ngModel)]="customer.facebook"
+                  [ngClass]="{'is-invalid':(facebook.invalid && facebook.dirty)}" [required]="true" />
+                <label for="facebook">Facebook</label>
+              </div>
+              <div class="form-floating mb-2">
+                <select class="form-select" id="status" name="status" ngModel #status="ngModel" [(ngModel)]="customer.status"
+                  [ngClass]="{'is-invalid': (status.invalid && status.dirty)}" [required]="true">
+                  <option [value]="''" disabled selected>--Seleccionar--</option>
+                  <option value="adeuda">Adeudo</option>
+                  <option value="Sin deuda">Sin deuda</option>
+                </select>
+                 <label for="status">Estado</label>
+              </div>
+              <div class="form-floating mb-2">
+                <input type="number" id="debt" class="form-control" name="debt" ngModel #debt="ngModel" [(ngModel)]="customer.debt"
+                  [ngClass]="{'is-invalid':(debt.invalid && debt.dirty)}" [required]="true" [min]="0" pattern="^[0-9]+$"/>
+                <label for="debt">Deuda</label>
+              </div>
+            </form>  
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal" [disabled]="editForm.form.invalid">Guardar Cambios</button>
-            @if (editForm.form.invalid && editForm.form.touched) {
-              @if(phoneNumber.invalid){
-                <p class="text-danger">*Revisa el número de Teléfono*</p>
-              }
-              @else if(name.invalid){
-                <p class="text-danger">*Revisa el Nombre</p>
-              }@else {
-                <p class="text-danger">*Completa los campos para poder ingresar.*</p>
-              }
-            }
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal" form="editForm" >Guardar Cambios</button><!-- [disabled]="editForm.invalid" -->
           </div>
         </div>
       </div>
-    </form>
   </div>
   <!-- Info Modal -->
   <div class="modal fade" tabindex="-1" data-bs-backdrop="static" [id]="'customerModal' + customer.voterKey" *ngFor="let customer of customers">
@@ -283,3 +296,4 @@
   </div>
   </div>
 </section>
+<!--  -->

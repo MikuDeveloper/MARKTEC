@@ -4,11 +4,21 @@ import { FirestoreService } from '../../model/api/firestore.service';
 import { AsyncPipe,CommonModule,NgForOf } from '@angular/common';
 import { CustomerModel } from '../../model/entities/customer.model';
 import { Observable, Observer, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [AsyncPipe,NgForOf,FormsModule,ReactiveFormsModule, CommonModule],
+  imports: [
+    AsyncPipe,
+    NgForOf,
+    FormsModule,
+    ReactiveFormsModule, 
+    CommonModule, 
+    RouterLink,
+    RouterOutlet,
+    RouterLinkActive
+    ],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss'
 })
@@ -59,14 +69,17 @@ removeAccents(str: string): string {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 }
   //Método para agregar un nuevo documento
-  addNewDocument(form : CustomerModel){
-    let variableType: string = typeof form.email;
+  addNewDocument(form : NgForm){
+    //this.customers.push(<CustomerModel> form.value)
+    const formD: CustomerModel = form.value //formData
+    let variableType: string = typeof formD.email
     console.log(variableType)
-      this.databaseService.addDocumentC("customers",form,form.voterKey).then(async (docRef) => {
+      this.databaseService.addDocumentC("customers",formD,formD.voterKey).then(async (docRef) => {
         this.customers = await this.databaseService.getCollectionDataC("customers")
-        form.name = '';form.address = '';form.debt = 0;form.email = '';form.facebook = '';form.phoneNumber=''
-        form.status = '';form.voterKey=''
+        formD.name = '';formD.address = '';formD.debt = 0;formD.email = '';formD.facebook = '';formD.phoneNumber=''
+        formD.status = '';formD.voterKey=''
       });
+      form.reset()
     }
     //Método para pasar los datos de la tarjetas al modal de eliminación a través de otra interfaz
     clickInfo(customers:CustomerModel){
@@ -77,11 +90,17 @@ removeAccents(str: string): string {
         this.customers = await this.databaseService.getCollectionDataC("customers")
       });
     }
-    updateDocument(form: CustomerModel){
-      form.voterKey = this.infoCustomer.voterKey
+    updateDocument(form: NgForm){
+      const formD: CustomerModel = form.value
+      formD.voterKey = this.infoCustomer.voterKey
       console.log(form)
-      console.log(this.infoCustomer)
-      this.databaseService.updateDocument("customers",form.voterKey,form)
+      this.databaseService.updateDocument("customers",formD.voterKey,formD)
+      .then(() => {
+        console.log("Documento actualizado exitosamente");
+      })
+      .catch(error => {
+        console.error("Error al actualizar el documento:", error);
+      });
     }
     //Método para filtrar sin deuda
     async filter(){

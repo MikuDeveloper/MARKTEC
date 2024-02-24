@@ -340,7 +340,7 @@
                 <label for="fileName">Dirección</label>
               </div>
               <div class="form-floating">
-                <input type="text" class="form-control mb-3" id="phoneNumber" name="phoneNumber" ngModel #phoneNumber="ngModel"
+                <input type="number" class="form-control mb-3" id="phoneNumber" name="phoneNumber" ngModel #phoneNumber="ngModel"
                 [ngClass]="{'is-invalid':(phoneNumber.invalid && phoneNumber.dirty)}" [required]="true" maxlength="10" minlength="10" pattern="^[0-9]+$"/>
                 <label for="fileName">Número de Teléfono</label>  
               </div>
@@ -720,7 +720,7 @@
                 <div class="form-floating">
                   <textarea type="text" id="comments" class="form-control" name="comments" ngModel #comments="ngModel" [(ngModel)]="exchange.comments"
                     [ngClass]="{'is-invalid':(comments.invalid && comments.dirty)}" [required]="true"></textarea>
-                  <label for="fileName">Observaciones</label>
+                  <label for="comments">Observaciones</label>
                 </div>
               </div>
 
