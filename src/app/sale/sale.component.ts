@@ -129,7 +129,8 @@ export class SaleComponent {
   initialPay : string ='' // variable para recibir el pago inicial
   paymentMethod : string = '' // variable para recibir el Método de Pago
   subtotal : string = '' // variable para mostrar el subtotal calcualdo en un método
-
+  folio: string=''// variable para recibir el folio del depósito o transferencia
+  concept:string = ''// variable para recibir el concepto del depósito o transferencia
   // Objetos para almacenar los datos necesarios del pago inicial y demás inforamción de la venta
   sale: SaleModel = {
     saleId: 'sale1',
@@ -165,6 +166,7 @@ export class SaleComponent {
 
   // Objeto de tipo DebtModel para crear la deuda
   debt : DebtModel={
+    debtId:'',
     debtAmount: String(this.getTotalPrice()),
     employeeId: '',
     voterKey: this.customers.voterKey,
@@ -354,9 +356,11 @@ export class SaleComponent {
       this.idVenta = docId
       this.debtPay.payAmount = this.initialPay
       this.debtPay.paymentMethod = this.paymentMethod
-       //this.debt.pays.folio:'',
-      //this.debt.pays.concept:''
+      this.debtPay.folio = this.folio
+      this.debtPay.concept = this.concept
       if(this.getTotalPrice() > 0){
+        this.debt.initialDate = new Date(); // obtienes la fecha actual de inico de la deudas
+        this.debt.finalDate.setMonth(this.debt.initialDate.getMonth() + 3); // le sumas tres meses para fecha de vencimiento
         this.debt.debtAmount =  String(this.getTotalPrice())
         this.debt.voterKey = this.customers.voterKey
         this.debt.idVenta = this.idVenta
@@ -365,7 +369,11 @@ export class SaleComponent {
 
         this.databaseService.addDebt("debts",this.debt).then(docId => {
           this.databaseService.updateSale("sales",this.idVenta,{debtId : docId}).then(it =>{
-            console.log(this.debt)
+            console.log("se agrego el id al SaleModel doc")
+          })
+          //Aqui reciclo un método diseñado para actualizar ventas pero no deberia ocasionar errores
+          this.databaseService.updateSale('debts',docId,{debtId : docId}).then(it =>{
+            console.log("se agrego el id al debtModel doc")
           })
         })
       }

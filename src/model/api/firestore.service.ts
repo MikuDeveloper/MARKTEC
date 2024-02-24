@@ -1,6 +1,6 @@
 // firestore.service.ts
 import { Injectable } from '@angular/core';
-import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where, addDoc } from 'firebase/firestore';
+import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where, addDoc, getDoc} from 'firebase/firestore';
 import { Objeto } from '../entities/firestore-interface';
 import { database } from '../../firebase';
 import { CustomerModel } from '../entities/customer.model';
@@ -63,12 +63,12 @@ export class FirestoreService {
     return retVal;
    }
   //Métodos para la colección de Costumers
-  // Método para obtener datos, pide como paraetro el nombre de la coleccion
+  // Método para obtener datos, pide como parametro el nombre de la coleccion Customer
   async getCollectionDataC(collectionName: string) {
     const querySnapshot = await getDocs(collection(database, collectionName));
     return querySnapshot.docs.map(doc => doc.data() as CustomerModel);
   }
-  //Método para filtros
+  //Método para filtros de componente Customer
   async getFilterCollection(field:string,filter:string){
     const q = query(collection(database, "customers"), where(field, "==",filter));
     const querySnapshot = await getDocs(q);
@@ -100,7 +100,7 @@ export class FirestoreService {
     const docRef = doc(database, collectionName, docId);
     await deleteDoc(docRef);
   }
-  //Método para extraer el id de un docuemnto conociendo el vlaor de un campo específico
+  //Método para extraer el id de un docuemnto conociendo el valor de un campo específico
   async getDocIdByField(collectionName: string, field: string, value: any) {
     const querySnapshot = await getDocs(query(collection(database, collectionName), where(field, '==', value)));
     return querySnapshot.docs[0].id;
@@ -129,8 +129,16 @@ export class FirestoreService {
     const docRef = await addDoc(collection(database,collectionName) ,data)
     return docRef.id
   }
+  //Método para extraer la colección de deudas
   async getCollectionDebt(collectionName:string){
-    const querySnapshot = await getDocs(collection(database, collectionName));
-    return querySnapshot.docs.map(doc => doc.data() as DebtModel);
+    const querySnapshot = await getDocs(collection(database, collectionName))
+    return querySnapshot.docs.map(doc => doc.data() as DebtModel)
   }
+  //Método para obtener una deuda especifica
+   //Método para extraer el id de un docuemnto conociendo el valor de un campo específico
+   async getDebt(docId:string) {
+    const docRef = doc(database,'debts', docId)
+    const querySnapshot = await getDoc(docRef)
+    return querySnapshot.data() as DebtModel
+}
 }

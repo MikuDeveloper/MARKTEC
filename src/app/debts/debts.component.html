@@ -38,7 +38,7 @@
                     <td>{{debt.voterKey}}</td>
                     <td>{{debt.idVenta}}</td>
                     <td>$ {{debt.total}} - <button class="btn btn-link align-baseline"
-                      routerLink="details" routerLinkActive #route="routerLinkActive" [routerLinkActive]="['visually-hidden']">Detalles</button></td>
+                      routerLink="details/{{debt.debtId}}" routerLinkActive #route="routerLinkActive" [routerLinkActive]="['visually-hidden']">Detalles</button></td>
                 </tr>
             </tbody>
         </table>

@@ -1,5 +1,6 @@
 
 export interface DebtModel {
+  debtId?:string, //guardará el id del doc
   debtAmount:string,
   employeeId:string,
   voterKey:string,

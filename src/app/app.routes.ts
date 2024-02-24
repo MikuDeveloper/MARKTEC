@@ -33,7 +33,7 @@ export const routes: Routes = [
   { path: 'customers', component: CustomersComponent, canActivate: [RoutesGuard] },
   { path: 'debts', component: DebtsComponent, canActivate: [RoutesGuard],
     children:[
-      {path: 'details', component: DetailsDebstComponent},
+      {path: 'details/:idDebt', component: DetailsDebstComponent},
       {path: '',  redirectTo: 'debts', pathMatch: 'full'}
     ]
   },
