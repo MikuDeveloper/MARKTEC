@@ -191,6 +191,7 @@ export class SaleComponent {
     this.currentUser = this.sessionService.getUserValue$()?.email!!
   }
   async ngOnInit(){
+    console.log(this.today)
     // Aquí, estás obteniendo datos de la colección "customers" de tu base de datos.
     // La función getCollectionDataC() es una función asíncrona, por lo que utilizas 'await' para esperar a que se resuelva antes de continuar.
     this.originalCustomers = await this.databaseService.getCollectionDataC("customers");

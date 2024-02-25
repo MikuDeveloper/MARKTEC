@@ -1,8 +1,9 @@
-<div class="container-sm">
-    <h1 class="text-center">Ventas</h1>
-    <hr>
-    <br>
-</div>
+<section class="container">
+  <div class="container">
+      <h1 class="text-center">Ventas</h1>
+  </div>
+  <hr>
+  <br>
   <div class="container">
     <div class="row">
         <!-- First card -->
@@ -188,9 +189,6 @@
             <div class="col-md-8">
               <div class="card-body2">
                 <h5 class="card-title">{{exchange.model}}</h5>
-                <!-- <div class="d-flex justify-content-center align-items-center">
-                  <i class="fi fi-rr-exclamation text-success" ></i>
-                </div> -->
                 <div class="row">
                   <div class="col-md-12">
                     <button class="btn btn-outline-primary float-end mx-2 mb-1" data-bs-toggle="modal" [attr.data-bs-target]="'#editModal' + exchange.IMEI"><i class="fi fi-rr-edit"></i></button>
@@ -213,104 +211,106 @@
       </div>
     </div>
   </div>
-<div class="container">
-  <h3 class="text-center">Venta en Proceso</h3>
-  <hr>
-</div>
-<div class="container mb-3">
-  <div class="card">
-    <div class="card-body2">
-      <form #paymentForm="ngForm" id="paymentForm">
-      <h6>Producto</h6>
-      <div class="row mb-2">
-        <div class="col-sm-6 mb-2">
-          <div class="form-floating">
-            <input type="text" id="product" class="form-control" name="product" readonly value="{{items.brand}} {{items.model}}"/>
-            <label for="product">Producto en venta</label>
+  <div class="container">
+    <h3 class="text-center">Venta en Proceso</h3>
+    <hr>
+  </div>
+  <div class="container">
+    <div class="card">
+      <div class="card-body2">
+        <form #paymentForm="ngForm" id="paymentForm">
+        <h6>Producto</h6>
+        <div class="row mb-2">
+          <div class="col-sm-6 mb-2">
+            <div class="form-floating">
+              <input type="text" id="product" class="form-control" name="product" readonly value="{{items.brand}} {{items.model}}"/>
+              <label for="product">Producto en venta</label>
+            </div>
+          </div>
+
+          <div class="col-sm-6 mb-2">
+            <div class="form-floating">
+              <input type="text" id="price" class="form-control" name="price" readonly value="{{items.price}}"/>
+              <label for="product">Precio</label>
+            </div>
           </div>
         </div>
 
-        <div class="col-sm-6 mb-2">
+        <h6>Forma de Pago</h6>
+        <div class="col-sm-6 mb-4">
           <div class="form-floating">
-            <input type="text" id="price" class="form-control" name="price" readonly value="{{items.price}}"/>
-            <label for="product">Precio</label>
+            <select class="form-select" id="paymentMethod" name="paymentMethod" [(ngModel)]="paymentMethod" aria-label="Floating label select"
+            ngModel #paymentControl="ngModel" [ngClass]="{'is-invalid':(paymentControl.invalid && paymentControl.dirty)}" [required]="true">
+              <option [value]="''" disabled selected>Selecciona una opción</option>
+              <option value="efectivo"> Efectivo</option>
+              <option value="transferencia">Transferencia</option>
+            </select>
+            <label for="paymentMethod">Método de Pago</label>
           </div>
         </div>
-      </div>
-
-      <h6>Forma de Pago</h6>
-      <div class="col-sm-6 mb-4">
-        <div class="form-floating">
-          <select class="form-select" id="paymentMethod" name="paymentMethod" [(ngModel)]="paymentMethod" aria-label="Floating label select"
-          ngModel #paymentControl="ngModel" [ngClass]="{'is-invalid':(paymentControl.invalid && paymentControl.dirty)}" [required]="true">
-            <option [value]="''" disabled selected>Selecciona una opción</option>
-            <option value="efectivo"> Efectivo</option>
-            <option value="transferencia">Transferencia</option>
-          </select>
-          <label for="paymentMethod">Método de Pago</label>
+        
+        <h6>Pago Inicial</h6>
+        <div class="row mb-2 mb-2">
+          <div class="col-sm-6 mb-2">
+            <div class="form-floating">
+              <input type="number" id="amount" class="form-control" name="amount" ngModel #amount="ngModel" [(ngModel)]="initialPay"
+              [ngClass]="{'is-invalid':(amount.invalid && amount.dirty)}" [disabled]="paymentControl.value === ''"
+              [min]="0" [max]="getSubtotal()" pattern="^[0-9]+$" [required]="true"/>
+              <label for="amount">Monto</label>
+            </div>
+          </div>
+          <div class="col-sm-6 mb-2">
+            <div class="form-floating">
+              <input type="number" id="folio" class="form-control" name="folio"
+                ngModel #folio="ngModel" [ngClass]="{'is-invalid':(folio.invalid && folio.dirty)}"
+                [disabled]="paymentControl.value === 'efectivo' || paymentControl.value === ''" [min]="0" pattern="^[0-9]+$" [required]="true" />
+              <label for="folio">Folio</label>
+            </div>
+          </div>
+          <div class="col-sm-6 mb-2">
+            <div class="form-floating">
+              <input type="text" id="concept" class="form-control" name="concept"
+                ngModel #concept="ngModel" [ngClass]="{'is-invalid':(concept.invalid && concept.dirty)}" 
+                [disabled]="paymentControl.value === 'efectivo' || paymentControl.value === ''" [required]="true" />
+              <label for="concept">Concepto</label>
+            </div>
+          </div>
+          <div class="col-sm-6 mb-2">
+            <div class="form-floating">
+              <input type="datetime-local" id="datetime" class="form-control" name="datetime"
+                ngModel #datetime="ngModel" [ngClass]="{'is-invalid':(datetime.invalid && datetime.dirty)}" 
+                [disabled]="paymentControl.value === 'efectivo' || paymentControl.value === ''" [required]="true" />
+              <label for="datetime">Fecha y Hora</label>
+            </div>
+          </div>
         </div>
+
+        <h5>Subtotal:</h5>
+        <div class="col-sm-6 mb-2">
+          <div class="form-floating">
+            <input type="text" id="subtotal" class="form-control" name="subtotal" readonly value="{{getSubtotal()}}" />
+            <label for="subtotal">Subtotal</label>
+          </div>
+        </div>
+
+        <h5>Total a pagar:</h5>
+        <div class="col-sm-6 mb-2">
+          <div class="form-floating">
+            <input type="text" id="paymentTotal" class="form-control" name="paymentTotal" readonly value="{{getTotalPrice()}}" />
+            <label for="paymentTotal">Total</label>
+          </div>
+        </div>
+      </form>  
       </div>
       
-      <h6>Pago Inicial</h6>
-      <div class="row mb-2 mb-2">
-        <div class="col-sm-6 mb-2">
-          <div class="form-floating">
-            <input type="number" id="amount" class="form-control" name="amount" ngModel #amount="ngModel" [(ngModel)]="initialPay"
-            [ngClass]="{'is-invalid':(amount.invalid && amount.dirty)}" [disabled]="paymentControl.value === ''"
-             [min]="0" [max]="getSubtotal()" pattern="^[0-9]+$" [required]="true"/>
-            <label for="amount">Monto</label>
-          </div>
-        </div>
-        <div class="col-sm-6 mb-2">
-          <div class="form-floating">
-            <input type="number" id="folio" class="form-control" name="folio"
-              ngModel #folio="ngModel" [ngClass]="{'is-invalid':(folio.invalid && folio.dirty)}"
-              [disabled]="paymentControl.value === 'efectivo' || paymentControl.value === ''" [min]="0" pattern="^[0-9]+$" [required]="true" />
-            <label for="folio">Folio</label>
-          </div>
-        </div>
-        <div class="col-sm-6 mb-2">
-          <div class="form-floating">
-            <input type="text" id="concept" class="form-control" name="concept"
-              ngModel #concept="ngModel" [ngClass]="{'is-invalid':(concept.invalid && concept.dirty)}" 
-              [disabled]="paymentControl.value === 'efectivo' || paymentControl.value === ''" [required]="true" />
-            <label for="concept">Concepto</label>
-          </div>
-        </div>
-        <div class="col-sm-6 mb-2">
-          <div class="form-floating">
-            <input type="datetime-local" id="datetime" class="form-control" name="datetime"
-              ngModel #datetime="ngModel" [ngClass]="{'is-invalid':(datetime.invalid && datetime.dirty)}" 
-              [disabled]="paymentControl.value === 'efectivo' || paymentControl.value === ''" [required]="true" />
-            <label for="datetime">Fecha y Hora</label>
-          </div>
-        </div>
+      <div class="card-footer">
+        <button class="btn btn-outline-primary float-end"(click)="saleEnd()" form="paymentForm" > Finalizar Compra</button><!-- [disabled]="paymentForm.invalid"  -->
       </div>
-
-      <h5>Subtotal:</h5>
-      <div class="col-sm-6 mb-2">
-        <div class="form-floating">
-          <input type="text" id="subtotal" class="form-control" name="subtotal" readonly value="{{getSubtotal()}}" />
-          <label for="subtotal">Subtotal</label>
-        </div>
-      </div>
-
-      <h5>Total a pagar:</h5>
-      <div class="col-sm-6 mb-2">
-        <div class="form-floating">
-          <input type="text" id="paymentTotal" class="form-control" name="paymentTotal" readonly value="{{getTotalPrice()}}" />
-          <label for="paymentTotal">Total</label>
-        </div>
-      </div>
-    </form>  
-    </div>
-    
-    <div class="card-footer">
-      <button class="btn btn-outline-primary float-end"(click)="saleEnd()" form="paymentForm" > Finalizar Compra</button><!-- [disabled]="paymentForm.invalid"  -->
     </div>
   </div>
-</div>
-<br><br> 
+  <br>
+</section>
+ 
 <!-- área y boton para finalizar la compra-->
 
 
@@ -341,11 +341,11 @@
               </div>
               <div class="form-floating">
                 <input type="number" class="form-control mb-3" id="phoneNumber" name="phoneNumber" ngModel #phoneNumber="ngModel"
-                [ngClass]="{'is-invalid':(phoneNumber.invalid && phoneNumber.dirty)}" [required]="true" maxlength="10" minlength="10" pattern="^[0-9]+$"/>
+                [ngClass]="{'is-invalid':(phoneNumber.invalid && phoneNumber.dirty)}" maxlength="10" minlength="10" pattern="^[0-9]+$" [required]="true"/>
                 <label for="fileName">Número de Teléfono</label>  
               </div>
               <div class="form-floating">
-                <input type="text" class="form-control mb-3" id="email" name="email" ngModel #email="ngModel"
+                <input type="email" class="form-control mb-3" id="email" name="email" ngModel #email="ngModel"
                 [ngClass]="{'is-invalid':(email.invalid && email.dirty)}" [required]="true" email/>
                 <label for="fileName">Correo Electrónico</label>  
               </div>
@@ -378,7 +378,7 @@
                     <div class="form-floating">
                       <input type="text"  class="form-control" id="brand" name="brand" ngModel #brand="ngModel"
                         [ngClass]="{'is-invalid':(brand.invalid && brand.dirty)}" [required]="true"/>
-                      <label for="fileName">Marca</label>
+                      <label for="brand">Marca</label>
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
@@ -410,9 +410,13 @@
                       <select class="form-select" id="category" name="category" ngModel #category="ngModel"
                         [ngClass]="{'is-invalid': (category.invalid && category.dirty)}" [required]="true">
                         <option [value]="''" disabled selected>--Seleccionar--</option>
-                        <option value="1">Celular</option>
-                        <option value="2">Laptop</option>
-                        <option value="3">Consola</option>
+                        <option value="Celular">Celulares</option>
+                        <option value="Laptos">Laptos</option>
+                        <option value="Smartwatch">Smartwatchs</option>
+                        <option value="Tablet">Tablets</option>
+                        <option value="Consola">Consolas</option>
+                        <option value="Auriculares">Auriculares</option>
+                        <option value="Otros">Otros...</option>
                       </select>
                       <label for="category">Categoría</label>
                     </div>
@@ -448,18 +452,18 @@
                     <div class="form-floating">
                       <select class="form-select" id="storageUnit" name="storageUnit" ngModel #storageUnit="ngModel"
                         [ngClass]="{'is-invalid': (storageUnit.invalid && storageUnit.dirty)}" [required]="true">
-                        <option [value]="''" disabled selected>--Seleccionar--</option>
-                        <option value="1">MB</option>
-                        <option value="2">GB</option>
-                        <option value="3">TB</option>
+                        <option [value]="''" disabled selected>--Tipo--</option>
+                        <option value="MB">MB (Megabytes)</option>
+                        <option value="GB">GB (Gigabytes)</option>
+                        <option value="TB">TB (Terabytes)</option>
                       </select>
                        <label for="storageUnit">Unidad</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <div class="form-floating">
-                      <input type="datetime-local" id="date" class="form-control" name="entryDate" ngModel #entryDate="ngModel" [value]="today"
-                        [ngClass]="{'is-invalid':(entryDate.invalid && entryDate.dirty)}" [required]="true"/>
+                      <input type="datetime-local" id="date" class="form-control" name="entryDate" ngModel #entryDate="ngModel" [ngModel]="today | date: 'yyyy-MM-dd HH:mm'"
+                        [ngClass]="{'is-invalid':(entryDate.invalid && entryDate.dirty)}" readonly [required]="true"/>
                       <label for="fileName">Fecha</label>
                     </div>
                   </div>
@@ -472,16 +476,18 @@
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
+                    <div class="form-text">*El estado de la batería se valora de 1 a 100.</div>
                     <div class="form-floating">
                       <input type="number" class="form-control" id="batteryState" name="batteryState" ngModel #batteryState="ngModel"
-                        [ngClass]="{'is-invalid':(batteryState.invalid && batteryState.dirty)}"  [min]="1" [max]="100" [required]="true"/>
+                        [ngClass]="{'is-invalid':(batteryState.invalid && batteryState.dirty)}" minlength="1" maxlength="3" [min]="1" [max]="100" [required]="true"/>
                       <label for="batteryState">Estado de la batería</label>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-3">
+                    <div class="form-text">*La estética se valora de 1 a 10.</div>
                     <div class="form-floating">
                       <input type="number" class="form-control" id="physicalState" name="physicalState" ngModel #physicalState="ngModel"
-                        [ngClass]="{'is-invalid':(physicalState.invalid && physicalState.dirty)}" [required]="true"  [min]="1" [max]="10"/>
+                        [ngClass]="{'is-invalid':(physicalState.invalid && physicalState.dirty)}" minlength="1" maxlength="2" [min]="1" [max]="10" [required]="true"/>
                       <label for="fileName">Estética</label>
                     </div>
                   </div>
