@@ -20,4 +20,5 @@ export class DetailsDebstComponent {
   constructor(private navService: NavService){
     this.navService.toggleNav(true)
   }
+  
 }
