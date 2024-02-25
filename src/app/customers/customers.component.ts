@@ -92,11 +92,10 @@ removeAccents(str: string): string {
     }
     updateDocument(form: NgForm){
       const formD: CustomerModel = form.value
-      formD.voterKey = this.infoCustomer.voterKey
-      console.log(form)
+      console.log(form.value)
       this.databaseService.updateDocument("customers",formD.voterKey,formD)
       .then(() => {
-        console.log("Documento actualizado exitosamente");
+        console.log("actualizado");
       })
       .catch(error => {
         console.error("Error al actualizar el documento:", error);

@@ -186,7 +186,7 @@
               </div>
               <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="voterKey" name="voterKey" ngModel #voterKey="ngModel"  [(ngModel)]="customer.voterKey"
-                  [ngClass]="{'is-invalid':(voterKey.invalid && voterKey.dirty)}" [required]="true" />
+                  [ngClass]="{'is-invalid':(voterKey.invalid && voterKey.dirty)}" readonly [required]="true" />
                 <label for="voterKey">Clave de Elector</label>
               </div>
               <div class="form-floating mb-2">
