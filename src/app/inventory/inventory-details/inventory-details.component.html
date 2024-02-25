@@ -1,0 +1,109 @@
+<nav class="mt-3 mb-5" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="../../../">Inventario</a></li>
+    <li class="breadcrumb-item active" ><a routerLink="../">Productos</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Detalles / {{product?.IMEI || 'Sin datos'}}</li>
+  </ol>
+</nav>
+
+@if (img1 && img2) {
+  <section id="product-images" class="row">
+    <div id="carousel-product" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="w-100 d-flex justify-content-center">
+            <img [src]="img1" class="d-block" alt="Foto 1" title="Foto 1" />
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="w-100 d-flex justify-content-center">
+            <img [src]="img2" class="d-block" alt="Foto 2" title="Foto 2" />
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-product" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel-product" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+}
+
+
+@if (product) {
+  <section class="row mb-5">
+    <table class="table table-hover">
+      <!--<thead class="text-center">
+      <tr>
+        <th scope="col">Detalle</th>
+        <th scope="col">Valor</th>
+      </tr>
+      </thead>-->
+
+      <tbody>
+      <tr>
+        <th scope="row">Fecha de registro</th>
+        <td>
+          {{date}}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Categoría</th>
+        <td>{{product.category}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Marca</th>
+        <td>{{product.brand}}</td>
+      </tr>
+      <tr>
+        <th scope="row">IMEI</th>
+        <td>{{product.IMEI}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Modelo</th>
+        <td>{{product.model}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Color</th>
+        <td>{{product.color}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Almacenamiento</th>
+        <td>{{product.storageCapacity}} {{product.storageUnit}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Estado físico</th>
+        <td>{{product.physicalState}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Batería</th>
+        <td>{{product.batteryState}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Comentarios</th>
+        <td>{{product.comments}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Ubicación</th>
+        <td>{{product.location}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Responsable</th>
+        <td>{{product.location_employee}}</td>
+
+      <tr>
+        <th scope="row">Precio de venta</th>
+        <td>$ {{product.price}} MXN</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+} @else {
+  <section class="row text-center mb-5">
+    <h4 class="text-danger">Producto no encontrado</h4>
+  </section>
+}

@@ -41,7 +41,7 @@
     <div class="form-floating">
       <input type="text" name="IMEI" id="IMEI" class="form-control" placeholder="8282882"
              ngModel #IMEI="ngModel" [ngClass]="{'is-invalid':(IMEI.invalid && IMEI.dirty)}" [required]="true" />
-      <label for="IMEI">IMEI</label>
+      <label for="IMEI">IMEI/No.Serie</label>
     </div>
   </div>
 
@@ -158,11 +158,11 @@
 
   <div class="col-lg-6 col-md-6">
     <div class="form-floating">
-      <input type="text" name="location_person" id="location_person" class="form-control" placeholder="Nombre de la persona"
+      <input type="text" name="location_employee" id="location_employee" class="form-control" placeholder="Nombre de la persona"
              ngModel #location_person="ngModel" [ngClass]="{'is-invalid':(location_person.invalid && location_person.touched)}"
              [required]=" location.value != 'Bodega' || location.value != 'Local' || location.value != 'Reparación' "
              [disabled]="location.value != 'Prestado' && location.value != 'Querétaro'" />
-      <label for="location_person">Persona</label>
+      <label for="location_employee">Persona</label>
     </div>
   </div>
 

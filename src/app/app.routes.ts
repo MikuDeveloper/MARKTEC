@@ -15,6 +15,8 @@ import { InventoryAddComponent } from './inventory/inventory-add/inventory-add.c
 import {InventorySearchComponent} from "./inventory/inventory-search/inventory-search.component";
 import {InventoryProductsComponent} from "./inventory/inventory-products/inventory-products.component";
 import { CustomersArchivedComponent } from './customers/customers-archived/customers-archived.component';
+import { EmployeesRegisterComponent } from './employees/employees-register/employees-register.component';
+import {InventoryDetailsComponent} from "./inventory/inventory-details/inventory-details.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -26,7 +28,9 @@ export const routes: Routes = [
       { path: 'add', component:  InventoryAddComponent },
       { path: 'search/:id', component: InventorySearchComponent },
       { path: 'products', redirectTo: 'products/1' },
+      { path: 'products/details', redirectTo: 'products/1' },
       { path: 'products/:page', component: InventoryProductsComponent },
+      { path: 'products/details/:imei', component: InventoryDetailsComponent },
       { path: '', redirectTo: 'inventory', pathMatch: 'full' }
     ]
   },
@@ -35,7 +39,7 @@ export const routes: Routes = [
     children:[
       {path: 'archived', component: CustomersArchivedComponent},
       {path: '', redirectTo: 'customers', pathMatch: 'full'}
-    ] 
+    ]
   },
   { path: 'debts', component: DebtsComponent, canActivate: [RoutesGuard],
     children:[
@@ -48,6 +52,13 @@ export const routes: Routes = [
   { path: 'reports-inventory', component: InventoryReportComponent, canActivate: [RoutesGuard] },
   { path: 'reports-inventory/:page', component: InventoryReportComponent, canActivate: [RoutesGuard] },
   { path: 'reports-sales', component: SalesReportComponent, canActivate: [RoutesGuard] },
+  {
+    path: 'employees', component: EmployeesComponent, canActivate: [RoutesGuard] ,
+    children: [
+      { path: 'register', component: EmployeesRegisterComponent },
+      { path: '', redirectTo: 'employees', pathMatch: 'full' }
+    ]
+  },
 
   { path:'**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];

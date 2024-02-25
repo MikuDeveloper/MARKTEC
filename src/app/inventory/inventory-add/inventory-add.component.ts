@@ -9,6 +9,7 @@ import {InventoryService} from "../../../model/utils/observables/inventory.servi
 
 import {DOC_ORIENTATION, NgxImageCompressService} from "ngx-image-compress";
 import { NgxCroppedEvent, NgxPhotoEditorService } from 'ngx-photo-editor';
+import {StorageService} from "../../../model/api/storage.service";
 
 @Component({
   selector: 'app-inventory-add',
@@ -24,32 +25,42 @@ import { NgxCroppedEvent, NgxPhotoEditorService } from 'ngx-photo-editor';
 export class InventoryAddComponent {
   currentUser: string = 'Sin usuario'
   isLoading: boolean = false
+  data_url_image1 : string | undefined
+  data_url_image2 : string | undefined
   constructor(
     private session: SessionService,
     private toast: ToastrService,
     private inventoryService: InventoryService,
     private photoEditorService: NgxPhotoEditorService,
-    private compressService: NgxImageCompressService
+    private compressService: NgxImageCompressService,
+    private storageService: StorageService
   ) {
     this.currentUser = this.session.getUserValue$()?.email!!
   }
 
   async addToInventory(product: ProductModel, form: NgForm) {
     this.isLoading = true
-    product.entryDate = new Date()
-    product.batteryState = product.batteryState || 'No aplica'
-    product.storageCapacity = product.storageCapacity || 'No aplica'
-    product.storageUnit = product.storageUnit || 'No aplica'
-    product.location_employee = product.location_employee || 'No aplica'
-    product.location_customer = product.location_customer || ''
+    this.fillProductFields(product)
     await this.inventoryService.addProduct(product)
-      .then(() => {
+      .then(async (product) => {
+        await this.storageService.uploadImage(this.data_url_image1!, product.urlPhoto1)
+        await this.storageService.uploadImage(this.data_url_image2!, product.urlPhoto2)
         this.toast.success('Producto agregado al inventario correctamente.', 'NUEVO PRODUCTO')
         form.resetForm({employeeId: this.session.getUserValue$()?.email!!})
       })
       .finally(() => {
         this.isLoading = false
       })
+  }
+
+  fillProductFields(product: ProductModel) {
+    product.entryDate = new Date()
+    product.batteryState = product.batteryState || 'No aplica'
+    product.storageCapacity = product.storageCapacity || 'No aplica'
+    product.storageUnit = product.storageUnit || 'No aplica'
+    product.location_employee = product.location_employee || 'No aplica'
+    product.location_customer = product.location_customer || ''
+    product.comments = product.comments || 'Sin comentarios adicionales'
   }
 
   editAndCompressImage($event: Event, inputFile: NgModel, imgElement: HTMLImageElement) {
@@ -65,6 +76,8 @@ export class InventoryAddComponent {
         this.compressService.compressFile(<string> data.base64, DOC_ORIENTATION.Default, 50, 50)
           .then((dataUrl: string) => {
             imgElement.src = dataUrl
+            if (imgElement.title === 'Foto 1') this.data_url_image1 = dataUrl
+            if (imgElement.title === 'Foto 2') this.data_url_image2 = dataUrl
           })
       })
       //Cancel button for photo editor
