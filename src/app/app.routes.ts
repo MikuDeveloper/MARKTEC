@@ -14,6 +14,7 @@ import { DetailsDebstComponent } from './debts/details-debst/details-debst.compo
 import { InventoryAddComponent } from './inventory/inventory-add/inventory-add.component';
 import {InventorySearchComponent} from "./inventory/inventory-search/inventory-search.component";
 import {InventoryProductsComponent} from "./inventory/inventory-products/inventory-products.component";
+import { CustomersArchivedComponent } from './customers/customers-archived/customers-archived.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,7 +31,12 @@ export const routes: Routes = [
     ]
   },
   { path: 'sale', component: SaleComponent, canActivate: [RoutesGuard] },
-  { path: 'customers', component: CustomersComponent, canActivate: [RoutesGuard] },
+  { path: 'customers', component: CustomersComponent, canActivate: [RoutesGuard],
+    children:[
+      {path: 'archived', component: CustomersArchivedComponent},
+      {path: '', redirectTo: 'customers', pathMatch: 'full'}
+    ] 
+  },
   { path: 'debts', component: DebtsComponent, canActivate: [RoutesGuard],
     children:[
       {path: 'details/:idDebt', component: DetailsDebstComponent},

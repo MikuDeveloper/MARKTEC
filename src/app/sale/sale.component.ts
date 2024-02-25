@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavService } from "../../model/utils/navbar.util";
 import { CustomerModel } from '../../model/entities/customer.model';
 import { FirestoreService } from '../../model/api/firestore.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead.module';
 import { Observable, OperatorFunction, Subject, debounceTime, distinctUntilChanged, filter, map, merge, timestamp } from 'rxjs';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,18 +12,18 @@ import { SessionService } from '../../model/utils/session.service';
 import { User } from 'firebase/auth';
 import { Exchanges, Payment, SaleModel } from '../../model/entities/sale.model';
 import { DebtModel, Pays } from '../../model/entities/debt.model';
-
 import { NgxCroppedEvent, NgxPhotoEditorService } from 'ngx-photo-editor';
 import { DOC_ORIENTATION, NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
   selector: 'app-sale',
   standalone: true,
-  imports: [FormsModule,CommonModule,NgbTypeaheadModule],
+  imports: [FormsModule,CommonModule,NgbTypeaheadModule, DatePipe],
   templateUrl: './sale.component.html',
   styleUrl: './sale.component.scss'
 })
 export class SaleComponent {
+  today: Date = new Date();
   currentUser: string = 'Sin usuario'
   customers : CustomerModel = {
     voterKey : '',
@@ -193,6 +193,7 @@ export class SaleComponent {
     this.currentUser = this.sessionService.getUserValue$()?.email!!
   }
   async ngOnInit(){
+    console.log(this.today)
     // Aquí, estás obteniendo datos de la colección "customers" de tu base de datos.
     // La función getCollectionDataC() es una función asíncrona, por lo que utilizas 'await' para esperar a que se resuelva antes de continuar.
     this.originalCustomers = await this.databaseService.getCollectionDataC("customers");
@@ -270,6 +271,18 @@ export class SaleComponent {
     if(this.exchangeCard.length == 3)
     this.showBtnExch = false
     form.resetForm()
+  }
+  // Método para editar un artículo en el arreglo de tarjetas de exchanges
+  addExchangeEdit(form : NgForm){
+    console.log(form)
+    const editedCard = <ProductModel>form.value //primero obtenemos el objeto
+    const index = this.exchangeCard.findIndex(exchange => exchange.IMEI === editedCard.IMEI) // buscamos el indice del exchangeCard con el IMEI
+
+    if (index !== -1) { // en caso de que se encuentre
+      this.exchangeCard[index] = editedCard;
+    } else {
+      alert('No se realizo con éxito la modificación')
+    }
   }
    // Método para recolectar los datos del modal de Customer y mostrarlos en una tarjeta
    addNewCustomer(form:NgForm){

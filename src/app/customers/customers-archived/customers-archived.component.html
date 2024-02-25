@@ -1,0 +1,64 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/customers">Clientes</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Arhivados</li>
+    </ol>
+</nav>
+
+  <input class="form-control w-50 mx-auto mt-3"
+   type="search" placeholder="Buscar...">
+ 
+ <!-- Filtro por deuda -->
+  <select class="form-select w-50 mx-auto mt-3" >
+    <option value="" disabled selected>Elige un Filtro:</option>
+    <option value="sin deuda">Sin Deuda</option>
+    <option value="adeuda">Con Deuda</option>
+  </select>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0 ">
+      <div class="card my-custom-card" data-bs-toggle="modal" >
+        <div class="card-header">
+          <div class="card-title text-center">Foto de la Credencial</div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="name" name="name" >
+                <label for="name">Nombre:</label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="voterKey" name="voterKey" >
+                <label for="voterKey">Clave de Elector:</label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="status" name="status" >
+                <label for="status">Estatus:</label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="form-floating">
+                <input type="text" readonly class="form-control-plaintext" id="email" name="email" >
+                <label for="email">Deuda:</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <button class="btn btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#editModal" ><i class="fi fi-rr-pencil"></i></button>
+          <button class="btn btn-outline-success position-relative" data-bs-toggle="modal" ><i class="fi fi-rr-info"></i></button>
+          <button class="btn btn-outline-danger position-relative" data-bs-toggle="modal" data-bs-target="#deleteModal" ><i class="fi fi-rr-trash"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    
+
