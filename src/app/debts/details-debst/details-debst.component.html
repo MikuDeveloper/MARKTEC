@@ -25,11 +25,11 @@
         </tr>
         <tr>
           <td class="fw-bold">Fecha Inicial:</td>
-          <td>{{debt.initialDate}}</td>
+          <td type="date">{{initalDate}}</td>
         </tr>
         <tr>
           <td class="fw-bold">Fecha Final:</td>
-          <td>{{debt.finalDate}}</td>
+          <td>{{finalDate}}</td>
         </tr>
       </tbody>
     </table>
@@ -54,12 +54,15 @@
                 </tr>
             </thead>
             <tbody class="align-middle">
+              @for (pay of pays; track $index){
                 <tr>
-                    <td>1</td>
-                    <td>$00.00</td>
-                    <td>dd/mm/aa</td>
-                    <td>Transferencia</td>
+                  <td>{{$index+1}}</td>
+                  <td>${{pay.payAmount}}</td>
+                  <td>{{pay.datePay}}</td>
+                  <td>{{pay.paymentMethod}}</td>
                 </tr>
+              }
+
             </tbody>
         </table>
     </div>
@@ -73,5 +76,78 @@
           <i class="fi fi-rr-print"></i>
         </button>
     </div>
-    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#pay">Abonar</button>
+    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#payModal">Abonar</button>
   </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form  #amountForm="ngForm" id="amountForm" (ngSubmit)="addPay(amountForm.value)" (submit)="amountForm.resetForm()" >
+          <!-- methodPay -->
+          <div class="col-lg-12 col-md-12 mt-2">
+            <div class="form-floating">
+              <select class="form-select form-select-md mb-3" name="paymentMethod" aria-label="Select method"
+              #paymentMethod="ngModel"  ngModel id="paymentMethod"
+                   [ngClass]="{'is-invalid':(paymentMethod.invalid && paymentMethod.dirty)}" [required]="true">
+                <option value="">--Elegir de pago--</option>
+                <option value="ATM">Cajero</option>
+                <option value="Efectivo">Efectivo</option>
+                <option value="Transferencia">Tranferencia</option>
+              </select>
+              <label>Filtrar por:</label>
+            </div>
+          </div>
+          <!-- folio -->
+          <div class="col-lg-12 col-md-12 mb-2">
+            <div class="form-floating">
+              <input type="datetime-local" name="datePay" id="date" class="form-control"
+                     ngModel #date="ngModel" [ngClass]="{'is-invalid':(date.invalid && date.dirty)}"
+                     [disabled]="paymentMethod.value === 'Efectivo' || !paymentMethod.value" [required]="true" min="2024-02-01"/>
+              <label>Fecha</label>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 mb-2">
+            <div class="form-floating">
+              <input type="number" name="folio" id="folio" class="form-control"
+                     ngModel #folio="ngModel" [ngClass]="{'is-invalid':(folio.invalid && folio.dirty)}"
+                     [disabled]="paymentMethod.value === 'Efectivo' || !paymentMethod.value" [required]="true" [min]="0" maxlength="4" minlength="4"/>
+              <label>Folio</label>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 mb-2">
+            <div class="form-floating">
+              <input type="text" name="concept" id="hour" class="form-control"
+                     ngModel #concept="ngModel" [ngClass]="{'is-invalid':(concept.invalid && concept.dirty)}"
+                     [disabled]="paymentMethod.value === 'Efectivo' || !paymentMethod.value" [required]="true"/>
+              <label>Concepto</label>
+            </div>
+          </div>
+          <!-- Amount -->
+          <div class="col-lg-12 col-md-12 mt-2">
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <div class="form-floating">
+                <input type="number" name="payAmount" id="amount" class="form-control" aria-label="Precio" placeholder="00.00"
+                       ngModel #amount="ngModel" [ngClass]="{'is-invalid':(amount.invalid && amount.touched)}"
+                       [disabled]="paymentMethod.value === ''" [required]="true" [min]="0" />
+                <label>Cantidad</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" >Close</button>
+        <button form="amountForm" type="submit" class="btn btn-primary" [disabled]="!amountForm.valid" data-bs-dismiss="modal">Ingresar</button>
+      </div>
+    </div>
+  </div>
+</div>

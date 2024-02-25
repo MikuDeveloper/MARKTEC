@@ -12,7 +12,7 @@ export interface DebtModel {
   pays : Pays []
 }
 export interface Pays {
-  datePay:Date,
+  datePay:Date | string,
   payAmount:string,
   paymentMethod: string,
   folio?:string,

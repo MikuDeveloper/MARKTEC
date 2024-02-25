@@ -360,6 +360,7 @@ export class SaleComponent {
       this.debtPay.concept = this.concept
       if(this.getTotalPrice() > 0){
         this.debt.initialDate = new Date(); // obtienes la fecha actual de inico de la deudas
+        this.debt.finalDate = new Date(this.debt.initialDate.getTime())
         this.debt.finalDate.setMonth(this.debt.initialDate.getMonth() + 3); // le sumas tres meses para fecha de vencimiento
         this.debt.debtAmount =  String(this.getTotalPrice())
         this.debt.voterKey = this.customers.voterKey

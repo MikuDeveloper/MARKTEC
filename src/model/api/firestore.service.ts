@@ -1,13 +1,12 @@
 // firestore.service.ts
 import { Injectable } from '@angular/core';
-import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where, addDoc, getDoc} from 'firebase/firestore';
+import { collection, setDoc,getDocs, query, updateDoc, deleteDoc, doc, where, addDoc, getDoc, arrayUnion} from 'firebase/firestore';
 import { Objeto } from '../entities/firestore-interface';
 import { database } from '../../firebase';
 import { CustomerModel } from '../entities/customer.model';
-import { Observable, of } from 'rxjs';
 import { ProductModel } from '../entities/product.model';
 import { SaleModel } from '../entities/sale.model';
-import { DebtModel } from '../entities/debt.model';
+import { DebtModel, Pays } from '../entities/debt.model';
 
 
 @Injectable({
@@ -141,4 +140,11 @@ export class FirestoreService {
     const querySnapshot = await getDoc(docRef)
     return querySnapshot.data() as DebtModel
 }
+//Agrega un nuevo abono al arreglo de Pays
+  async addPay(id:string,data:Pays){
+    const debtRef = doc(database, "debts", id);
+    await updateDoc(debtRef, {
+      pays: arrayUnion(data)
+      });
+  }
 }

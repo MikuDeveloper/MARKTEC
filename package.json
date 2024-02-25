@@ -23,6 +23,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.2.3",
     "firebase": "^10.7.1",
+    "moment": "^2.30.1",
     "ngx-image-compress": "^15.1.6",
     "ngx-photo-editor": "^0.4.4",
     "ngx-toastr": "^18.0.0",
