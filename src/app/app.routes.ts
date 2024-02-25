@@ -12,6 +12,7 @@ import {InventoryAddComponent} from "./inventory/inventory-add/inventory-add.com
 import {InventorySearchComponent} from "./inventory/inventory-search/inventory-search.component";
 import {InventoryProductsComponent} from "./inventory/inventory-products/inventory-products.component";
 import {InventoryDetailsComponent} from "./inventory/inventory-details/inventory-details.component";
+import {EmployeesRegisterComponent} from "./employees/employees-register/employees-register.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,7 +34,13 @@ export const routes: Routes = [
   { path: 'customers', component: CustomersComponent, canActivate: [RoutesGuard] },
   { path: 'debts', component: DebtsComponent, canActivate: [RoutesGuard] },
   { path: 'reports', component: ReportsComponent, canActivate: [RoutesGuard] },
-  { path: 'employees', component: EmployeesComponent, canActivate: [RoutesGuard] },
+  {
+    path: 'employees', component: EmployeesComponent, canActivate: [RoutesGuard] ,
+    children: [
+      { path: 'register', component: EmployeesRegisterComponent },
+      { path: '', redirectTo: 'employees', pathMatch: 'full' }
+    ]
+  },
 
   { path:'**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];

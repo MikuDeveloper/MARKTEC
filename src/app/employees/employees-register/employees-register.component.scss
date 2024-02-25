@@ -1,0 +1,20 @@
+legend {
+  color: var(--white);
+  background-color: var(--base-blue);
+  border-radius: 20pt;
+  width: 100%;
+  text-align: center;
+  margin: 10pt 0;
+  font-weight: 500;
+}
+
+.photo {
+  max-height: 180pt;
+  max-width: 180pt;
+  border-radius: 100%;
+}
+
+#img-change:hover {
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}

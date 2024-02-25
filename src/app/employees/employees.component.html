@@ -1,7 +1,47 @@
-<section class="container">
+<section class="container mb-5">
   <div class="row text-center title">
     <h3>Empleados</h3>
   </div>
   <hr>
 
+  <div class="text-end mb-3">
+    <a class="btn btn-outline-primary" routerLink="./register"
+       routerLinkActive #register="routerLinkActive" [routerLinkActive]="['visually-hidden']">
+      <i class="fi fi-rr-plus"></i> Registrar empleado
+    </a>
+  </div>
+
+  <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 g-4" [ngClass]="{'visually-hidden':register.isActive}">
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-header">
+          <ul class="nav nav-pills card-header-pills d-flex justify-content-evenly">
+            <li class="nav-item">
+              <button class="btn btn-outline-primary"><i class="fi fi-rr-edit"></i></button>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-outline-danger"><i class="fi fi-rr-trash"></i></button>
+            </li>
+          </ul>
+        </div>
+        <div class="w-100 mt-3 img-top">
+          <img src="assets/icons/test-photo.jpg" class="card-img-top img-fluid" alt="...">
+        </div>
+        <div class="card-body text-center">
+          <h6 class="card-title">Juan Manuel Pérez Vaca</h6>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Correo: </li>
+          <li class="list-group-item">Dirección: </li>
+          <li class="list-group-item">Teléfono: </li>
+          <li class="list-group-item">Rol: </li>
+        </ul>
+        <div class="card-footer text-center">
+          <small class="text-body-secondary text-secondary">Registrado el 18 de enero de 2024</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet/>
 </section>

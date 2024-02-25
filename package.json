@@ -21,6 +21,7 @@
     "@flaticon/flaticon-uicons": "^3.0.0",
     "bootstrap": "^5.2.3",
     "firebase": "^10.8.0",
+    "moment": "^2.30.1",
     "ngx-image-compress": "^15.1.6",
     "ngx-photo-editor": "^0.4.4",
     "ngx-toastr": "^18.0.0",

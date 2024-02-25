@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
 import {NavService} from "../../model/utils/navbar.util";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-employees',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterOutlet,
+    NgClass,
+    RouterLink,
+    RouterLinkActive
+  ],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.scss'
 })

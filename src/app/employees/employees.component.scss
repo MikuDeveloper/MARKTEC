@@ -1,0 +1,17 @@
+.img-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  .card-img-top {
+    max-width: 100pt;
+    max-height: 100pt;
+    border-radius: 100%;
+  }
+}
+
+.fab {
+  z-index: 1000;
+}

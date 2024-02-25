@@ -1,0 +1,73 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/employees">Empleados</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Nuevo empleado</li>
+  </ol>
+</nav>
+
+<form class="row g-3" autocomplete="on">
+  <legend>Registro de nuevo empleado</legend>
+  <div class="d-flex justify-content-center align-items-center">
+    <img class="img-fluid photo" src="assets/icons/profile-photo.png" alt="Foto de empleado" title="Foto de nuevo empleado" />
+    <!--<div id="img-change" class="w-100 h-100 position-absolute top-50 start-50 translate-middle d-flex justify-content-center align-items-center">
+      <p>Cambiar foto</p>
+    </div>-->
+  </div>
+  <div class="text-center">
+    <button class="btn btn-outline-primary" type="button"><i class="fi fi-rr-images-user"></i> Elegir foto</button>
+  </div>
+
+  <section class="col-lg-4 col-md-4">
+    <div class="form-floating">
+      <input class="form-control" type="text" name="firstname" id="firstname" placeholder="Nombre(s)"/>
+      <label for="firstname">Nombre(s)</label>
+    </div>
+  </section>
+  <section class="col-lg-4 col-md-4">
+    <div class="form-floating">
+      <input class="form-control" type="text" name="lastname1" id="lastname1" placeholder="Primer apellido"/>
+      <label for="lastname1">Primer apellido</label>
+    </div>
+  </section>
+  <section class="col-lg-4 col-md-4">
+    <div class="form-floating">
+      <input class="form-control" type="text" name="lastname2" id="lastname2" placeholder="Segundo apellido"/>
+      <label for="lastname2">Segundo apellido (opcional)</label>
+    </div>
+  </section>
+
+  <section class="col-lg-8 col-md-8">
+    <div class="form-floating">
+      <input class="form-control" type="text" name="address" id="address" placeholder="Dirección"/>
+      <label for="address">Dirección</label>
+    </div>
+  </section>
+  <section class="col-lg-4 col-md-4">
+    <div class="form-floating">
+      <input class="form-control" type="tel" name="phoneNumber" id="phoneNumber" placeholder="Teléfono"/>
+      <label for="phoneNumber">Teléfono</label>
+    </div>
+  </section>
+
+  <section class="col-lg-4 col-md-4">
+    <div class="form-floating">
+
+    </div>
+  </section>
+  <section class="col-lg-4 col-md-4">
+    <div class="form-floating">
+      <input class="form-control" type="email" name="email" id="email" placeholder="Email"/>
+      <label for="email">Correo electrónico</label>
+    </div>
+  </section>
+  <section class="col-lg-4 col-md-4">
+    <div class="form-floating">
+      <input class="form-control" type="password" name="password" id="password" placeholder="Contraseña" autocomplete="currentPassword" />
+      <label for="password">Contraseña</label>
+    </div>
+  </section>
+
+  <section class="text-center">
+    <button class="btn btn-primary" type="button">Completar registro</button>
+  </section>
+</form>
