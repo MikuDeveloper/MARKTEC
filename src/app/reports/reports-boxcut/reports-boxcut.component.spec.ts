@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InventoryReportComponent } from './inventory-report.component';
+import { ReportsBoxcutComponent } from './reports-boxcut.component';
 
-describe('InventoryReportComponent', () => {
-  let component: InventoryReportComponent;
-  let fixture: ComponentFixture<InventoryReportComponent>;
+describe('ReportsBoxcutComponent', () => {
+  let component: ReportsBoxcutComponent;
+  let fixture: ComponentFixture<ReportsBoxcutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InventoryReportComponent]
+      imports: [ReportsBoxcutComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(InventoryReportComponent);
+    fixture = TestBed.createComponent(ReportsBoxcutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

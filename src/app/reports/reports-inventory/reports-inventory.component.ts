@@ -1,20 +1,27 @@
+import { AsyncPipe, NgForOf, NgIf, CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { NavService } from '../../../model/utils/navbar.util';
+import { FormsModule } from '@angular/forms';
 import { ReportsComponent } from '../reports.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FirestoreService } from '../../../model/api/firestore.service';
 import { ProductModel } from '../../../model/entities/product.model';
-import { AsyncPipe, CommonModule, NgForOf, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { NavService } from '../../../model/utils/navbar.util';
 
 @Component({
-  selector: 'app-inventory-report',
+  selector: 'app-reports-inventory',
   standalone: true,
-  imports: [ReportsComponent, AsyncPipe, NgForOf, NgIf, FormsModule, CommonModule],
-  templateUrl: './inventory-report.component.html',
-  styleUrl: './inventory-report.component.scss'
+  imports: [
+    ReportsComponent, 
+    AsyncPipe, 
+    NgForOf, 
+    NgIf, 
+    FormsModule, 
+    CommonModule
+  ],
+  templateUrl: './reports-inventory.component.html',
+  styleUrl: './reports-inventory.component.scss'
 })
-export class InventoryReportComponent{
+export class ReportsInventoryComponent {
   itemsReport: ProductModel[]=[]
   // Propiedad para la opción seleccionada en el primer select
   selectedFilter: string ='' 
@@ -140,5 +147,4 @@ export class InventoryReportComponent{
     const totalItems = this.itemsReport?.length || 0; // Obtener el número total de elementos en el array (si existe)
     return Math.max(Math.ceil(totalItems / this.itemsPerPage), 1); //Calcular el número total de páginas dividiendo el número total de elementos por la cantidad de elementos por página
   } 
-  
 }

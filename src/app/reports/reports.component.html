@@ -11,19 +11,26 @@
     <button type="button" class="btn-close" id="btn-close-sidebar" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <section class="sidebar-item" id="inventory-route" (click)="goToRoute('reports-inventory')" routerLink="/inventory" routerLinkActive="selected">
+    <section class="sidebar-item" id="inventory-route" (click)="goToRoute('reports-inventory')" routerLink="/inventory-inventory" routerLinkActive="selected">
       <svg height="100%" width="15pt">
         <rect width="10pt" height="100%" class="sidebar-shape" />
       </svg>
       <i class="fi fi-rr-inventory-alt"></i>
       <p>Inventario</p>
     </section>
-    <section class="sidebar-item" id="sale-route" (click)="goToRoute('reports-sales')" routerLink="/sale" routerLinkActive="selected">
+    <section class="sidebar-item" id="sale-route" (click)="goToRoute('reports-sales')" routerLink="/reports-sale" routerLinkActive="selected">
       <svg height="100%" width="15pt">
         <rect width="10pt" height="100%" class="sidebar-shape" />
       </svg>
       <i class="fi fi-rr-dollar"></i>
       <p>Venta</p>
+    </section>
+    <section class="sidebar-item" id="sale-route" (click)="goToRoute('reports-boxcut')" routerLink="/reports-boxcut" routerLinkActive="selected">
+      <svg height="100%" width="15pt">
+        <rect width="10pt" height="100%" class="sidebar-shape" />
+      </svg>
+      <i class="fi fi-rr-dollar"></i>
+      <p>Corte Diario</p>
     </section>
   </div>
 </aside>

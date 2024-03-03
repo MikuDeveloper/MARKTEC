@@ -1,18 +1,24 @@
-import { Component } from '@angular/core';
-import { NavService } from '../../../model/utils/navbar.util';
-import { ReportsComponent } from '../reports.component';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReportsComponent } from '../reports.component';
+import { NavService } from '../../../model/utils/navbar.util';
 import { ProductModel } from '../../../model/entities/product.model';
 
 @Component({
-  selector: 'app-sales-report',
+  selector: 'app-reports-sales',
   standalone: true,
-  imports: [ReportsComponent, AsyncPipe, NgForOf, NgIf, FormsModule],
-  templateUrl: './sales-report.component.html',
-  styleUrl: './sales-report.component.scss'
+  imports: [
+    ReportsComponent, 
+    AsyncPipe, 
+    NgForOf, 
+    NgIf, 
+    FormsModule
+  ],
+  templateUrl: './reports-sales.component.html',
+  styleUrl: './reports-sales.component.scss'
 })
-export class SalesReportComponent {
+export class ReportsSalesComponent {
   saleReport: Promise<ProductModel[]> | undefined
   
   columnHead: string[] =[

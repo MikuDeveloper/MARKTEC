@@ -6,15 +6,18 @@ import { SaleComponent } from './sale/sale.component';
 import { CustomersComponent } from './customers/customers.component';
 import { DebtsComponent } from './debts/debts.component';
 import { ReportsComponent } from './reports/reports.component';
+import { ReportsInventoryComponent } from './reports/reports-inventory/reports-inventory.component';
+import { ReportsSalesComponent } from './reports/reports-sales/reports-sales.component';
+
 import { EmployeesComponent } from './employees/employees.component';
 import { RoutesGuard } from "../model/utils/routes.guard";
-import { InventoryReportComponent } from './reports/inventory-report/inventory-report.component';
-import { SalesReportComponent } from './reports/sales-report/sales-report.component';
 import { DetailsDebstComponent } from './debts/details-debst/details-debst.component';
 import { InventoryAddComponent } from './inventory/inventory-add/inventory-add.component';
 import {InventorySearchComponent} from "./inventory/inventory-search/inventory-search.component";
 import {InventoryProductsComponent} from "./inventory/inventory-products/inventory-products.component";
 import { CustomersArchivedComponent } from './customers/customers-archived/customers-archived.component';
+import { ReportsBoxcutComponent } from './reports/reports-boxcut/reports-boxcut.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -45,9 +48,10 @@ export const routes: Routes = [
   },
   { path: 'reports', component: ReportsComponent, canActivate: [RoutesGuard] },
   { path: 'employees', component: EmployeesComponent, canActivate: [RoutesGuard] },
-  { path: 'reports-inventory', component: InventoryReportComponent, canActivate: [RoutesGuard] },
-  { path: 'reports-inventory/:page', component: InventoryReportComponent, canActivate: [RoutesGuard] },
-  { path: 'reports-sales', component: SalesReportComponent, canActivate: [RoutesGuard] },
+  { path: 'reports-inventory', component: ReportsInventoryComponent, canActivate: [RoutesGuard] },
+  { path: 'reports-inventory/:page', component: ReportsInventoryComponent, canActivate: [RoutesGuard] },
+  { path: 'reports-sales', component: ReportsSalesComponent, canActivate: [RoutesGuard] },
+  { path: 'reports-boxcut', component: ReportsBoxcutComponent, canActivate: [RoutesGuard] },
 
   { path:'**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
