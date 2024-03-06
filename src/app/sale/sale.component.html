@@ -236,21 +236,32 @@
           </div>
         </div>
 
-        <h6>Forma de Pago</h6>
-        <div class="col-sm-6 mb-4">
-          <div class="form-floating">
-            <select class="form-select" id="paymentMethod" name="paymentMethod" [(ngModel)]="paymentMethod" aria-label="Floating label select"
-            ngModel #paymentControl="ngModel" [ngClass]="{'is-invalid':(paymentControl.invalid && paymentControl.dirty)}" [required]="true">
-              <option [value]="''" disabled selected>Selecciona una opción</option>
-              <option value="efectivo"> Efectivo</option>
-              <option value="transferencia">Transferencia</option>
-            </select>
-            <label for="paymentMethod">Método de Pago</label>
+        <div class="row mb-2">
+          <div class="col-lg-6 col-md-6 mb-4">
+            <h6>Forma de Pago</h6>
+            <div class="form-floating">
+              <select class="form-select" id="paymentMethod" name="paymentMethod" [(ngModel)]="paymentMethod" aria-label="Floating label select"
+              ngModel #paymentControl="ngModel" [ngClass]="{'is-invalid':(paymentControl.invalid && paymentControl.dirty)}" [required]="true">
+                <option [value]="''" disabled selected>Selecciona una opción</option>
+                <option value="efectivo"> Efectivo</option>
+                <option value="transferencia">Transferencia</option>
+              </select>
+              <label for="paymentMethod">Método de Pago</label>
+            </div>
+          </div>
+          
+          <div class="col-lg-6 col-md-6 mb-4">
+            <h6>Descuento</h6>
+            <div class="form-floating">
+              <input type="text" id="discount" class="form-control" name="discount" value=""/>
+              <label for="discount">Cantidad del descuento</label>
+            </div>
           </div>
         </div>
         
+        
         <h6>Pago Inicial</h6>
-        <div class="row mb-2 mb-2">
+        <div class="row mb-2">
           <div class="col-sm-6 mb-2">
             <div class="form-floating">
               <input type="number" id="amount" class="form-control" name="amount" ngModel #amount="ngModel" [(ngModel)]="initialPay"
